@@ -59,7 +59,7 @@ static const CGFloat STONESIZE = 15.;
 
 #pragma mark - CURChangeScoreProtocol
 
-- (void)changeScoreForColor:(UIColor *)color
+- (BOOL)changeScoreForColor:(UIColor *)color
 {
     if (color==[UIColor redColor])
     {
@@ -71,6 +71,11 @@ static const CGFloat STONESIZE = 15.;
         self.yellowScore -= 1;
         self.score.text = [NSString stringWithFormat:@"%ld:%ld", self.redScore, self.yellowScore];
     }
+    if (0 == self.redScore && 0 == self.yellowScore)
+    {
+        return YES;
+    }
+    return NO;
 }
 
 @end

@@ -14,6 +14,7 @@
 
 - (instancetype)initWithColor:(UIColor *)color;
 - (UIView *)addStone;
+- (BOOL)isEndFinished;
 
 @property (nonatomic, weak) id<CURChangeScoreProtocol> output;
 

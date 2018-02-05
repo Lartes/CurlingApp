@@ -7,6 +7,7 @@
 //
 
 #import "CURGameViewController.h"
+#import "CURCloseGameViewController.h"
 #import "CURScrollView.h"
 #import "CUREndManager.h"
 #import "CURScoreView.h"
@@ -67,6 +68,11 @@
 
 - (void)addStone
 {
+    if ([self.endManager isEndFinished])
+    {
+        CURCloseGameViewController *closeGameViewController = [CURCloseGameViewController new];
+        [self.navigationController pushViewController:closeGameViewController animated:YES];
+    }
     UIView *stone = [self.endManager addStone];
     [self.trackScrollView addSubview:stone];
 }

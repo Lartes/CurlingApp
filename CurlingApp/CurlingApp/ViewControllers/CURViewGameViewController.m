@@ -30,6 +30,9 @@ static const float INDENT = 10.;
 {
     self.view.backgroundColor = [UIColor whiteColor];
     
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Games" style:UIBarButtonItemStylePlain target:self action:@selector(toMainView)];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
     self.teamNameFirst = [[UILabel alloc] initWithFrame:CGRectMake(INDENT, CGRectGetMaxY(self.navigationController.navigationBar.frame)+INDENT, CGRectGetWidth(self.view.frame)-INDENT*2, LABELHEIGHT)];
     self.teamNameFirst.textColor = [UIColor blackColor];
     self.teamNameFirst.text = [self.teamData objectForKey:@"teamNameFirst"];
@@ -39,6 +42,11 @@ static const float INDENT = 10.;
     self.teamNameSecond.textColor = [UIColor blackColor];
     self.teamNameSecond.text = [self.teamData objectForKey:@"teamNameSecond"];
     [self.view addSubview:self.teamNameSecond];
+}
+
+- (void)toMainView
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end
