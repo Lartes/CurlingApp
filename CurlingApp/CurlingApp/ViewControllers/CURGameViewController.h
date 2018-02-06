@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CURTouchDetectProtocol.h"
+#import "CURGameManager.h"
 
 @interface CURGameViewController : UIViewController <CURTouchDetectProtocol>
+
+- (instancetype)initWithManager:(CURGameManager *)gameManager;
 
 @end

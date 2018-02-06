@@ -9,23 +9,34 @@
 #import "CURGameViewController.h"
 #import "CURCloseGameViewController.h"
 #import "CURScrollView.h"
-#import "CUREndManager.h"
 #import "CURScoreView.h"
 
 @interface CURGameViewController ()
 
 @property (nonatomic, strong) CURScrollView *trackScrollView;
-@property (nonatomic, strong) CUREndManager *endManager;
 @property (nonatomic, strong) CURScoreView *scoreView;
+@property (nonatomic, strong) CURGameManager *gameManager;
 
 @end
 
 @implementation CURGameViewController
 
+- (instancetype)initWithManager:(CURGameManager *)gameManager
+{
+    self = [super init];
+    if(self)
+    {
+        _gameManager = gameManager;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self prepareUI];
+    
+    [self.gameManager startEnd];
 }
 
 - (void)prepareUI
@@ -33,13 +44,10 @@
     self.navigationItem.hidesBackButton = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIColor *firstColor = [UIColor redColor];
-    
     self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, 100, CGRectGetHeight(self.navigationController.navigationBar.frame))];
     self.navigationItem.titleView = self.scoreView;
     
-    self.endManager = [[CUREndManager alloc] initWithColor:firstColor];
-    self.endManager.output = self.scoreView;
+    self.gameManager.output = self.scoreView;
     
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
     self.navigationItem.rightBarButtonItem = closeButton;
@@ -58,22 +66,25 @@
     UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)*2/3, CGRectGetHeight(self.view.frame)-40, CGRectGetWidth(self.view.frame)/3, 30)];
     nextButton.backgroundColor = [UIColor grayColor];
     [nextButton setTitle:@"Next stone" forState:UIControlStateNormal];
-    [nextButton addTarget:self action:@selector(addStone) forControlEvents:UIControlEventTouchUpInside];
+    [nextButton addTarget:self action:@selector(nextStone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:nextButton];
     
     
-    UIView *stone = [self.endManager addStone];
+    UIView *stone = [self.gameManager addStone];
     [self.trackScrollView addSubview:stone];
 }
 
-- (void)addStone
+- (void)nextStone
 {
-    if ([self.endManager isEndFinished])
+    if ([self.gameManager isEndFinished])
     {
+        [self.gameManager finishEnd];
+        
         CURCloseGameViewController *closeGameViewController = [CURCloseGameViewController new];
+        closeGameViewController.gameManager = self.gameManager;
         [self.navigationController pushViewController:closeGameViewController animated:YES];
     }
-    UIView *stone = [self.endManager addStone];
+    UIView *stone = [self.gameManager addStone];
     [self.trackScrollView addSubview:stone];
 }
 

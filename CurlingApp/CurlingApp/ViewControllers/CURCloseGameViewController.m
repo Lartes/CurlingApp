@@ -9,6 +9,7 @@
 #import "CURCloseGameViewController.h"
 #import "CURViewGameViewController.h"
 #import "CURGameViewController.h"
+#import "CURCoreDataManager.h"
 
 static const CGFloat INDENT = 10.;
 static const CGFloat BUTTONHEIGHT = 40.;
@@ -49,13 +50,20 @@ static const CGFloat BUTTONHEIGHT = 40.;
 
 - (void)switchToNextEnd
 {
-    CURGameViewController *gameViewController = [CURGameViewController new];
+    CURGameViewController *gameViewController = [[CURGameViewController alloc] initWithManager:self.gameManager];
     [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
 - (void)closeGame
 {
+    CURCoreDataManager *coreDataManager = self.gameManager.coreDataManager;
+    NSArray *gameInfo = [coreDataManager loadGamesInfoByHash:[self.gameManager getHashLink]];
+    
     CURViewGameViewController *viewGameViewController = [CURViewGameViewController new];
+    if (gameInfo.count>0)
+    {
+        viewGameViewController.gameInfo = gameInfo[0];
+    }
     [self.navigationController pushViewController:viewGameViewController animated:YES];
 }
 

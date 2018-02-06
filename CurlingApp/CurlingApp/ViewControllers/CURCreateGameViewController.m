@@ -8,6 +8,8 @@
 
 #import "CURCreateGameViewController.h"
 #import "CURGameViewController.h"
+#import "GameInfo+CoreDataClass.h"
+#import "CURGameInfo.h"
 
 static const float FIELDHEIGHT = 40;
 static const float INDENT = 10;
@@ -51,7 +53,16 @@ static const float INDENT = 10;
 
 - (void)createGame
 {
-    CURGameViewController *gameViewController = [CURGameViewController new];
+    CURGameInfo *gameInfo = [CURGameInfo new];
+    gameInfo.teamNameFirst = self.teamNameFirst.text;
+    gameInfo.teamNameSecond = self.teamNameSecond.text;
+    gameInfo.hashLink = [NSString stringWithFormat:@"%@%@", gameInfo.teamNameFirst, gameInfo.teamNameSecond ];
+    [self.coreDataManager saveGameInfo:gameInfo];
+    
+    CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:[UIColor redColor] andHash:gameInfo.hashLink];
+    gameManager.coreDataManager = self.coreDataManager;
+    
+    CURGameViewController *gameViewController = [[CURGameViewController alloc] initWithManager:gameManager];
     [self.navigationController pushViewController:gameViewController animated:YES];
 }
 

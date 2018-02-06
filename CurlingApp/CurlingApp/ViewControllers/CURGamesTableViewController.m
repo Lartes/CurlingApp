@@ -7,15 +7,19 @@
 //
 
 
+#import "AppDelegate.h"
 #import "CURGamesTableViewController.h"
 #import "CURGameTableViewCell.h"
 #import "CURCreateGameViewController.h"
 #import "CURViewGameViewController.h"
+#import "GameInfo+CoreDataClass.h"
+#import "CURCoreDataManager.h"
 
 @interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *data;
+@property (nonatomic, strong) NSArray *gamesArray;
+@property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
 @end
 
@@ -26,6 +30,7 @@
     [super viewDidLoad];
     
     [self prepareUI];
+    [self prepareData];
 }
 
 - (void)prepareUI
@@ -40,13 +45,18 @@
     self.tableView.rowHeight = 110.;
     [self.tableView registerClass:[CURGameTableViewCell class] forCellReuseIdentifier:@"GameTableViewCell"];
     [self.view addSubview:self.tableView];
-    
-    self.data = [@[@{@"teamNameFirst":@"Apple", @"teamNameSecond":@"Peach"}, @{@"teamNameFirst":@"Peach", @"teamNameSecond":@"Cherry"}] mutableCopy];
+}
+
+- (void)prepareData
+{
+    self.coreDataManager = [CURCoreDataManager new];
+    self.gamesArray = [self.coreDataManager loadAllGamesInfo];
 }
 
 - (void)addNewGame
 {
     CURCreateGameViewController *createGameViewController = [CURCreateGameViewController new];
+    createGameViewController.coreDataManager = self.coreDataManager;
     [self.navigationController pushViewController:createGameViewController animated:YES];
 }
 
@@ -54,14 +64,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.data.count;
+    return self.gamesArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CURGameTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"GameTableViewCell" forIndexPath:indexPath];
-    cell.teamNameFirst.text = [self.data[indexPath.row] objectForKey:@"teamNameFirst"];
-    cell.teamNameSecond.text = [self.data[indexPath.row] objectForKey:@"teamNameSecond"];
+    
+    GameInfo *gameInfo = self.gamesArray[indexPath.row];
+    cell.teamNameFirst.text = gameInfo.teamNameFirst;
+    cell.teamNameSecond.text = gameInfo.teamNameSecond;
     
     return cell;
 }
@@ -72,8 +84,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CURViewGameViewController *viewGameViewController = [CURViewGameViewController new];
-    viewGameViewController.teamData = self.data[indexPath.row];
-    [self.navigationController pushViewController:viewGameViewController animated:YES];
+    viewGameViewController.gameInfo = self.gamesArray[indexPath.row];
+   [self.navigationController pushViewController:viewGameViewController animated:YES];
 }
 
 @end

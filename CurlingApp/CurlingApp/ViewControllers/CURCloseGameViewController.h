@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CURGameManager.h"
 
 @interface CURCloseGameViewController : UIViewController
+
+@property (nonatomic, strong) CURGameManager *gameManager;
 
 @end
