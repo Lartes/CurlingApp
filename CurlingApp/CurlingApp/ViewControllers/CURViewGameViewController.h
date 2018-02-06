@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GameInfo+CoreDataClass.h"
 
 @interface CURViewGameViewController : UIViewController
 
-@property (nonatomic, strong) NSDictionary *teamData;
+@property (nonatomic, strong) GameInfo *gameInfo;
+@property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
 
 @end

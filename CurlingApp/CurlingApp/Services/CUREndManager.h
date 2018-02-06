@@ -12,10 +12,12 @@
 
 @interface CUREndManager : NSObject
 
-- (instancetype)initWithColor:(UIColor *)color;
+- (instancetype)initWithColor:(UIColor *)firstStoneColor andNumber:(NSInteger)endNumber andHash:(NSString *)hashLink;
 - (UIView *)addStone;
 - (BOOL)isEndFinished;
+- (void)finishEnd;
 
 @property (nonatomic, weak) id<CURChangeScoreProtocol> output;
+@property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
 
 @end

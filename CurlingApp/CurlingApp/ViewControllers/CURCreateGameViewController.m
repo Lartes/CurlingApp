@@ -8,6 +8,7 @@
 
 #import "CURCreateGameViewController.h"
 #import "CURGameViewController.h"
+#import "GameInfo+CoreDataClass.h"
 
 static const float FIELDHEIGHT = 40;
 static const float INDENT = 10;
@@ -52,7 +53,32 @@ static const float INDENT = 10;
 - (void)createGame
 {
     CURGameViewController *gameViewController = [CURGameViewController new];
+    
+    GameInfo *gameInfo = [NSEntityDescription insertNewObjectForEntityForName:@"GameInfo" inManagedObjectContext:self.coreDataContext];
+    gameInfo.teamNameFirst = self.teamNameFirst.text;
+    gameInfo.teamNameSecond = self.teamNameSecond.text;
+    gameInfo.hashLink = [NSString stringWithFormat:@"%@%@", gameInfo.teamNameFirst, gameInfo.teamNameSecond ];
+    
+    NSError *error = nil;
+    if (![gameInfo.managedObjectContext save:&error])
+    {
+        NSLog(@"Object wasn't saved");
+        NSLog(@"%@, %@", error, error.localizedDescription);
+    }
+    
+    //ПЕРЕДАВАТЬ СРАЗУ EndManager!!!!
+    gameViewController.coreDataContext = self.coreDataContext;
+    gameViewController.endNumber = 1;
+    gameViewController.firstStoneColor = [UIColor redColor];
+    gameViewController.hashLink = gameInfo.hashLink;
     [self.navigationController pushViewController:gameViewController animated:YES];
+}
+
+#pragma mark - CoreData
+
+- (void)saveToCoreDate:(GameInfo *)gameInfo
+{
+    
 }
 
 @end

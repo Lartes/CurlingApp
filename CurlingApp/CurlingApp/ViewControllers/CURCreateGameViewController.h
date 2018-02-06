@@ -10,4 +10,6 @@
 
 @interface CURCreateGameViewController : UIViewController
 
+@property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
+
 @end

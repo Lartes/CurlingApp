@@ -50,12 +50,27 @@ static const CGFloat BUTTONHEIGHT = 40.;
 - (void)switchToNextEnd
 {
     CURGameViewController *gameViewController = [CURGameViewController new];
+    gameViewController.coreDataContext = self.coreDataContext;
+    gameViewController.endNumber = self.endNumber + 1;
+    gameViewController.firstStoneColor = [UIColor redColor];
+    gameViewController.hashLink = self.hashLink;
     [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
 - (void)closeGame
 {
     CURViewGameViewController *viewGameViewController = [CURViewGameViewController new];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"GameInfo"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@", self.hashLink];
+    fetchRequest.predicate = predicate;
+    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
+    
+    if (fetchedObjects.count>0)
+    {
+        viewGameViewController.gameInfo = fetchedObjects[0];
+    }
+    viewGameViewController.coreDataContext = self.coreDataContext;
     [self.navigationController pushViewController:viewGameViewController animated:YES];
 }
 

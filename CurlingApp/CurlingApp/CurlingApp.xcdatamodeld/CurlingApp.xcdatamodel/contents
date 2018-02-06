@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="GameInfo" representedClassName="GameInfo" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hashLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teamNameFirst" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teamNameSecond" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="StoneData" representedClassName="StoneData" syncable="YES">
+        <attribute name="endNumber" optional="YES" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="hashLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isStoneColorRed" optional="YES" attributeType="Boolean" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="stepNumber" optional="YES" attributeType="Integer 32" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="stonePositionX" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="stonePositionY" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="GameInfo" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="StoneData" positionX="-54" positionY="-9" width="128" height="135"/>
+    </elements>
 </model>

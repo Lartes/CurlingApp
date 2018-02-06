@@ -35,13 +35,17 @@ static const float INDENT = 10.;
     
     self.teamNameFirst = [[UILabel alloc] initWithFrame:CGRectMake(INDENT, CGRectGetMaxY(self.navigationController.navigationBar.frame)+INDENT, CGRectGetWidth(self.view.frame)-INDENT*2, LABELHEIGHT)];
     self.teamNameFirst.textColor = [UIColor blackColor];
-    self.teamNameFirst.text = [self.teamData objectForKey:@"teamNameFirst"];
     [self.view addSubview:self.teamNameFirst];
     
     self.teamNameSecond = [[UILabel alloc] initWithFrame:CGRectMake(INDENT, CGRectGetMaxY(self.teamNameFirst.frame)+INDENT, CGRectGetWidth(self.view.frame)-INDENT*2, LABELHEIGHT)];
     self.teamNameSecond.textColor = [UIColor blackColor];
-    self.teamNameSecond.text = [self.teamData objectForKey:@"teamNameSecond"];
     [self.view addSubview:self.teamNameSecond];
+    
+    if (self.gameInfo)
+    {
+        self.teamNameFirst.text = self.gameInfo.teamNameFirst;
+        self.teamNameSecond.text = self.gameInfo.teamNameSecond;
+    }
 }
 
 - (void)toMainView
