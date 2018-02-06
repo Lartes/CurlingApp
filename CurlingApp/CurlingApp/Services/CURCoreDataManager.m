@@ -45,6 +45,15 @@
     return fetchedObjects;
 }
 
+- (NSArray *)loadStonesDataByHash:(NSString *)hashLink
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"StoneData"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@", hashLink];
+    fetchRequest.predicate = predicate;
+    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
+    return fetchedObjects;
+}
+
 - (void)saveGameInfo:(CURGameInfo *)gameInfoToSave
 {
     GameInfo *gameInfo = [NSEntityDescription insertNewObjectForEntityForName:@"GameInfo" inManagedObjectContext:self.coreDataContext];
@@ -76,6 +85,19 @@
         NSLog(@"Object wasn't saved");
         NSLog(@"%@, %@", error, error.localizedDescription);
     }
+}
+
+- (void)deleteGame:(GameInfo *)gameInfo
+{
+    NSArray *stonesToDelete = [self loadStonesDataByHash:gameInfo.hashLink];
+    
+    for (StoneData *stoneData in stonesToDelete)
+    {
+        [self.coreDataContext deleteObject:stoneData];
+    }
+    
+    [self.coreDataContext deleteObject:gameInfo];
+    [self.coreDataContext save:nil];
 }
 
 @end

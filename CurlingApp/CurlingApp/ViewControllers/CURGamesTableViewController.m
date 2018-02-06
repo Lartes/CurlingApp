@@ -15,7 +15,7 @@
 #import "GameInfo+CoreDataClass.h"
 #import "CURCoreDataManager.h"
 
-@interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *gamesArray;
@@ -30,7 +30,15 @@
     [super viewDidLoad];
     
     [self prepareUI];
-    [self prepareData];
+    self.coreDataManager = [CURCoreDataManager new];
+    [self loadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadData];
+    [self.tableView reloadData];
 }
 
 - (void)prepareUI
@@ -45,12 +53,16 @@
     self.tableView.rowHeight = 110.;
     [self.tableView registerClass:[CURGameTableViewCell class] forCellReuseIdentifier:@"GameTableViewCell"];
     [self.view addSubview:self.tableView];
+    
+    self.navigationController.delegate = self;
 }
 
-- (void)prepareData
+- (void)loadData
 {
-    self.coreDataManager = [CURCoreDataManager new];
-    self.gamesArray = [self.coreDataManager loadAllGamesInfo];
+    if (self.coreDataManager)
+    {
+        self.gamesArray = [self.coreDataManager loadAllGamesInfo];
+    }
 }
 
 - (void)addNewGame
@@ -85,6 +97,7 @@
 {
     CURViewGameViewController *viewGameViewController = [CURViewGameViewController new];
     viewGameViewController.gameInfo = self.gamesArray[indexPath.row];
+    viewGameViewController.coreDataManager = self.coreDataManager;
    [self.navigationController pushViewController:viewGameViewController animated:YES];
 }
 

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "GameInfo+CoreDataClass.h"
+#import "CURCoreDataManager.h"
 
 @interface CURViewGameViewController : UIViewController
 
 @property (nonatomic, strong) GameInfo *gameInfo;
+@property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
 @end

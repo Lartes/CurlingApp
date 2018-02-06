@@ -30,6 +30,12 @@ static const float INDENT = 10.;
 {
     self.view.backgroundColor = [UIColor whiteColor];
     
+    if (self.coreDataManager)
+    {
+        UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteGame)];
+        self.navigationItem.rightBarButtonItem = deleteButton;
+    }
+    
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Games" style:UIBarButtonItemStylePlain target:self action:@selector(toMainView)];
     self.navigationItem.leftBarButtonItem = backButton;
     
@@ -46,6 +52,12 @@ static const float INDENT = 10.;
         self.teamNameFirst.text = self.gameInfo.teamNameFirst;
         self.teamNameSecond.text = self.gameInfo.teamNameSecond;
     }
+}
+
+- (void)deleteGame
+{
+    [self.coreDataManager deleteGame:self.gameInfo];
+    [self toMainView];
 }
 
 - (void)toMainView

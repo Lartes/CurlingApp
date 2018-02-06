@@ -17,7 +17,9 @@
 
 - (NSArray *)loadAllGamesInfo;
 - (NSArray *)loadGamesInfoByHash:(NSString *)hashLink;
+- (NSArray *)loadStonesDataByHash:(NSString *)hashLink;
 - (void)saveGameInfo:(CURGameInfo *)gameInfoToSave;
 - (void)saveStoneData:(CURStoneData *)stoneDataToSave;
+- (void)deleteGame:(GameInfo *)gameInfo;
 
 @end
