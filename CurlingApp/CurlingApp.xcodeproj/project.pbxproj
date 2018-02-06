@@ -11,6 +11,9 @@
 		A20156F32029CB72000000D8 /* StoneData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A20156ED2029CB72000000D8 /* StoneData+CoreDataProperties.m */; };
 		A20156F42029CB72000000D8 /* GameInfo+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A20156EF2029CB72000000D8 /* GameInfo+CoreDataClass.m */; };
 		A20156F52029CB72000000D8 /* GameInfo+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A20156F12029CB72000000D8 /* GameInfo+CoreDataProperties.m */; };
+		A20822CD2029EE80009F0484 /* CURCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A20822CC2029EE80009F0484 /* CURCoreDataManager.m */; };
+		A20822D1202A0523009F0484 /* CURGameInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A20822D0202A0523009F0484 /* CURGameInfo.m */; };
+		A20822D4202A057C009F0484 /* CURStoneData.m in Sources */ = {isa = PBXBuildFile; fileRef = A20822D3202A057C009F0484 /* CURStoneData.m */; };
 		A20A3B5720271CC500795C1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B5620271CC500795C1D /* AppDelegate.m */; };
 		A20A3B5A20271CC500795C1D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B5920271CC500795C1D /* ViewController.m */; };
 		A20A3B6020271CC500795C1D /* CurlingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B5E20271CC500795C1D /* CurlingApp.xcdatamodeld */; };
@@ -47,6 +50,12 @@
 		A20156EF2029CB72000000D8 /* GameInfo+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GameInfo+CoreDataClass.m"; sourceTree = "<group>"; };
 		A20156F02029CB72000000D8 /* GameInfo+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GameInfo+CoreDataProperties.h"; sourceTree = "<group>"; };
 		A20156F12029CB72000000D8 /* GameInfo+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GameInfo+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A20822CB2029EE80009F0484 /* CURCoreDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURCoreDataManager.h; sourceTree = "<group>"; };
+		A20822CC2029EE80009F0484 /* CURCoreDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURCoreDataManager.m; sourceTree = "<group>"; };
+		A20822CF202A0523009F0484 /* CURGameInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURGameInfo.h; sourceTree = "<group>"; };
+		A20822D0202A0523009F0484 /* CURGameInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURGameInfo.m; sourceTree = "<group>"; };
+		A20822D2202A057C009F0484 /* CURStoneData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURStoneData.h; sourceTree = "<group>"; };
+		A20822D3202A057C009F0484 /* CURStoneData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURStoneData.m; sourceTree = "<group>"; };
 		A20A3B5220271CC500795C1D /* CurlingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurlingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20A3B5520271CC500795C1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A20A3B5620271CC500795C1D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -190,6 +199,8 @@
 			children = (
 				A20A3B9C20279D7C00795C1D /* CURGameManager.h */,
 				A20A3B9D20279D7C00795C1D /* CURGameManager.m */,
+				A20822CB2029EE80009F0484 /* CURCoreDataManager.h */,
+				A20822CC2029EE80009F0484 /* CURCoreDataManager.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -205,6 +216,10 @@
 				A20156EB2029CB72000000D8 /* StoneData+CoreDataClass.m */,
 				A20156EC2029CB72000000D8 /* StoneData+CoreDataProperties.h */,
 				A20156ED2029CB72000000D8 /* StoneData+CoreDataProperties.m */,
+				A20822CF202A0523009F0484 /* CURGameInfo.h */,
+				A20822D0202A0523009F0484 /* CURGameInfo.m */,
+				A20822D2202A057C009F0484 /* CURStoneData.h */,
+				A20822D3202A057C009F0484 /* CURStoneData.m */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -310,13 +325,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A20A3B852027232E00795C1D /* CURGameTableViewCell.m in Sources */,
+				A20822D1202A0523009F0484 /* CURGameInfo.m in Sources */,
 				A20156F22029CB72000000D8 /* StoneData+CoreDataClass.m in Sources */,
 				A20156F52029CB72000000D8 /* GameInfo+CoreDataProperties.m in Sources */,
 				A2869A852028704D003C89D5 /* CURCloseGameViewController.m in Sources */,
 				A20A3B9E20279D7C00795C1D /* CURGameManager.m in Sources */,
 				A20156F42029CB72000000D8 /* GameInfo+CoreDataClass.m in Sources */,
 				A20A3BA12027A57100795C1D /* CURScoreView.m in Sources */,
+				A20822CD2029EE80009F0484 /* CURCoreDataManager.m in Sources */,
 				A20A3B5A20271CC500795C1D /* ViewController.m in Sources */,
+				A20822D4202A057C009F0484 /* CURStoneData.m in Sources */,
 				A20A3B7F20271E0F00795C1D /* CURGamesTableViewController.m in Sources */,
 				A20A3B9420274F5E00795C1D /* CURGameViewController.m in Sources */,
 				A20A3B5720271CC500795C1D /* AppDelegate.m in Sources */,

@@ -9,6 +9,7 @@
 #import "CURCloseGameViewController.h"
 #import "CURViewGameViewController.h"
 #import "CURGameViewController.h"
+#import "CURCoreDataManager.h"
 
 static const CGFloat INDENT = 10.;
 static const CGFloat BUTTONHEIGHT = 40.;
@@ -55,19 +56,14 @@ static const CGFloat BUTTONHEIGHT = 40.;
 
 - (void)closeGame
 {
+    CURCoreDataManager *coreDataManager = self.gameManager.coreDataManager;
+    NSArray *gameInfo = [coreDataManager loadGamesInfoByHash:[self.gameManager getHashLink]];
+    
     CURViewGameViewController *viewGameViewController = [CURViewGameViewController new];
-    
-    NSManagedObjectContext *coreDataContext = self.gameManager.coreDataContext;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"GameInfo"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@", [self.gameManager getHashLink]];
-    fetchRequest.predicate = predicate;
-    NSArray *fetchedObjects = [coreDataContext executeFetchRequest:fetchRequest error:nil];
-    
-    if (fetchedObjects.count>0)
+    if (gameInfo.count>0)
     {
-        viewGameViewController.gameInfo = fetchedObjects[0];
+        viewGameViewController.gameInfo = gameInfo[0];
     }
-    viewGameViewController.coreDataContext = coreDataContext;
     [self.navigationController pushViewController:viewGameViewController animated:YES];
 }
 

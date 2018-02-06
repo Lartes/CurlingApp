@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CURCoreDataManager.h"
 
 @interface CURCreateGameViewController : UIViewController
 
-@property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
+@property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
 @end

@@ -39,9 +39,12 @@
 
 - (UIView *)addStone
 {
-    [self saveToCoreData];
-    self.stepNumber += 1;
-    
+    if (self.stonesArray.count > 0)
+    {
+        [self saveToCoreData];
+        self.stepNumber += 1;
+    }
+        
     UIView *stone = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     stone.layer.cornerRadius = 15;
     stone.backgroundColor = self.stoneColor;
@@ -90,10 +93,10 @@
 
 - (void)saveToCoreData
 {
-    StoneData *stoneData = nil;
+    CURStoneData *stoneData = nil;
     for (UIView *stone in self.stonesArray)
     {
-        stoneData = [NSEntityDescription insertNewObjectForEntityForName:@"StoneData" inManagedObjectContext:self.coreDataContext];
+        stoneData = [CURStoneData new];
         stoneData.endNumber = self.endNumber;
         stoneData.stepNumber = self.stepNumber;
         stoneData.isStoneColorRed = [stone backgroundColor] == [UIColor redColor];
@@ -101,12 +104,7 @@
         stoneData.stonePositionY = [stone center].y;
         stoneData.hashLink = self.hashLink;
         
-        NSError *error = nil;
-        if (![stoneData.managedObjectContext save:&error])
-        {
-            NSLog(@"Object wasn't saved");
-            NSLog(@"%@, %@", error, error.localizedDescription);
-        }
+        [self.coreDataManager saveStoneData:stoneData];
     }
 }
 

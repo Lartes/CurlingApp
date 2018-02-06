@@ -44,10 +44,10 @@
     self.navigationItem.hidesBackButton = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.gameManager.output = self.scoreView;
-    
     self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, 100, CGRectGetHeight(self.navigationController.navigationBar.frame))];
     self.navigationItem.titleView = self.scoreView;
+    
+    self.gameManager.output = self.scoreView;
     
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
     self.navigationItem.rightBarButtonItem = closeButton;

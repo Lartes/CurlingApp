@@ -13,13 +13,13 @@
 #import "CURCreateGameViewController.h"
 #import "CURViewGameViewController.h"
 #import "GameInfo+CoreDataClass.h"
+#import "CURCoreDataManager.h"
 
 @interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *data;
-@property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
 @property (nonatomic, strong) NSArray *gamesArray;
+@property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
 @end
 
@@ -30,7 +30,7 @@
     [super viewDidLoad];
     
     [self prepareUI];
-    [self loadFromCoreData];
+    [self prepareData];
 }
 
 - (void)prepareUI
@@ -47,10 +47,16 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)prepareData
+{
+    self.coreDataManager = [CURCoreDataManager new];
+    self.gamesArray = [self.coreDataManager loadAllGamesInfo];
+}
+
 - (void)addNewGame
 {
     CURCreateGameViewController *createGameViewController = [CURCreateGameViewController new];
-    createGameViewController.coreDataContext = self.coreDataContext;
+    createGameViewController.coreDataManager = self.coreDataManager;
     [self.navigationController pushViewController:createGameViewController animated:YES];
 }
 
@@ -79,28 +85,7 @@
 {
     CURViewGameViewController *viewGameViewController = [CURViewGameViewController new];
     viewGameViewController.gameInfo = self.gamesArray[indexPath.row];
-    viewGameViewController.coreDataContext = self.coreDataContext;
-    [self.navigationController pushViewController:viewGameViewController animated:YES];
-}
-
-
-#pragma mark - CoreData
-
-- (NSManagedObjectContext *) coreDataContext
-{
-    if (_coreDataContext)
-    {
-        return _coreDataContext;
-    }
-    UIApplication *application = [UIApplication sharedApplication];
-    NSPersistentContainer *container = ((AppDelegate *) (application.delegate)).persistentContainer;
-    NSManagedObjectContext *context = container.viewContext;
-    return context;
-}
-
--(void)loadFromCoreData
-{
-    self.gamesArray = [self.coreDataContext executeFetchRequest:[GameInfo fetchRequest] error:nil];
+   [self.navigationController pushViewController:viewGameViewController animated:YES];
 }
 
 @end

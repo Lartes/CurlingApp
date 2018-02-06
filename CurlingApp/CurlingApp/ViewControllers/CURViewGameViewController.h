@@ -12,6 +12,5 @@
 @interface CURViewGameViewController : UIViewController
 
 @property (nonatomic, strong) GameInfo *gameInfo;
-@property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
 
 @end

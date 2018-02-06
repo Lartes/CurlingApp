@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "CURChangeScoreProtocol.h"
+#import "CURCoreDataManager.h"
 
 @interface CURGameManager : NSObject
 
@@ -20,6 +21,6 @@
 - (NSString *)getHashLink;
 
 @property (nonatomic, weak) id<CURChangeScoreProtocol> output;
-@property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
+@property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
 @end
