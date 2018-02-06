@@ -23,7 +23,7 @@
 		A20A3B8E20273DB900795C1D /* CURViewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B8D20273DB900795C1D /* CURViewGameViewController.m */; };
 		A20A3B9420274F5E00795C1D /* CURGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B9320274F5E00795C1D /* CURGameViewController.m */; };
 		A20A3B972027938D00795C1D /* CURScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B962027938D00795C1D /* CURScrollView.m */; };
-		A20A3B9E20279D7C00795C1D /* CUREndManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B9D20279D7C00795C1D /* CUREndManager.m */; };
+		A20A3B9E20279D7C00795C1D /* CURGameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B9D20279D7C00795C1D /* CURGameManager.m */; };
 		A20A3BA12027A57100795C1D /* CURScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3BA02027A57100795C1D /* CURScoreView.m */; };
 		A2869A852028704D003C89D5 /* CURCloseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2869A842028704D003C89D5 /* CURCloseGameViewController.m */; };
 /* End PBXBuildFile section */
@@ -72,8 +72,8 @@
 		A20A3B952027938D00795C1D /* CURScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURScrollView.h; sourceTree = "<group>"; };
 		A20A3B962027938D00795C1D /* CURScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURScrollView.m; sourceTree = "<group>"; };
 		A20A3B982027968B00795C1D /* CURTouchDetectProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURTouchDetectProtocol.h; sourceTree = "<group>"; };
-		A20A3B9C20279D7C00795C1D /* CUREndManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUREndManager.h; sourceTree = "<group>"; };
-		A20A3B9D20279D7C00795C1D /* CUREndManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CUREndManager.m; sourceTree = "<group>"; };
+		A20A3B9C20279D7C00795C1D /* CURGameManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURGameManager.h; sourceTree = "<group>"; };
+		A20A3B9D20279D7C00795C1D /* CURGameManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURGameManager.m; sourceTree = "<group>"; };
 		A20A3B9F2027A57100795C1D /* CURScoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURScoreView.h; sourceTree = "<group>"; };
 		A20A3BA02027A57100795C1D /* CURScoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURScoreView.m; sourceTree = "<group>"; };
 		A20A3BA22027B0D300795C1D /* CURChangeScoreProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURChangeScoreProtocol.h; sourceTree = "<group>"; };
@@ -188,8 +188,8 @@
 		A20A3B9B20279D0D00795C1D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A20A3B9C20279D7C00795C1D /* CUREndManager.h */,
-				A20A3B9D20279D7C00795C1D /* CUREndManager.m */,
+				A20A3B9C20279D7C00795C1D /* CURGameManager.h */,
+				A20A3B9D20279D7C00795C1D /* CURGameManager.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -313,7 +313,7 @@
 				A20156F22029CB72000000D8 /* StoneData+CoreDataClass.m in Sources */,
 				A20156F52029CB72000000D8 /* GameInfo+CoreDataProperties.m in Sources */,
 				A2869A852028704D003C89D5 /* CURCloseGameViewController.m in Sources */,
-				A20A3B9E20279D7C00795C1D /* CUREndManager.m in Sources */,
+				A20A3B9E20279D7C00795C1D /* CURGameManager.m in Sources */,
 				A20156F42029CB72000000D8 /* GameInfo+CoreDataClass.m in Sources */,
 				A20A3BA12027A57100795C1D /* CURScoreView.m in Sources */,
 				A20A3B5A20271CC500795C1D /* ViewController.m in Sources */,

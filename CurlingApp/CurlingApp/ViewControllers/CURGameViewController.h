@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CURTouchDetectProtocol.h"
+#import "CURGameManager.h"
 
 @interface CURGameViewController : UIViewController <CURTouchDetectProtocol>
 
-@property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
-@property (nonatomic, assign) NSInteger endNumber;
-@property (nonatomic, strong) UIColor *firstStoneColor;
-@property (nonatomic, copy) NSString *hashLink;
+- (instancetype)initWithManager:(CURGameManager *)gameManager;
 
 @end

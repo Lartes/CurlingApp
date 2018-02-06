@@ -1,15 +1,15 @@
 //
-//  CUREndManager.m
+//  CURGameManager.m
 //  CurlingApp
 //
 //  Created by Artem Lomov on 04/02/2018.
 //  Copyright © 2018 Artem Lomov. All rights reserved.
 //
 
-#import "CUREndManager.h"
+#import "CURGameManager.h"
 #import "StoneData+CoreDataClass.h"
 
-@interface CUREndManager ()
+@interface CURGameManager ()
 
 @property (nonatomic, strong) NSMutableArray<UIView *> *stonesArray;
 @property (nonatomic, strong) UIColor *stoneColor;
@@ -20,9 +20,9 @@
 
 @end
 
-@implementation CUREndManager
+@implementation CURGameManager
 
-- (instancetype)initWithColor:(UIColor *)firstStoneColor andNumber:(NSInteger)endNumber andHash:(NSString *)hashLink
+- (instancetype)initWithColor:(UIColor *)firstStoneColor andHash:(NSString *)hashLink
 {
     self = [super init];
     if(self)
@@ -30,7 +30,7 @@
         _stonesArray = [NSMutableArray new];
         _isEndFinishedBool = NO;
         _stoneColor = firstStoneColor;
-        _endNumber = endNumber;
+        _endNumber = 0;
         _stepNumber = 1;
         _hashLink = hashLink;
     }
@@ -49,6 +49,14 @@
     [self changeColor];
     [self.stonesArray addObject:stone];
     return stone;
+}
+
+- (void)startEnd
+{
+    self.endNumber += 1;
+    [self.stonesArray removeAllObjects];
+    self.isEndFinishedBool = NO;
+    self.stepNumber = 1;
 }
 
 - (void)finishEnd
@@ -73,6 +81,10 @@
     }
 }
 
+- (NSString *)getHashLink
+{
+    return self.hashLink;
+}
 
 #pragma mark - CoreData
 

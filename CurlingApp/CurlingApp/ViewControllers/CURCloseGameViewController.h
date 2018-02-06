@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CURGameManager.h"
 
 @interface CURCloseGameViewController : UIViewController
 
-@property (nonatomic, assign) NSInteger endNumber;
-@property (nonatomic, copy) NSString *hashLink;
-@property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
+@property (nonatomic, strong) CURGameManager *gameManager;
 
 @end

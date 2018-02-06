@@ -49,11 +49,7 @@ static const CGFloat BUTTONHEIGHT = 40.;
 
 - (void)switchToNextEnd
 {
-    CURGameViewController *gameViewController = [CURGameViewController new];
-    gameViewController.coreDataContext = self.coreDataContext;
-    gameViewController.endNumber = self.endNumber + 1;
-    gameViewController.firstStoneColor = [UIColor redColor];
-    gameViewController.hashLink = self.hashLink;
+    CURGameViewController *gameViewController = [[CURGameViewController alloc] initWithManager:self.gameManager];
     [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
@@ -61,16 +57,17 @@ static const CGFloat BUTTONHEIGHT = 40.;
 {
     CURViewGameViewController *viewGameViewController = [CURViewGameViewController new];
     
+    NSManagedObjectContext *coreDataContext = self.gameManager.coreDataContext;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"GameInfo"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@", self.hashLink];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@", [self.gameManager getHashLink]];
     fetchRequest.predicate = predicate;
-    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
+    NSArray *fetchedObjects = [coreDataContext executeFetchRequest:fetchRequest error:nil];
     
     if (fetchedObjects.count>0)
     {
         viewGameViewController.gameInfo = fetchedObjects[0];
     }
-    viewGameViewController.coreDataContext = self.coreDataContext;
+    viewGameViewController.coreDataContext = coreDataContext;
     [self.navigationController pushViewController:viewGameViewController animated:YES];
 }
 

@@ -9,23 +9,34 @@
 #import "CURGameViewController.h"
 #import "CURCloseGameViewController.h"
 #import "CURScrollView.h"
-#import "CUREndManager.h"
 #import "CURScoreView.h"
 
 @interface CURGameViewController ()
 
 @property (nonatomic, strong) CURScrollView *trackScrollView;
-@property (nonatomic, strong) CUREndManager *endManager;
 @property (nonatomic, strong) CURScoreView *scoreView;
+@property (nonatomic, strong) CURGameManager *gameManager;
 
 @end
 
 @implementation CURGameViewController
 
+- (instancetype)initWithManager:(CURGameManager *)gameManager
+{
+    self = [super init];
+    if(self)
+    {
+        _gameManager = gameManager;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self prepareUI];
+    
+    [self.gameManager startEnd];
 }
 
 - (void)prepareUI
@@ -33,12 +44,10 @@
     self.navigationItem.hidesBackButton = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.gameManager.output = self.scoreView;
+    
     self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, 100, CGRectGetHeight(self.navigationController.navigationBar.frame))];
     self.navigationItem.titleView = self.scoreView;
-    
-    self.endManager = [[CUREndManager alloc] initWithColor:self.firstStoneColor andNumber:self.endNumber andHash:self.hashLink];
-    self.endManager.output = self.scoreView;
-    self.endManager.coreDataContext = self.coreDataContext;
     
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
     self.navigationItem.rightBarButtonItem = closeButton;
@@ -61,23 +70,21 @@
     [self.view addSubview:nextButton];
     
     
-    UIView *stone = [self.endManager addStone];
+    UIView *stone = [self.gameManager addStone];
     [self.trackScrollView addSubview:stone];
 }
 
 - (void)nextStone
 {
-    if ([self.endManager isEndFinished])
+    if ([self.gameManager isEndFinished])
     {
-        [self.endManager finishEnd];
+        [self.gameManager finishEnd];
         
         CURCloseGameViewController *closeGameViewController = [CURCloseGameViewController new];
-        closeGameViewController.coreDataContext = self.coreDataContext;
-        closeGameViewController.endNumber = self.endNumber;
-        closeGameViewController.hashLink = self.hashLink;
+        closeGameViewController.gameManager = self.gameManager;
         [self.navigationController pushViewController:closeGameViewController animated:YES];
     }
-    UIView *stone = [self.endManager addStone];
+    UIView *stone = [self.gameManager addStone];
     [self.trackScrollView addSubview:stone];
 }
 

@@ -9,6 +9,7 @@
 #import "CURCreateGameViewController.h"
 #import "CURGameViewController.h"
 #import "GameInfo+CoreDataClass.h"
+#import "CURGameManager.h"
 
 static const float FIELDHEIGHT = 40;
 static const float INDENT = 10;
@@ -52,8 +53,6 @@ static const float INDENT = 10;
 
 - (void)createGame
 {
-    CURGameViewController *gameViewController = [CURGameViewController new];
-    
     GameInfo *gameInfo = [NSEntityDescription insertNewObjectForEntityForName:@"GameInfo" inManagedObjectContext:self.coreDataContext];
     gameInfo.teamNameFirst = self.teamNameFirst.text;
     gameInfo.teamNameSecond = self.teamNameSecond.text;
@@ -66,11 +65,10 @@ static const float INDENT = 10;
         NSLog(@"%@, %@", error, error.localizedDescription);
     }
     
-    //ПЕРЕДАВАТЬ СРАЗУ EndManager!!!!
-    gameViewController.coreDataContext = self.coreDataContext;
-    gameViewController.endNumber = 1;
-    gameViewController.firstStoneColor = [UIColor redColor];
-    gameViewController.hashLink = gameInfo.hashLink;
+    CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:[UIColor redColor] andHash:gameInfo.hashLink];
+    gameManager.coreDataContext = self.coreDataContext;
+    
+    CURGameViewController *gameViewController = [[CURGameViewController alloc] initWithManager:gameManager];
     [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
