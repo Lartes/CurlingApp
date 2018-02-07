@@ -7,6 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CURGameTableViewCell.h"
+#import "CURCreateGameViewController.h"
+#import "CURViewGameViewController.h"
+#import "CURCoreDataManager.h"
+#import "GameInfo+CoreDataClass.h"
 
 @interface CURGamesTableViewController : UIViewController
 

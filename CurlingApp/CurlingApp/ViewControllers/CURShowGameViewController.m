@@ -7,9 +7,6 @@
 //
 
 #import "CURShowGameViewController.h"
-#import "CURCloseGameViewController.h"
-#import "CURScrollView.h"
-#import "CURScoreView.h"
 
 @interface CURShowGameViewController ()
 
@@ -69,13 +66,20 @@
     self.nextEndButton.backgroundColor = [UIColor grayColor];
     [self.nextEndButton setTitle:@"Next end" forState:UIControlStateNormal];
     [self.nextEndButton addTarget:self action:@selector(nextEnd) forControlEvents:UIControlEventTouchUpInside];
+    if ([self.showGameManager isLastEnd])
+    {
+        self.nextEndButton.hidden = YES;
+    }
     [self.view addSubview:self.nextEndButton];
     
     self.previousEndButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame)-40, CGRectGetWidth(self.view.frame)/3, 30)];
     self.previousEndButton.backgroundColor = [UIColor grayColor];
     [self.previousEndButton setTitle:@"Past end" forState:UIControlStateNormal];
     [self.previousEndButton addTarget:self action:@selector(previousEnd) forControlEvents:UIControlEventTouchUpInside];
-    self.previousEndButton.hidden = YES;
+    if ([self.showGameManager isFirstEnd])
+    {
+        self.previousEndButton.hidden = YES;
+    }
     [self.view addSubview:self.previousEndButton];
     
     self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)*2/3, CGRectGetHeight(self.view.frame)-40, CGRectGetWidth(self.view.frame)/3, 30)];

@@ -7,7 +7,6 @@
 //
 
 #import "CURShowGameManager.h"
-#import "StoneData+CoreDataClass.h"
 
 @interface CURShowGameManager ()
 
@@ -24,14 +23,14 @@
 
 @implementation CURShowGameManager
 
-- (instancetype)initWithGameInfo:(GameInfo *)gameInfo
+- (instancetype)initWithGameInfo:(GameInfo *)gameInfo andEndNumber:(NSInteger)endNumber;
 {
     self = [super init];
     if(self)
     {
         _stonesArray = [NSMutableArray new];
         _stonesData = nil;
-        _endNumber = 1;
+        _endNumber = endNumber;
         _stoneColor = [UIColor redColor];
         _stepNumber = 0;
         _hashLink = gameInfo.hashLink;
@@ -141,6 +140,16 @@
         return YES;
     }
     return NO;
+}
+
+- (BOOL)isFirstEnd
+{
+    return self.endNumber == 1;
+}
+
+- (BOOL)isLastEnd
+{
+    return self.endNumber == self.numberOfEnds;
 }
 
 - (void)changeColor

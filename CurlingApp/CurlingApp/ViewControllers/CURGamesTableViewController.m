@@ -7,15 +7,9 @@
 //
 
 
-#import "AppDelegate.h"
 #import "CURGamesTableViewController.h"
-#import "CURGameTableViewCell.h"
-#import "CURCreateGameViewController.h"
-#import "CURViewGameViewController.h"
-#import "GameInfo+CoreDataClass.h"
-#import "CURCoreDataManager.h"
 
-@interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
+@interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *gamesArray;
@@ -53,8 +47,6 @@
     self.tableView.rowHeight = 110.;
     [self.tableView registerClass:[CURGameTableViewCell class] forCellReuseIdentifier:@"GameTableViewCell"];
     [self.view addSubview:self.tableView];
-    
-    self.navigationController.delegate = self;
 }
 
 - (void)loadData

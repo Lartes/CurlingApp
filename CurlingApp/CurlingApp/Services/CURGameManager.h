@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "CURChangeScoreProtocol.h"
 #import "CURCoreDataManager.h"
+#import "StoneData+CoreDataClass.h"
 
 @interface CURGameManager : NSObject
 
@@ -25,5 +26,6 @@
 - (void)finishGame;
 
 - (NSString *)getHashLink;
+- (NSInteger)getEndNumber;
 
 @end

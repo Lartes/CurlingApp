@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CURTouchDetectProtocol.h"
 #import "CURGameManager.h"
+#import "CURCloseGameViewController.h"
+#import "CURScrollView.h"
+#import "CURScoreView.h"
 
 @interface CURGameViewController : UIViewController <CURTouchDetectProtocol>
 

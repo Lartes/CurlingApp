@@ -31,14 +31,11 @@ static const float INDENT = 10.;
 {
     self.teamNameFirst.frame = CGRectMake(INDENT, INDENT, CGRectGetWidth(self.contentView.frame)-INDENT*2, LABELHEIGHT);
     self.teamNameSecond.frame = CGRectMake(INDENT, LABELHEIGHT + INDENT*2, CGRectGetWidth(self.contentView.frame)-INDENT*2, LABELHEIGHT);
-    self.teamNameFirst.backgroundColor = [UIColor redColor];
-    self.teamNameSecond.backgroundColor = [UIColor yellowColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
 }
 
 @end

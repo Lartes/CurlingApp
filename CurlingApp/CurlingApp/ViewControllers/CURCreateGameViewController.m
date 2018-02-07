@@ -7,9 +7,7 @@
 //
 
 #import "CURCreateGameViewController.h"
-#import "CURGameViewController.h"
-#import "GameInfo+CoreDataClass.h"
-#import "CURGameInfo.h"
+
 
 static const float FIELDHEIGHT = 40;
 static const float INDENT = 10;

@@ -7,7 +7,6 @@
 //
 
 #import "CURGameManager.h"
-#import "StoneData+CoreDataClass.h"
 
 @interface CURGameManager ()
 
@@ -92,6 +91,11 @@
 - (NSString *)getHashLink
 {
     return self.hashLink;
+}
+
+- (NSInteger)getEndNumber
+{
+    return self.endNumber;
 }
 
 #pragma mark - CoreData
