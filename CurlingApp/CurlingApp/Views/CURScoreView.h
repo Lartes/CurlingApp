@@ -11,4 +11,6 @@
 
 @interface CURScoreView : UIView <CURChangeScoreProtocol>
 
+- (void)resetScore;
+
 @end

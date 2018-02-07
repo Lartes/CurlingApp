@@ -36,13 +36,17 @@
     return data;
 }
 
-- (NSArray *)loadGamesInfoByHash:(NSString *)hashLink
+- (GameInfo *)loadGamesInfoByHash:(NSString *)hashLink
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"GameInfo"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@", hashLink];
     fetchRequest.predicate = predicate;
     NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
-    return fetchedObjects;
+    if (fetchedObjects.count > 0)
+    {
+        return fetchedObjects[0];
+    }
+    return nil;
 }
 
 - (NSArray *)loadStonesDataByHash:(NSString *)hashLink
@@ -50,6 +54,17 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"StoneData"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@", hashLink];
     fetchRequest.predicate = predicate;
+    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
+    return fetchedObjects;
+}
+
+- (NSArray *)loadStonesDataByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"StoneData"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@ AND endNumber == %@", hashLink, @(endNumber)];
+    fetchRequest.predicate = predicate;
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"stepNumber" ascending:YES];
+    fetchRequest.sortDescriptors = @[sortDescriptor];
     NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
     return fetchedObjects;
 }
@@ -81,6 +96,19 @@
     
     NSError *error = nil;
     if (![stoneData.managedObjectContext save:&error])
+    {
+        NSLog(@"Object wasn't saved");
+        NSLog(@"%@, %@", error, error.localizedDescription);
+    }
+}
+
+- (void)saveNumberOfEnds:(NSInteger)number forHash:(NSString *)hashLink
+{
+    GameInfo *gameInfo = [self loadGamesInfoByHash:hashLink];
+    gameInfo.numberOfEnds = number;
+    
+    NSError *error = nil;
+    if (![gameInfo.managedObjectContext save:&error])
     {
         NSLog(@"Object wasn't saved");
         NSLog(@"%@, %@", error, error.localizedDescription);

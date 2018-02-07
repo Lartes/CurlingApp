@@ -12,7 +12,7 @@
 @protocol CURChangeScoreProtocol <NSObject>
 @optional
 
-- (BOOL)changeScoreForColor:(UIColor *)color;
+- (BOOL)changeScoreForColor:(UIColor *)color byNumber:(NSInteger)number;
 
 @end
 

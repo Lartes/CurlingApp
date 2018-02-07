@@ -57,18 +57,24 @@ static const CGFloat STONESIZE = 15.;
     self.yellowStone.center = CGPointMake(CGRectGetWidth(self.frame)-STONESIZE/2., CGRectGetHeight(self.frame)/2.);
 }
 
+- (void)resetScore
+{
+    self.redScore = 8;
+    self.yellowScore = 8;
+}
+
 #pragma mark - CURChangeScoreProtocol
 
-- (BOOL)changeScoreForColor:(UIColor *)color
+- (BOOL)changeScoreForColor:(UIColor *)color byNumber:(NSInteger)number
 {
     if (color==[UIColor redColor])
     {
-        self.redScore -= 1;
+        self.redScore += number;
         self.score.text = [NSString stringWithFormat:@"%ld:%ld", self.redScore, self.yellowScore];
     }
     else
     {
-        self.yellowScore -= 1;
+        self.yellowScore += number;
         self.score.text = [NSString stringWithFormat:@"%ld:%ld", self.redScore, self.yellowScore];
     }
     if (0 == self.redScore && 0 == self.yellowScore)

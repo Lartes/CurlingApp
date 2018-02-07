@@ -56,14 +56,13 @@ static const CGFloat BUTTONHEIGHT = 40.;
 
 - (void)closeGame
 {
+    [self.gameManager finishGame];
+    
     CURCoreDataManager *coreDataManager = self.gameManager.coreDataManager;
-    NSArray *gameInfo = [coreDataManager loadGamesInfoByHash:[self.gameManager getHashLink]];
+    GameInfo *gameInfo = [coreDataManager loadGamesInfoByHash:[self.gameManager getHashLink]];
     
     CURViewGameViewController *viewGameViewController = [CURViewGameViewController new];
-    if (gameInfo.count>0)
-    {
-        viewGameViewController.gameInfo = gameInfo[0];
-    }
+    viewGameViewController.gameInfo = gameInfo;
     [self.navigationController pushViewController:viewGameViewController animated:YES];
 }
 
