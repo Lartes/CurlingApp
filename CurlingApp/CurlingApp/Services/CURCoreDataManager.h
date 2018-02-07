@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 #import "GameInfo+CoreDataClass.h"
 #import "StoneData+CoreDataClass.h"
+#import "EndScore+CoreDataClass.h"
 #import "CURGameInfo.h"
 #import "CURStoneData.h"
 
@@ -19,9 +21,12 @@
 - (GameInfo *)loadGamesInfoByHash:(NSString *)hashLink;
 - (NSArray *)loadStonesDataByHash:(NSString *)hashLink;
 - (NSArray *)loadStonesDataByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber;
+- (NSArray *)loadEndScoreByHash:(NSString *)hashLink;
 - (void)saveGameInfo:(CURGameInfo *)gameInfoToSave;
 - (void)saveStoneData:(CURStoneData *)stoneDataToSave;
 - (void)saveNumberOfEnds:(NSInteger)number forHash:(NSString *)hashLink;
-- (void)deleteGame:(GameInfo *)gameInfo;
+- (void)saveScore:(NSString *)score forEnd:(NSInteger)endNumber andHash:(NSString *)hashLink;
+- (void)deleteGameByHash:(NSString *)hashLink;
+- (void)deleteEndByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber;
 
 @end

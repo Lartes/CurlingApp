@@ -7,7 +7,6 @@
 //
 
 #import "CURCoreDataManager.h"
-#import "AppDelegate.h"
 
 @interface CURCoreDataManager ()
 
@@ -69,6 +68,17 @@
     return fetchedObjects;
 }
 
+- (NSArray *)loadEndScoreByHash:(NSString *)hashLink
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"EndScore"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@", hashLink];
+    fetchRequest.predicate = predicate;
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"endNumber" ascending:YES];
+    fetchRequest.sortDescriptors = @[sortDescriptor];
+    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
+    return fetchedObjects;
+}
+
 - (void)saveGameInfo:(CURGameInfo *)gameInfoToSave
 {
     GameInfo *gameInfo = [NSEntityDescription insertNewObjectForEntityForName:@"GameInfo" inManagedObjectContext:self.coreDataContext];
@@ -115,9 +125,25 @@
     }
 }
 
-- (void)deleteGame:(GameInfo *)gameInfo
+- (void)saveScore:(NSString *)score forEnd:(NSInteger)endNumber andHash:(NSString *)hashLink
 {
-    NSArray *stonesToDelete = [self loadStonesDataByHash:gameInfo.hashLink];
+    EndScore *endScore = [NSEntityDescription insertNewObjectForEntityForName:@"EndScore" inManagedObjectContext:self.coreDataContext];
+    endScore.hashLink = hashLink;
+    endScore.score = score;
+    endScore.endNumber = endNumber;
+    
+    NSError *error = nil;
+    if (![endScore.managedObjectContext save:&error])
+    {
+        NSLog(@"Object wasn't saved");
+        NSLog(@"%@, %@", error, error.localizedDescription);
+    }
+}
+
+- (void)deleteGameByHash:(NSString *)hashLink
+{
+    GameInfo *gameInfo = [self loadGamesInfoByHash:hashLink];
+    NSArray *stonesToDelete = [self loadStonesDataByHash:hashLink];
     
     for (StoneData *stoneData in stonesToDelete)
     {
@@ -125,6 +151,22 @@
     }
     
     [self.coreDataContext deleteObject:gameInfo];
+    [self.coreDataContext save:nil];
+}
+
+- (void)deleteEndByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"StoneData"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@ AND endNumber == %@", hashLink, @(endNumber)];
+    fetchRequest.predicate = predicate;
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"stepNumber" ascending:YES];
+    fetchRequest.sortDescriptors = @[sortDescriptor];
+    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
+    
+    for (StoneData *stoneData in fetchedObjects)
+    {
+        [self.coreDataContext deleteObject:stoneData];
+    }
     [self.coreDataContext save:nil];
 }
 

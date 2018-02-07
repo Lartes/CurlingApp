@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CURGameManager.h"
+#import "CURViewGameViewController.h"
+#import "CURGameViewController.h"
+#import "CURCoreDataManager.h"
+#import "GameInfo+CoreDataClass.h"
 
 @interface CURCloseGameViewController : UIViewController
 

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "GameInfo+CoreDataClass.h"
 #import "CURCoreDataManager.h"
+#import "CURShowGameManager.h"
+#import "CURShowGameViewController.h"
+#import "CURScoreTableViewCell.h"
 
 @interface CURViewGameViewController : UIViewController
 

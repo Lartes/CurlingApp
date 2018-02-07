@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "CURChangeScoreProtocol.h"
 #import "CURCoreDataManager.h"
+#import "StoneData+CoreDataClass.h"
 
 @interface CURGameManager : NSObject
 
@@ -23,7 +24,10 @@
 - (BOOL)isEndFinished;
 - (void)finishEnd;
 - (void)finishGame;
+- (void)setFirstStoneColor:(UIColor *)color;
 
 - (NSString *)getHashLink;
+- (NSInteger)getEndNumber;
+- (UIColor *)getFirstTeamColor;
 
 @end

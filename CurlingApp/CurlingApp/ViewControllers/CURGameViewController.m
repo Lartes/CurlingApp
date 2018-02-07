@@ -7,9 +7,6 @@
 //
 
 #import "CURGameViewController.h"
-#import "CURCloseGameViewController.h"
-#import "CURScrollView.h"
-#import "CURScoreView.h"
 
 @interface CURGameViewController ()
 
@@ -90,6 +87,7 @@
 
 - (void)closeGame
 {
+    [self.gameManager.coreDataManager deleteEndByHash:[self.gameManager getHashLink] andEndNumber:[self.gameManager getEndNumber]];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
