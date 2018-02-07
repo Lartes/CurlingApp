@@ -24,8 +24,10 @@
 - (BOOL)isEndFinished;
 - (void)finishEnd;
 - (void)finishGame;
+- (void)setFirstStoneColor:(UIColor *)color;
 
 - (NSString *)getHashLink;
 - (NSInteger)getEndNumber;
+- (UIColor *)getFirstTeamColor;
 
 @end

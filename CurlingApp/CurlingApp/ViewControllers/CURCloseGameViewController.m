@@ -79,6 +79,18 @@ static const CGFloat BUTTONHEIGHT = 40.;
     NSString *score = [NSString stringWithFormat:@"%@:%@", self.firstTeamScore.text, self.secondTeamScore.text];
     [self.gameManager.coreDataManager saveScore:score forEnd:[self.gameManager getEndNumber] andHash:self.gameInfo.hashLink];
     
+    if ([self.firstTeamScore.text intValue] != [self.secondTeamScore.text intValue])
+    {
+        if ([self.firstTeamScore.text intValue] > [self.secondTeamScore.text intValue])
+        {
+            [self.gameManager setFirstStoneColor:[self.gameManager getFirstTeamColor]];
+        }
+        else
+        {
+            UIColor *color = [self.gameManager getFirstTeamColor] == [UIColor redColor] ? [UIColor yellowColor] : [UIColor redColor];
+            [self.gameManager setFirstStoneColor:color];
+        }
+    }
     CURGameViewController *gameViewController = [[CURGameViewController alloc] initWithManager:self.gameManager];
     [self.navigationController pushViewController:gameViewController animated:YES];
 }

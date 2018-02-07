@@ -16,6 +16,7 @@
 @property (nonatomic, assign) BOOL isEndFinishedBool;
 @property (nonatomic, assign) NSInteger stepNumber;
 @property (nonatomic, copy) NSString *hashLink;
+@property (nonatomic, strong) UIColor *firstTeamColor;
 
 @end
 
@@ -29,6 +30,7 @@
         _stonesArray = [NSMutableArray new];
         _isEndFinishedBool = NO;
         _stoneColor = firstStoneColor;
+        _firstTeamColor = firstStoneColor;
         _endNumber = 0;
         _stepNumber = 1;
         _hashLink = hashLink;
@@ -96,6 +98,16 @@
 - (NSInteger)getEndNumber
 {
     return self.endNumber;
+}
+
+- (UIColor *)getFirstTeamColor
+{
+    return self.firstTeamColor;
+}
+
+- (void)setFirstStoneColor:(UIColor *)color
+{
+    self.stoneColor = color;
 }
 
 #pragma mark - CoreData

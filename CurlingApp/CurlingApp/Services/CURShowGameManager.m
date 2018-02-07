@@ -31,7 +31,6 @@
         _stonesArray = [NSMutableArray new];
         _stonesData = nil;
         _endNumber = endNumber;
-        _stoneColor = [UIColor redColor];
         _stepNumber = 0;
         _hashLink = gameInfo.hashLink;
         _numberOfEnds = gameInfo.numberOfEnds;
@@ -43,7 +42,8 @@
 - (NSArray *)startShowGame
 {
     self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink andEndNumber:self.endNumber];
-
+    self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
+    
     NSMutableArray *stones = [NSMutableArray new];
     UIView *stone = nil;
     for (int i = 0; i<16; i++)
@@ -63,6 +63,7 @@
 {
     self.endNumber += number;
     self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink andEndNumber:self.endNumber];
+    self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
     for (int i = 0; i<16; i++)
     {
         self.stonesArray[i].hidden = YES;
