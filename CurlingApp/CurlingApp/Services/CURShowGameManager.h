@@ -1,8 +1,8 @@
 //
-//  CURGameManager.h
+//  CURShowGameManager.h
 //  CurlingApp
 //
-//  Created by Artem Lomov on 04/02/2018.
+//  Created by Artem Lomov on 07/02/2018.
 //  Copyright © 2018 Artem Lomov. All rights reserved.
 //
 
@@ -10,20 +10,18 @@
 #import <UIKit/UIKit.h>
 #import "CURChangeScoreProtocol.h"
 #import "CURCoreDataManager.h"
+#import "GameInfo+CoreDataClass.h"
 
-@interface CURGameManager : NSObject
+@interface CURShowGameManager : NSObject
 
 @property (nonatomic, weak) id<CURChangeScoreProtocol> output;
 @property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
-- (instancetype)initWithColor:(UIColor *)firstStoneColor andHash:(NSString *)hashLink;
+- (instancetype)initWithGameInfo:(GameInfo *)gameInfo;
 
-- (void)startEnd;
-- (UIView *)addStone;
-- (BOOL)isEndFinished;
-- (void)finishEnd;
-- (void)finishGame;
-
-- (NSString *)getHashLink;
+- (NSArray *)startShowGame;
+- (BOOL)showNextStep;
+- (BOOL)showPreviousStep;
+- (BOOL)changeEndOnNumber:(NSInteger)number;
 
 @end

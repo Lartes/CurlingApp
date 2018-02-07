@@ -16,8 +16,12 @@
 @interface CURCoreDataManager : NSObject
 
 - (NSArray *)loadAllGamesInfo;
-- (NSArray *)loadGamesInfoByHash:(NSString *)hashLink;
+- (GameInfo *)loadGamesInfoByHash:(NSString *)hashLink;
+- (NSArray *)loadStonesDataByHash:(NSString *)hashLink;
+- (NSArray *)loadStonesDataByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber;
 - (void)saveGameInfo:(CURGameInfo *)gameInfoToSave;
 - (void)saveStoneData:(CURStoneData *)stoneDataToSave;
+- (void)saveNumberOfEnds:(NSInteger)number forHash:(NSString *)hashLink;
+- (void)deleteGame:(GameInfo *)gameInfo;
 
 @end

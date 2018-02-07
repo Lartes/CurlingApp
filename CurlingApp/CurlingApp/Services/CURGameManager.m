@@ -48,7 +48,7 @@
     UIView *stone = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     stone.layer.cornerRadius = 15;
     stone.backgroundColor = self.stoneColor;
-    self.isEndFinishedBool = [self.output changeScoreForColor:self.stoneColor];
+    self.isEndFinishedBool = [self.output changeScoreForColor:self.stoneColor byNumber:-1];
     [self changeColor];
     [self.stonesArray addObject:stone];
     return stone;
@@ -65,6 +65,11 @@
 - (void)finishEnd
 {
     [self saveToCoreData];
+}
+
+- (void)finishGame
+{
+    [self.coreDataManager saveNumberOfEnds:self.endNumber forHash:self.hashLink];
 }
 
 - (BOOL)isEndFinished

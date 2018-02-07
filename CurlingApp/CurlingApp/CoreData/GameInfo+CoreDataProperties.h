@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *teamNameFirst;
 @property (nullable, nonatomic, copy) NSString *teamNameSecond;
 @property (nullable, nonatomic, copy) NSString *hashLink;
+@property (nonatomic) int32_t numberOfEnds;
 
 @end
 

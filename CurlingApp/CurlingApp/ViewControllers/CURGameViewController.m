@@ -37,6 +37,7 @@
     [self prepareUI];
     
     [self.gameManager startEnd];
+    [self.trackScrollView addSubview:[self.gameManager addStone]];
 }
 
 - (void)prepareUI
@@ -68,10 +69,6 @@
     [nextButton setTitle:@"Next stone" forState:UIControlStateNormal];
     [nextButton addTarget:self action:@selector(nextStone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:nextButton];
-    
-    
-    UIView *stone = [self.gameManager addStone];
-    [self.trackScrollView addSubview:stone];
 }
 
 - (void)nextStone
@@ -84,8 +81,11 @@
         closeGameViewController.gameManager = self.gameManager;
         [self.navigationController pushViewController:closeGameViewController animated:YES];
     }
-    UIView *stone = [self.gameManager addStone];
-    [self.trackScrollView addSubview:stone];
+    else
+    {
+        UIView *stone = [self.gameManager addStone];
+        [self.trackScrollView addSubview:stone];
+    }
 }
 
 - (void)closeGame

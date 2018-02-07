@@ -19,5 +19,6 @@
 @dynamic teamNameFirst;
 @dynamic teamNameSecond;
 @dynamic hashLink;
+@dynamic numberOfEnds;
 
 @end

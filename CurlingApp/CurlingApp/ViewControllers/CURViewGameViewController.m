@@ -7,6 +7,8 @@
 //
 
 #import "CURViewGameViewController.h"
+#import "CURShowGameManager.h"
+#import "CURShowGameViewController.h"
 
 static const float LABELHEIGHT = 40.;
 static const float INDENT = 10.;
@@ -15,6 +17,7 @@ static const float INDENT = 10.;
 
 @property (nonatomic, strong) UILabel* teamNameFirst;
 @property (nonatomic, strong) UILabel* teamNameSecond;
+@property (nonatomic, strong) UIButton *viewButton;
 
 @end
 
@@ -29,6 +32,18 @@ static const float INDENT = 10.;
 - (void)prepareUI
 {
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    if (self.coreDataManager)
+    {
+        UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteGame)];
+        self.navigationItem.rightBarButtonItem = deleteButton;
+        
+        self.viewButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)*2/3, CGRectGetHeight(self.view.frame)-40, CGRectGetWidth(self.view.frame)/3, 30)];
+        self.viewButton.backgroundColor = [UIColor grayColor];
+        [self.viewButton setTitle:@"Show game" forState:UIControlStateNormal];
+        [self.viewButton addTarget:self action:@selector(showGame) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.viewButton];
+    }
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Games" style:UIBarButtonItemStylePlain target:self action:@selector(toMainView)];
     self.navigationItem.leftBarButtonItem = backButton;
@@ -48,9 +63,24 @@ static const float INDENT = 10.;
     }
 }
 
+- (void)deleteGame
+{
+    [self.coreDataManager deleteGame:self.gameInfo];
+    [self toMainView];
+}
+
 - (void)toMainView
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)showGame
+{
+    CURShowGameManager *gameManager = [[CURShowGameManager alloc] initWithGameInfo:self.gameInfo];
+    gameManager.coreDataManager = self.coreDataManager;
+    
+    CURShowGameViewController *gameViewController = [[CURShowGameViewController alloc] initWithManager:gameManager];
+    [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
 @end
