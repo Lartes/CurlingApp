@@ -108,7 +108,8 @@ static const float INDENT = 10.;
     CURScoreTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ScoreTableViewCell" forIndexPath:indexPath];
     
     EndScore *endScore = self.scoresArray[indexPath.row];
-    cell.score.text = endScore.score;
+    NSString *score = [NSString stringWithFormat:@"%d:%d", endScore.firstTeamScore, endScore.secondTeamScore];
+    cell.score.text = score;
     cell.score.textAlignment = NSTextAlignmentCenter;
     
     return cell;

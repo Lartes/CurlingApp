@@ -76,8 +76,7 @@ static const CGFloat BUTTONHEIGHT = 40.;
 
 - (void)switchToNextEnd
 {
-    NSString *score = [NSString stringWithFormat:@"%@:%@", self.firstTeamScore.text, self.secondTeamScore.text];
-    [self.gameManager.coreDataManager saveScore:score forEnd:[self.gameManager getEndNumber] andHash:self.gameInfo.hashLink];
+    [self.gameManager.coreDataManager saveFirstScore:[self.firstTeamScore.text intValue] andSecondScore:[self.secondTeamScore.text intValue] forEnd:[self.gameManager getEndNumber] andHash:self.gameInfo.hashLink];
     
     if ([self.firstTeamScore.text intValue] != [self.secondTeamScore.text intValue])
     {
@@ -97,9 +96,8 @@ static const CGFloat BUTTONHEIGHT = 40.;
 
 - (void)closeGame
 {
+    [self.gameManager.coreDataManager saveFirstScore:[self.firstTeamScore.text intValue] andSecondScore:[self.secondTeamScore.text intValue] forEnd:[self.gameManager getEndNumber] andHash:self.gameInfo.hashLink];
     [self.gameManager finishGame];
-    NSString *score = [NSString stringWithFormat:@"%@:%@", self.firstTeamScore.text, self.secondTeamScore.text];
-    [self.gameManager.coreDataManager saveScore:score forEnd:[self.gameManager getEndNumber] andHash:self.gameInfo.hashLink];
     
     CURCoreDataManager *coreDataManager = self.gameManager.coreDataManager;
     GameInfo *gameInfo = [coreDataManager loadGamesInfoByHash:[self.gameManager getHashLink]];

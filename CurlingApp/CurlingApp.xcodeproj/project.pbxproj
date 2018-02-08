@@ -34,6 +34,7 @@
 		A20A3B9E20279D7C00795C1D /* CURGameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B9D20279D7C00795C1D /* CURGameManager.m */; };
 		A20A3BA12027A57100795C1D /* CURScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3BA02027A57100795C1D /* CURScoreView.m */; };
 		A2869A852028704D003C89D5 /* CURCloseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2869A842028704D003C89D5 /* CURCloseGameViewController.m */; };
+		C5F9547C3C2100EA295B43D9 /* libPods-CurlingApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E669D126A5834AF9A8F98D /* libPods-CurlingApp.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09FF8732802E3169612CF4EA /* Pods-CurlingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurlingApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CurlingApp/Pods-CurlingApp.release.xcconfig"; sourceTree = "<group>"; };
+		87D79E029AEB4EB03A70DE15 /* Pods-CurlingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurlingApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurlingApp/Pods-CurlingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A20156EA2029CB72000000D8 /* StoneData+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoneData+CoreDataClass.h"; sourceTree = "<group>"; };
 		A20156EB2029CB72000000D8 /* StoneData+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StoneData+CoreDataClass.m"; sourceTree = "<group>"; };
 		A20156EC2029CB72000000D8 /* StoneData+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoneData+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -103,6 +106,7 @@
 		A20A3BA22027B0D300795C1D /* CURChangeScoreProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURChangeScoreProtocol.h; sourceTree = "<group>"; };
 		A2869A832028704D003C89D5 /* CURCloseGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURCloseGameViewController.h; sourceTree = "<group>"; };
 		A2869A842028704D003C89D5 /* CURCloseGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURCloseGameViewController.m; sourceTree = "<group>"; };
+		F6E669D126A5834AF9A8F98D /* libPods-CurlingApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CurlingApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5F9547C3C2100EA295B43D9 /* libPods-CurlingApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,12 +128,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33C38C23878F654281587201 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F6E669D126A5834AF9A8F98D /* libPods-CurlingApp.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6431E5656DE4D833A2F58874 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				87D79E029AEB4EB03A70DE15 /* Pods-CurlingApp.debug.xcconfig */,
+				09FF8732802E3169612CF4EA /* Pods-CurlingApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A20A3B4920271CC500795C1D = {
 			isa = PBXGroup;
 			children = (
 				A20A3B5420271CC500795C1D /* CurlingApp */,
 				A20A3B7020271CC500795C1D /* CurlingAppTests */,
 				A20A3B5320271CC500795C1D /* Products */,
+				6431E5656DE4D833A2F58874 /* Pods */,
+				33C38C23878F654281587201 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -256,9 +280,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A20A3B7620271CC500795C1D /* Build configuration list for PBXNativeTarget "CurlingApp" */;
 			buildPhases = (
+				627F2683BC82FEC5C59FC068 /* [CP] Check Pods Manifest.lock */,
 				A20A3B4E20271CC500795C1D /* Sources */,
 				A20A3B4F20271CC500795C1D /* Frameworks */,
 				A20A3B5020271CC500795C1D /* Resources */,
+				C10ECFDA4F2B9C46A5125D91 /* [CP] Embed Pods Frameworks */,
+				5891662D29B112E2619275F0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -343,6 +370,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5891662D29B112E2619275F0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CurlingApp/Pods-CurlingApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		627F2683BC82FEC5C59FC068 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CurlingApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C10ECFDA4F2B9C46A5125D91 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CurlingApp/Pods-CurlingApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A20A3B4E20271CC500795C1D /* Sources */ = {
@@ -502,6 +580,7 @@
 		};
 		A20A3B7720271CC500795C1D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87D79E029AEB4EB03A70DE15 /* Pods-CurlingApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -515,6 +594,7 @@
 		};
 		A20A3B7820271CC500795C1D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09FF8732802E3169612CF4EA /* Pods-CurlingApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

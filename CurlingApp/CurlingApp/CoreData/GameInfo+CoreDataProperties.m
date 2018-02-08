@@ -20,5 +20,7 @@
 @dynamic teamNameSecond;
 @dynamic hashLink;
 @dynamic numberOfEnds;
+@dynamic firstTeamScore;
+@dynamic secondTeamScore;
 
 @end

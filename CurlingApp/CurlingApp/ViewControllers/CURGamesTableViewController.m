@@ -44,7 +44,8 @@
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.rowHeight = 110.;
+    self.tableView.estimatedRowHeight = 100;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerClass:[CURGameTableViewCell class] forCellReuseIdentifier:@"GameTableViewCell"];
     [self.view addSubview:self.tableView];
 }
@@ -78,6 +79,10 @@
     GameInfo *gameInfo = self.gamesArray[indexPath.row];
     cell.teamNameFirst.text = gameInfo.teamNameFirst;
     cell.teamNameSecond.text = gameInfo.teamNameSecond;
+    NSString *score = [NSString stringWithFormat:@"%d:%d", gameInfo.firstTeamScore, gameInfo.secondTeamScore];
+    cell.teamsScore.text = score;
+    
+    [cell setNeedsUpdateConstraints];
     
     return cell;
 }

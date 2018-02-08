@@ -1,0 +1,3 @@
+target ‘CurlingApp’ do
+  pod 'Masonry'
+end

@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Masonry.h"
 
 @interface CURGameTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel* teamNameFirst;
-@property (nonatomic, strong) UILabel* teamNameSecond;
+@property (nonatomic, strong) UILabel *teamNameFirst;
+@property (nonatomic, strong) UILabel *teamNameSecond;
+@property (nonatomic, strong) UILabel *teamsScore;
+@property (nonatomic, strong) UIView *colorBarFirst;
+@property (nonatomic, strong) UIView *colorBarSecond;
+@property (nonatomic, strong) UIView *colorBarScoreFirst;
+@property (nonatomic, strong) UIView *colorBarScoreSecond;
+
 
 @end

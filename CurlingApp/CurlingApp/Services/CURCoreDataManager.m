@@ -125,11 +125,26 @@
     }
 }
 
-- (void)saveScore:(NSString *)score forEnd:(NSInteger)endNumber andHash:(NSString *)hashLink
+- (void)saveFirstScore:(NSInteger)firstScore andSecondScore:(NSInteger)secondScore forHash:(NSString *)hashLink
+{
+    GameInfo *gameInfo = [self loadGamesInfoByHash:hashLink];
+    gameInfo.firstTeamScore = firstScore;
+    gameInfo.secondTeamScore = secondScore;
+    
+    NSError *error = nil;
+    if (![gameInfo.managedObjectContext save:&error])
+    {
+        NSLog(@"Object wasn't saved");
+        NSLog(@"%@, %@", error, error.localizedDescription);
+    }
+}
+
+- (void)saveFirstScore:(NSInteger)firstScore andSecondScore:(NSInteger)secondScore forEnd:(NSInteger)endNumber andHash:(NSString *)hashLink
 {
     EndScore *endScore = [NSEntityDescription insertNewObjectForEntityForName:@"EndScore" inManagedObjectContext:self.coreDataContext];
     endScore.hashLink = hashLink;
-    endScore.score = score;
+    endScore.firstTeamScore = firstScore;
+    endScore.secondTeamScore = secondScore;
     endScore.endNumber = endNumber;
     
     NSError *error = nil;
@@ -143,11 +158,17 @@
 - (void)deleteGameByHash:(NSString *)hashLink
 {
     GameInfo *gameInfo = [self loadGamesInfoByHash:hashLink];
-    NSArray *stonesToDelete = [self loadStonesDataByHash:hashLink];
     
+    NSArray *stonesToDelete = [self loadStonesDataByHash:hashLink];
     for (StoneData *stoneData in stonesToDelete)
     {
         [self.coreDataContext deleteObject:stoneData];
+    }
+    
+    NSArray *endScoresToDelete = [self loadEndScoreByHash:hashLink];
+    for (EndScore *endScore in endScoresToDelete)
+    {
+        [self.coreDataContext deleteObject:endScore];
     }
     
     [self.coreDataContext deleteObject:gameInfo];

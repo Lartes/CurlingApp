@@ -55,11 +55,13 @@ static const float INDENT = 10;
     self.teamNameFirst = [[UITextField alloc] initWithFrame:CGRectMake(INDENT, CGRectGetMaxY(self.navigationController.navigationBar.frame)+INDENT, CGRectGetWidth(self.view.frame)-INDENT*3-FIELDHEIGHT, FIELDHEIGHT)];
     self.teamNameFirst.placeholder = @"First team name";
     self.teamNameFirst.backgroundColor = [UIColor lightGrayColor];
+    self.teamNameFirst.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:self.teamNameFirst];
     
     self.teamNameSecond = [[UITextField alloc] initWithFrame:CGRectMake(INDENT, CGRectGetMaxY(self.teamNameFirst.frame)+INDENT, CGRectGetWidth(self.view.frame)-INDENT*3-FIELDHEIGHT, FIELDHEIGHT)];
     self.teamNameSecond.placeholder = @"Second team name";
     self.teamNameSecond.backgroundColor = [UIColor lightGrayColor];
+    self.teamNameSecond.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:self.teamNameSecond];
     
     self.createButton = [[UIButton alloc] initWithFrame:CGRectMake(INDENT, CGRectGetMaxY(self.teamNameSecond.frame)+INDENT, CGRectGetWidth(self.view.frame)-INDENT*2, FIELDHEIGHT)];

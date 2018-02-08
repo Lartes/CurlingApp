@@ -18,7 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) int32_t endNumber;
 @property (nullable, nonatomic, copy) NSString *hashLink;
-@property (nullable, nonatomic, copy) NSString *score;
+@property (nonatomic) int32_t firstTeamScore;
+@property (nonatomic) int32_t secondTeamScore;
 
 @end
 
