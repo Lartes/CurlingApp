@@ -8,9 +8,8 @@
 
 #import "CURCreateGameViewController.h"
 
-
-static const float FIELDHEIGHT = 40;
 static const float INDENT = 10;
+static const float FIELDHEIGHT = 40;
 
 @interface CURCreateGameViewController ()
 
@@ -34,11 +33,11 @@ static const float INDENT = 10;
 {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.teamColorFirst = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)-INDENT-FIELDHEIGHT, CGRectGetMaxY(self.navigationController.navigationBar.frame)+INDENT, FIELDHEIGHT, FIELDHEIGHT)];
+    self.teamColorFirst = [UIView new];
     self.teamColorFirst.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.teamColorFirst];
     
-    self.teamColorSecond = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)-INDENT-FIELDHEIGHT, CGRectGetMaxY(self.teamColorFirst.frame)+INDENT, FIELDHEIGHT, FIELDHEIGHT)];
+    self.teamColorSecond = [UIView new];
     self.teamColorSecond.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:self.teamColorSecond];
     
@@ -52,23 +51,66 @@ static const float INDENT = 10;
     tapRecognizerSecond.numberOfTapsRequired = 1;
     [self.teamColorSecond addGestureRecognizer:tapRecognizerSecond];
     
-    self.teamNameFirst = [[UITextField alloc] initWithFrame:CGRectMake(INDENT, CGRectGetMaxY(self.navigationController.navigationBar.frame)+INDENT, CGRectGetWidth(self.view.frame)-INDENT*3-FIELDHEIGHT, FIELDHEIGHT)];
+    self.teamNameFirst = [UITextField new];
     self.teamNameFirst.placeholder = @"First team name";
-    self.teamNameFirst.backgroundColor = [UIColor lightGrayColor];
     self.teamNameFirst.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:self.teamNameFirst];
     
-    self.teamNameSecond = [[UITextField alloc] initWithFrame:CGRectMake(INDENT, CGRectGetMaxY(self.teamNameFirst.frame)+INDENT, CGRectGetWidth(self.view.frame)-INDENT*3-FIELDHEIGHT, FIELDHEIGHT)];
+    self.teamNameSecond = [UITextField new];
     self.teamNameSecond.placeholder = @"Second team name";
-    self.teamNameSecond.backgroundColor = [UIColor lightGrayColor];
     self.teamNameSecond.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:self.teamNameSecond];
     
-    self.createButton = [[UIButton alloc] initWithFrame:CGRectMake(INDENT, CGRectGetMaxY(self.teamNameSecond.frame)+INDENT, CGRectGetWidth(self.view.frame)-INDENT*2, FIELDHEIGHT)];
+    self.teamNameFirst.borderStyle = UITextBorderStyleRoundedRect;
+    self.teamNameSecond.borderStyle = UITextBorderStyleRoundedRect;
+    
+    self.teamNameFirst.font = [UIFont systemFontOfSize:20];
+    self.teamNameSecond.font = [UIFont systemFontOfSize:20];
+    
+    self.createButton = [CURButton new];
+    self.createButton.titleLabel.font = [UIFont systemFontOfSize:20];
     [self.createButton setTitle:@"Create game" forState:UIControlStateNormal];
-    self.createButton.backgroundColor = [UIColor grayColor];
     [self.createButton addTarget:self action:@selector(createGame) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.createButton];
+}
+
+- (void)updateViewConstraints
+{
+    if (self.navigationController)
+    {
+        [self.teamNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.navigationController.navigationBar.mas_bottom).with.offset(INDENT);
+            make.left.mas_equalTo(self.view).with.offset(INDENT);
+            make.height.mas_equalTo(FIELDHEIGHT);
+        }];
+        [self.teamNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.teamNameFirst.mas_bottom).with.offset(INDENT);
+            make.left.mas_equalTo(self.teamNameFirst);
+            make.size.mas_equalTo(self.teamNameFirst);
+        }];
+        [self.teamColorFirst mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.teamNameFirst);
+            make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(INDENT);
+            make.right.mas_equalTo(self.view).with.offset(-INDENT);
+            make.width.mas_equalTo(self.teamColorFirst.mas_height);
+        }];
+        [self.teamColorSecond mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.teamColorFirst.mas_bottom).with.offset(INDENT);
+            make.left.mas_equalTo(self.teamColorFirst);
+            make.size.mas_equalTo(self.teamColorFirst);
+            make.bottom.mas_equalTo(self.teamNameSecond);
+        }];
+        [self.createButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.teamNameSecond.mas_bottom).with.offset(INDENT);
+            make.left.mas_greaterThanOrEqualTo(self.view).with.offset(INDENT);
+            make.right.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
+            make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(INDENT);
+            make.centerX.mas_equalTo(self.view);
+            make.height.mas_equalTo(FIELDHEIGHT);
+        }];
+    }
+    
+    [super updateViewConstraints];
 }
 
 - (void)createGame
@@ -76,7 +118,7 @@ static const float INDENT = 10;
     CURGameInfo *gameInfo = [CURGameInfo new];
     gameInfo.teamNameFirst = self.teamNameFirst.text;
     gameInfo.teamNameSecond = self.teamNameSecond.text;
-    gameInfo.hashLink = [NSString stringWithFormat:@"%@%@", gameInfo.teamNameFirst, gameInfo.teamNameSecond ];
+    gameInfo.hashLink = [NSString stringWithFormat:@"%@%@%d", gameInfo.teamNameFirst, gameInfo.teamNameSecond, rand()];
     [self.coreDataManager saveGameInfo:gameInfo];
     
     CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:self.teamColorFirst.backgroundColor andHash:gameInfo.hashLink];

@@ -37,17 +37,31 @@
 
 - (void)prepareUI
 {
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     self.navigationItem.title = @"Games";
     UIBarButtonItem *newButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewGame)];
     self.navigationItem.rightBarButtonItem = newButton;
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.estimatedRowHeight = 100;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerClass:[CURGameTableViewCell class] forCellReuseIdentifier:@"GameTableViewCell"];
     [self.view addSubview:self.tableView];
+}
+
+- (void)updateViewConstraints
+{
+    if (self.navigationController)
+    {
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.navigationController.navigationBar.mas_bottom);
+            make.left.right.and.bottom.mas_equalTo(self.view);
+        }];
+    }
+    
+    [super updateViewConstraints];
 }
 
 - (void)loadData

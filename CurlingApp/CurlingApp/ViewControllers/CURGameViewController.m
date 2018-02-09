@@ -8,11 +8,14 @@
 
 #import "CURGameViewController.h"
 
+static const float INDENT = 10.;
+
 @interface CURGameViewController ()
 
 @property (nonatomic, strong) CURScrollView *trackScrollView;
 @property (nonatomic, strong) CURScoreView *scoreView;
 @property (nonatomic, strong) CURGameManager *gameManager;
+@property (nonatomic, strong) UIButton *nextButton;
 
 @end
 
@@ -50,7 +53,7 @@
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
     self.navigationItem.rightBarButtonItem = closeButton;
     
-    self.trackScrollView = [[CURScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.navigationController.navigationBar.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - CGRectGetMaxY(self.navigationController.navigationBar.frame))];
+    self.trackScrollView = [CURScrollView new];
     self.trackScrollView.showsVerticalScrollIndicator = NO;
     self.trackScrollView.output = self;
     
@@ -61,11 +64,27 @@
     [self.trackScrollView addSubview:imageView];
     [self.view addSubview:self.trackScrollView];
     
-    UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)*2/3, CGRectGetHeight(self.view.frame)-40, CGRectGetWidth(self.view.frame)/3, 30)];
-    nextButton.backgroundColor = [UIColor grayColor];
-    [nextButton setTitle:@"Next stone" forState:UIControlStateNormal];
-    [nextButton addTarget:self action:@selector(nextStone) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:nextButton];
+    self.nextButton = [CURButton new];
+    [self.nextButton setTitle:@"Next stone" forState:UIControlStateNormal];
+    [self.nextButton addTarget:self action:@selector(nextStone) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.nextButton];
+}
+
+- (void)updateViewConstraints
+{
+    if (self.navigationController)
+    {
+        [self.trackScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.navigationController.navigationBar.mas_bottom);
+            make.left.right.and.bottom.mas_equalTo(self.view);
+        }];
+        [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
+            make.right.mas_equalTo(self.view).with.offset(-INDENT);
+        }];
+    }
+    
+    [super updateViewConstraints];
 }
 
 - (void)nextStone

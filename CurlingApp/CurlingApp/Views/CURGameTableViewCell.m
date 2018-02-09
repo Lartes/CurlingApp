@@ -9,10 +9,7 @@
 #import "CURGameTableViewCell.h"
 
 static const CGFloat INDENT = 10.;
-/*
-static const float LABELHEIGHT = 40.;
-static const float INDENT = 10.;
-*/
+
 @implementation CURGameTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -49,13 +46,7 @@ static const float INDENT = 10.;
         _colorBarScoreFirst.backgroundColor = [UIColor redColor];
         _colorBarSecond.backgroundColor = [UIColor yellowColor];
         _colorBarScoreSecond.backgroundColor = [UIColor yellowColor];
-        /*
-        _teamNameFirst.backgroundColor = [UIColor lightGrayColor];
-        _teamNameSecond.backgroundColor = [UIColor lightGrayColor];
-        _teamScoreFirst.backgroundColor = [UIColor lightGrayColor];
-        _teamScoreSecond.backgroundColor = [UIColor lightGrayColor];
-        _vsLabel.backgroundColor = [UIColor grayColor];
-        */
+
         [self.contentView addSubview:_teamNameFirst];
         [self.contentView addSubview:_teamNameSecond];
         [self.contentView addSubview:_teamsScore];
@@ -63,13 +54,6 @@ static const float INDENT = 10.;
         [self.contentView addSubview:_colorBarSecond];
         [self.contentView addSubview:_colorBarScoreFirst];
         [self.contentView addSubview:_colorBarScoreSecond];
-        /*
-        _teamNameFirst = [[UILabel alloc] initWithFrame:CGRectMake(0., 0., 0., 0.)];
-        [self.contentView addSubview:_teamNameFirst];
-        
-        _teamNameSecond = [[UILabel alloc] initWithFrame:CGRectMake(0., 0., 0., 0.)];
-        [self.contentView addSubview:_teamNameSecond];
-         */
     }
     return self;
 }
@@ -119,14 +103,6 @@ static const float INDENT = 10.;
     
     [super updateConstraints];
 }
-
-/*
- - (void)layoutSubviews
- {
- self.teamNameFirst.frame = CGRectMake(INDENT, INDENT, CGRectGetWidth(self.contentView.frame)-INDENT*2, LABELHEIGHT);
- self.teamNameSecond.frame = CGRectMake(INDENT, LABELHEIGHT + INDENT*2, CGRectGetWidth(self.contentView.frame)-INDENT*2, LABELHEIGHT);
- }
- */
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

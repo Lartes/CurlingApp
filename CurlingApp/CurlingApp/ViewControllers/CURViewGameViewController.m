@@ -8,14 +8,19 @@
 
 #import "CURViewGameViewController.h"
 
-static const float LABELHEIGHT = 40.;
 static const float INDENT = 10.;
 
 @interface CURViewGameViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) UILabel* teamNameFirst;
-@property (nonatomic, strong) UILabel* teamNameSecond;
-@property (nonatomic, strong) UIButton *viewButton;
+@property (nonatomic, strong) UILabel *teamNameFirst;
+@property (nonatomic, strong) UILabel *teamNameSecond;
+@property (nonatomic, strong) UILabel *teamsScore;
+@property (nonatomic, strong) UIView *colorBarTopNameFirst;
+@property (nonatomic, strong) UIView *colorBarBottomNameFirst;
+@property (nonatomic, strong) UIView *colorBarTopNameSecond;
+@property (nonatomic, strong) UIView *colorBarBottomNameSecond;
+@property (nonatomic, strong) UIView *colorBarLeftScore;
+@property (nonatomic, strong) UIView *colorBarRightScore;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<EndScore *> *scoresArray;
 
@@ -27,7 +32,6 @@ static const float INDENT = 10.;
     [super viewDidLoad];
     
     [self prepareUI];
-    
     [self loadData];
     [self.tableView reloadData];
 }
@@ -39,33 +43,134 @@ static const float INDENT = 10.;
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Games" style:UIBarButtonItemStylePlain target:self action:@selector(toMainView)];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    self.teamNameFirst = [[UILabel alloc] initWithFrame:CGRectMake(INDENT, CGRectGetMaxY(self.navigationController.navigationBar.frame)+INDENT, CGRectGetWidth(self.view.frame)/2-INDENT*2, LABELHEIGHT)];
-    self.teamNameFirst.textColor = [UIColor blackColor];
-    self.teamNameFirst.text = self.gameInfo.teamNameFirst;
-    self.teamNameFirst.textAlignment = NSTextAlignmentRight;
-    [self.view addSubview:self.teamNameFirst];
-    
-    self.teamNameSecond = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.teamNameFirst.frame)+INDENT*2, CGRectGetMinY(self.teamNameFirst.frame), CGRectGetWidth(self.view.frame)/2.-INDENT*2, LABELHEIGHT)];
-    self.teamNameSecond.textColor = [UIColor blackColor];
-    self.teamNameSecond.text = self.gameInfo.teamNameSecond;
-    self.teamNameSecond.textAlignment = NSTextAlignmentLeft;
-    [self.view addSubview:self.teamNameSecond];
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(INDENT, CGRectGetMaxY(self.teamNameFirst.frame)+INDENT, CGRectGetWidth(self.view.frame)-INDENT*2, CGRectGetHeight(self.view.frame)-CGRectGetMaxY(self.navigationController.navigationBar.frame)-LABELHEIGHT-INDENT*2) style:UITableViewStylePlain];
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.rowHeight = 50.;
-    [self.tableView registerClass:[CURScoreTableViewCell class] forCellReuseIdentifier:@"ScoreTableViewCell"];
-    [self.view addSubview:self.tableView];
-    
     UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteGame)];
     self.navigationItem.rightBarButtonItem = deleteButton;
     
-    self.viewButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)*2/3, CGRectGetHeight(self.view.frame)-40, CGRectGetWidth(self.view.frame)/3, 30)];
-    self.viewButton.backgroundColor = [UIColor grayColor];
-    [self.viewButton setTitle:@"Show game" forState:UIControlStateNormal];
-    [self.viewButton addTarget:self action:@selector(showGame) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.viewButton];
+    self.teamNameFirst = [UILabel new];
+    self.teamNameFirst.textColor = [UIColor blackColor];
+    self.teamNameFirst.text = self.gameInfo.teamNameFirst;
+    self.teamNameFirst.textAlignment = NSTextAlignmentRight;
+    self.teamNameFirst.numberOfLines = 0;
+    [self.view addSubview:self.teamNameFirst];
+    
+    self.teamNameSecond = [UILabel new];
+    self.teamNameSecond.textColor = [UIColor blackColor];
+    self.teamNameSecond.text = self.gameInfo.teamNameSecond;
+    self.teamNameSecond.textAlignment = NSTextAlignmentLeft;
+    self.teamNameSecond.numberOfLines = 0;
+    [self.view addSubview:self.teamNameSecond];
+    
+    self.teamsScore =[UILabel new];
+    self.teamsScore.textColor = [UIColor blackColor];
+    self.teamsScore.textAlignment = NSTextAlignmentCenter;
+    self.teamsScore.numberOfLines = 1;
+    NSString *score = [NSString stringWithFormat:@"%d:%d", self.gameInfo.firstTeamScore, self.gameInfo.secondTeamScore];
+    self.teamsScore.text = score;
+    [self.view addSubview:self.teamsScore];
+    
+    self.colorBarTopNameFirst = [UIView new];
+    self.colorBarBottomNameFirst = [UIView new];
+    self.colorBarTopNameSecond = [UIView new];
+    self.colorBarBottomNameSecond = [UIView new];
+    self.colorBarLeftScore = [UIView new];
+    self.colorBarRightScore = [UIView new];
+    
+    self.colorBarTopNameFirst.backgroundColor = [UIColor redColor];
+    self.colorBarBottomNameFirst.backgroundColor = [UIColor redColor];
+    self.colorBarTopNameSecond.backgroundColor = [UIColor yellowColor];
+    self.colorBarBottomNameSecond.backgroundColor = [UIColor yellowColor];
+    self.colorBarLeftScore.backgroundColor = [UIColor redColor];
+    self.colorBarRightScore.backgroundColor = [UIColor yellowColor];
+    
+    [self.view addSubview:self.colorBarTopNameFirst];
+    [self.view addSubview:self.colorBarBottomNameFirst];
+    [self.view addSubview:self.colorBarTopNameSecond];
+    [self.view addSubview:self.colorBarBottomNameSecond];
+    [self.view addSubview:self.colorBarLeftScore];
+    [self.view addSubview:self.colorBarRightScore];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    [self.tableView registerClass:[CURScoreTableViewCell class] forCellReuseIdentifier:@"ScoreTableViewCell"];
+    [self.view addSubview:self.tableView];
+    
+    self.teamsScore.font = [UIFont systemFontOfSize:30];
+    self.teamNameFirst.font = [UIFont systemFontOfSize:23];
+    self.teamNameSecond.font = [UIFont systemFontOfSize:23];
+    /*
+    self.teamNameFirst.backgroundColor = [UIColor lightGrayColor];
+    self.teamNameSecond.backgroundColor = [UIColor lightGrayColor];
+    self.teamsScore.backgroundColor = [UIColor lightGrayColor];
+    self.tableView.backgroundColor = [UIColor grayColor];
+    */
+}
+
+- (void)updateViewConstraints
+{
+    if(self.navigationController)
+    {
+        [self.colorBarTopNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.view).with.offset(INDENT);
+            make.top.mas_equalTo(self.navigationController.navigationBar.mas_bottom).with.offset(INDENT);
+            make.height.mas_equalTo(INDENT);
+        }];
+        [self.teamNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.colorBarTopNameFirst);
+            make.top.mas_equalTo(self.colorBarTopNameFirst.mas_bottom);
+        }];
+        [self.colorBarBottomNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.colorBarTopNameFirst);
+            make.top.mas_equalTo(self.teamNameFirst.mas_bottom);
+            make.size.mas_equalTo(self.colorBarTopNameFirst);
+        }];
+        
+        [self.colorBarTopNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.colorBarTopNameFirst.mas_right);
+            make.right.mas_equalTo(self.view).with.offset(-INDENT);
+            make.top.mas_equalTo(self.colorBarTopNameFirst);
+            make.size.mas_equalTo(self.colorBarTopNameFirst);
+        }];
+        [self.teamNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(INDENT);
+            make.right.mas_equalTo(self.view).with.offset(-INDENT);
+            make.top.mas_equalTo(self.colorBarTopNameSecond.mas_bottom);
+            make.size.mas_equalTo(self.teamNameFirst);
+        }];
+        [self.colorBarBottomNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.colorBarTopNameSecond);
+            make.top.mas_equalTo(self.teamNameSecond.mas_bottom);
+            make.size.mas_equalTo(self.colorBarTopNameSecond);
+        }];
+        
+        [self.colorBarLeftScore mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_greaterThanOrEqualTo(self.view).with.offset(INDENT);
+            make.top.mas_equalTo(self.teamsScore);
+            make.bottom.mas_equalTo(self.teamsScore);
+            make.width.mas_equalTo(INDENT);
+        }];
+        [self.teamsScore mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.colorBarLeftScore.mas_right).with.offset(INDENT);
+            make.top.mas_equalTo(self.colorBarBottomNameFirst.mas_bottom).with.offset(INDENT);
+            make.centerX.mas_equalTo(self.view);
+        }];
+        [self.colorBarRightScore mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.teamsScore.mas_right).with.offset(INDENT);
+            make.right.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
+            make.top.mas_equalTo(self.teamsScore);
+            make.size.mas_equalTo(self.colorBarLeftScore);
+        }];
+        
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.view).with.offset(INDENT);
+            make.right.mas_equalTo(self.view).with.offset(-INDENT);
+            make.top.mas_equalTo(self.teamsScore.mas_bottom).with.offset(INDENT);
+            make.bottom.mas_equalTo(self.view);
+        }];
+    }
+    
+    [super updateViewConstraints];
 }
 
 - (void)loadData
@@ -87,14 +192,6 @@ static const float INDENT = 10.;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)showGame
-{
-    CURShowGameManager *gameManager = [[CURShowGameManager alloc] initWithGameInfo:self.gameInfo andEndNumber:1];
-    gameManager.coreDataManager = self.coreDataManager;
-    
-    CURShowGameViewController *gameViewController = [[CURShowGameViewController alloc] initWithManager:gameManager];
-    [self.navigationController pushViewController:gameViewController animated:YES];
-}
 
 #pragma mark - UITableViewDataSource
 
@@ -110,7 +207,9 @@ static const float INDENT = 10.;
     EndScore *endScore = self.scoresArray[indexPath.row];
     NSString *score = [NSString stringWithFormat:@"%d:%d", endScore.firstTeamScore, endScore.secondTeamScore];
     cell.score.text = score;
-    cell.score.textAlignment = NSTextAlignmentCenter;
+    cell.endNumber.text = [NSString stringWithFormat:@"%d.", endScore.endNumber];
+    
+    [cell setNeedsUpdateConstraints];
     
     return cell;
 }
