@@ -8,6 +8,8 @@
 
 #import "CURShowGameViewController.h"
 
+static const float INDENT = 10.;
+
 @interface CURShowGameViewController ()
 
 @property (nonatomic, strong) CURScrollView *trackScrollView;
@@ -51,7 +53,7 @@
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
     self.navigationItem.rightBarButtonItem = closeButton;
     
-    self.trackScrollView = [[CURScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.navigationController.navigationBar.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - CGRectGetMaxY(self.navigationController.navigationBar.frame))];
+    self.trackScrollView = [CURScrollView new];
     self.trackScrollView.showsVerticalScrollIndicator = NO;
     self.trackScrollView.output = self;
     
@@ -62,18 +64,13 @@
     [self.trackScrollView addSubview:imageView];
     [self.view addSubview:self.trackScrollView];
     
-    self.nextEndButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)*2/3, CGRectGetHeight(self.view.frame)-40, CGRectGetWidth(self.view.frame)/3, 30)];
-    self.nextEndButton.backgroundColor = [UIColor grayColor];
+    self.nextEndButton = [CURButton new];
     [self.nextEndButton setTitle:@"Next end" forState:UIControlStateNormal];
     [self.nextEndButton addTarget:self action:@selector(nextEnd) forControlEvents:UIControlEventTouchUpInside];
-    if ([self.showGameManager isLastEnd])
-    {
-        self.nextEndButton.hidden = YES;
-    }
+    self.nextEndButton.hidden = YES;
     [self.view addSubview:self.nextEndButton];
     
-    self.previousEndButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame)-40, CGRectGetWidth(self.view.frame)/3, 30)];
-    self.previousEndButton.backgroundColor = [UIColor grayColor];
+    self.previousEndButton = [CURButton new];
     [self.previousEndButton setTitle:@"Past end" forState:UIControlStateNormal];
     [self.previousEndButton addTarget:self action:@selector(previousEnd) forControlEvents:UIControlEventTouchUpInside];
     if ([self.showGameManager isFirstEnd])
@@ -82,14 +79,12 @@
     }
     [self.view addSubview:self.previousEndButton];
     
-    self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)*2/3, CGRectGetHeight(self.view.frame)-40, CGRectGetWidth(self.view.frame)/3, 30)];
-    self.nextButton.backgroundColor = [UIColor grayColor];
+    self.nextButton = [CURButton new];
     [self.nextButton setTitle:@"-->" forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextStone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.nextButton];
     
-    self.previousButton = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame)-40, CGRectGetWidth(self.view.frame)/3, 30)];
-    self.previousButton.backgroundColor = [UIColor grayColor];
+    self.previousButton = [CURButton new];
     [self.previousButton setTitle:@"<--" forState:UIControlStateNormal];
     [self.previousButton addTarget:self action:@selector(previousStone) forControlEvents:UIControlEventTouchUpInside];
     self.previousButton.hidden = YES;
@@ -102,24 +97,64 @@
     }
 }
 
+- (void)updateViewConstraints
+{
+    if (self.navigationController)
+    {
+        [self.trackScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.navigationController.navigationBar.mas_bottom);
+            make.left.right.and.bottom.mas_equalTo(self.view);
+        }];
+        [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
+            make.right.mas_equalTo(self.view).with.offset(-INDENT);
+        }];
+        [self.nextEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
+            make.right.mas_equalTo(self.view).with.offset(-INDENT);
+        }];
+        [self.previousButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
+            make.left.mas_equalTo(self.view).with.offset(INDENT);
+        }];
+        [self.previousEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
+            make.left.mas_equalTo(self.view).with.offset(INDENT);
+        }];
+    }
+    
+    [super updateViewConstraints];
+}
+
 - (void)nextStone
 {
     self.nextButton.hidden = [self.showGameManager showNextStep];
     self.previousButton.hidden = NO;
+    self.previousEndButton.hidden = YES;
+    if (![self.showGameManager isLastEnd])
+    {
+        self.nextEndButton.hidden = !self.nextButton.hidden;
+    }
 }
 
 - (void)previousStone
 {
     self.previousButton.hidden = [self.showGameManager showPreviousStep];
     self.nextButton.hidden = NO;
+    self.nextEndButton.hidden = YES;
+    if (![self.showGameManager isFirstEnd])
+    {
+        self.previousEndButton.hidden = !self.previousButton.hidden;
+    }
 }
 
 - (void)nextEnd
 {
     [self.scoreView resetScore];
-    self.nextEndButton.hidden = [self.showGameManager changeEndOnNumber:1];
-    self.previousEndButton.hidden = NO;
+    [self.showGameManager changeEndOnNumber:1];
     
+    self.nextEndButton.hidden = YES;
+    self.previousEndButton.hidden = NO;
     self.previousButton.hidden = YES;
     self.nextButton.hidden = NO;
 }
@@ -127,9 +162,13 @@
 - (void)previousEnd
 {
     [self.scoreView resetScore];
-    self.previousEndButton.hidden = [self.showGameManager changeEndOnNumber:-1];
-    self.nextEndButton.hidden = NO;
+    [self.showGameManager changeEndOnNumber:-1];
     
+    if ([self.showGameManager isFirstEnd])
+    {
+        self.previousEndButton.hidden = YES;
+    }
+    self.nextEndButton.hidden = YES;
     self.previousButton.hidden = YES;
     self.nextButton.hidden = NO;
 }

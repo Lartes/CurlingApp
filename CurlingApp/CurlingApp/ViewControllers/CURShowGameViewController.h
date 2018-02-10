@@ -12,6 +12,8 @@
 #import "CURCloseGameViewController.h"
 #import "CURScrollView.h"
 #import "CURScoreView.h"
+#import "CURButton.h"
+#import "Masonry.h"
 
 @interface CURShowGameViewController : UIViewController <CURTouchDetectProtocol>
 

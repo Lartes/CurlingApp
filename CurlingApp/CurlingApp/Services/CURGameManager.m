@@ -70,6 +70,16 @@
 
 - (void)finishGame
 {
+    NSInteger firstTeamScore = 0;
+    NSInteger secondTeamScore = 0;
+    NSArray<EndScore *> *endScores = [self.coreDataManager loadEndScoreByHash:self.hashLink];
+    for (EndScore *endScore in endScores)
+    {
+        firstTeamScore += endScore.firstTeamScore;
+        secondTeamScore += endScore.secondTeamScore;
+    }
+    [self.coreDataManager saveFirstScore:firstTeamScore andSecondScore:secondTeamScore forHash:self.hashLink];
+    
     [self.coreDataManager saveNumberOfEnds:self.endNumber forHash:self.hashLink];
 }
 

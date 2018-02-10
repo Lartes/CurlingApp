@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Masonry.h"
 
 @interface CURScoreTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *score;
+@property (nonatomic, strong) UILabel *endNumber;
 
 @end

@@ -8,7 +8,6 @@
 
 #import "CURScoreTableViewCell.h"
 
-static const float LABELHEIGHT = 40.;
 static const float INDENT = 10.;
 
 @implementation CURScoreTableViewCell
@@ -18,16 +17,37 @@ static const float INDENT = 10.;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self)
     {
-        _score = [[UILabel alloc] initWithFrame:CGRectMake(0., 0., 0., 0.)];
+        _score = [UILabel new];
+        _endNumber = [UILabel new];
+        
+        _score.textAlignment = NSTextAlignmentCenter;
+        _endNumber.textAlignment = NSTextAlignmentCenter;
+        
+        _score.textColor = [UIColor blackColor];
+        _endNumber.textColor = [UIColor blackColor];
+        
+        _score.font = [UIFont systemFontOfSize:23];
+        
         [self.contentView addSubview:_score];
+        [self.contentView addSubview:_endNumber];
     }
     return self;
 }
 
-- (void)layoutSubviews
+- (void)updateConstraints
 {
-    self.score.frame = CGRectMake(INDENT, INDENT, CGRectGetWidth(self.contentView.frame)-INDENT*2, LABELHEIGHT);
-    self.score.textAlignment = NSTextAlignmentCenter;
+    [self.score mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.endNumber);
+        make.bottom.mas_equalTo(self.endNumber);
+        make.centerX.mas_equalTo(self.contentView);
+    }];
+    [self.endNumber mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.contentView).with.offset(INDENT/2.);
+        make.bottom.mas_equalTo(self.contentView).with.offset(-INDENT/2.);
+        make.left.mas_equalTo(self.contentView).with.offset(INDENT);
+    }];
+    
+    [super updateConstraints];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
