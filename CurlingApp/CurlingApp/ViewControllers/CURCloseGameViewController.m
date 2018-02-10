@@ -32,6 +32,7 @@ static const CGFloat INDENT = 10.;
 
 - (void)prepareUI
 {
+    self.navigationItem.title = @"Score";
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.hidesBackButton = YES;
@@ -50,23 +51,25 @@ static const CGFloat INDENT = 10.;
     self.teamNameSecond.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:self.teamNameSecond];
     
-    self.teamNameFirst.font = [UIFont systemFontOfSize:20];
-    self.teamNameSecond.font = [UIFont systemFontOfSize:20];
+    self.teamNameFirst.font = [UIFont systemFontOfSize:23];
+    self.teamNameSecond.font = [UIFont systemFontOfSize:23];
     
     self.firstTeamScore = [UITextField new];
     self.firstTeamScore.keyboardType = UIKeyboardTypeNumberPad;
-    self.firstTeamScore.text = @"0";
-    self.firstTeamScore.backgroundColor = [UIColor lightGrayColor];
+    self.firstTeamScore.textAlignment = NSTextAlignmentCenter;
+    self.firstTeamScore.borderStyle = UITextBorderStyleRoundedRect;
+    self.firstTeamScore.placeholder = @"-";
     [self.view addSubview:self.firstTeamScore];
     
     self.secondTeamScore = [UITextField new];
     self.secondTeamScore.keyboardType = UIKeyboardTypeNumberPad;
-    self.secondTeamScore.text = @"0";
-    self.secondTeamScore.backgroundColor = [UIColor lightGrayColor];
+    self.secondTeamScore.textAlignment = NSTextAlignmentCenter;
+    self.secondTeamScore.borderStyle = UITextBorderStyleRoundedRect;
+    self.secondTeamScore.placeholder = @"-";
     [self.view addSubview:self.secondTeamScore];
     
-    self.firstTeamScore.font = [UIFont systemFontOfSize:20];
-    self.secondTeamScore.font = [UIFont systemFontOfSize:20];
+    self.firstTeamScore.font = [UIFont systemFontOfSize:30];
+    self.secondTeamScore.font = [UIFont systemFontOfSize:30];
     
     self.nextEndButton = [CURButton new];
     [self.nextEndButton setTitle:@"Next end" forState:UIControlStateNormal];
@@ -91,10 +94,13 @@ static const CGFloat INDENT = 10.;
             make.top.mas_equalTo(self.teamNameFirst.mas_bottom).with.offset(INDENT);
             make.left.mas_equalTo(self.teamNameFirst);
             make.size.mas_equalTo(self.teamNameFirst);
+            make.bottom.mas_equalTo(self.secondTeamScore);
         }];
         [self.firstTeamScore mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_greaterThanOrEqualTo(self.teamNameFirst);
             make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(INDENT);
+            make.right.mas_equalTo(self.view).with.offset(-INDENT*2);
+            //make.width.mas_equalTo(self.firstTeamScore.mas_height);
         }];
         [self.secondTeamScore mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.firstTeamScore.mas_bottom).with.offset(INDENT);
@@ -109,6 +115,7 @@ static const CGFloat INDENT = 10.;
             make.top.mas_equalTo(self.nextEndButton.mas_bottom).with.offset(INDENT);
             make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
             make.centerX.mas_equalTo(self.view);
+            make.size.mas_equalTo(self.nextEndButton);
         }];
     }
     
