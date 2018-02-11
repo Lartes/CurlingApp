@@ -137,6 +137,7 @@ static const float FIELDHEIGHT = 40;
     gameInfo.teamNameSecond = self.teamNameSecond.text;
     gameInfo.hashLink = [NSString stringWithFormat:@"%@%@%d", gameInfo.teamNameFirst, gameInfo.teamNameSecond, rand()];
     gameInfo.date = [NSDate date];
+    gameInfo.isFirstTeamColorRed = self.teamColorFirst.backgroundColor == [UIColor redColor];
     [self.coreDataManager saveGameInfo:gameInfo];
     
     CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:self.teamColorFirst.backgroundColor andHash:gameInfo.hashLink];

@@ -46,6 +46,7 @@
 
 - (NSArray *)startShowGame
 {
+    [self.output setEndNumber:self.endNumber];
     self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink andEndNumber:self.endNumber];
     self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
     
@@ -68,6 +69,7 @@
 - (BOOL)changeEndOnNumber:(NSInteger)number;
 {
     self.endNumber += number;
+    [self.output setEndNumber:self.endNumber];
     self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink andEndNumber:self.endNumber];
     self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
     for (int i = 0; i<16; i++)

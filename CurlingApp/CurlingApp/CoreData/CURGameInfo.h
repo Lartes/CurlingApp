@@ -14,5 +14,6 @@
 @property (nullable, nonatomic, copy) NSString *teamNameFirst;
 @property (nullable, nonatomic, copy) NSString *teamNameSecond;
 @property (nullable, nonatomic, copy) NSString *hashLink;
+@property (nonatomic) BOOL isFirstTeamColorRed;
 
 @end

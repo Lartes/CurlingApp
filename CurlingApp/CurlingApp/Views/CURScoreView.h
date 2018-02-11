@@ -11,6 +11,8 @@
 
 @interface CURScoreView : UIView <CURChangeScoreProtocol>
 
+- (instancetype)initWithFrame:(CGRect)frame andCenterX:(CGFloat)centerX;
+
 - (void)resetScore;
 
 @end

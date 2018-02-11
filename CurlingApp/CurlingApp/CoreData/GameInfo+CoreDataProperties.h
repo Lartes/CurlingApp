@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t numberOfEnds;
 @property (nonatomic) int32_t firstTeamScore;
 @property (nonatomic) int32_t secondTeamScore;
+@property (nonatomic) BOOL isFirstTeamColorRed;
 
 @end
 

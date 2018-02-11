@@ -22,5 +22,6 @@
 @dynamic numberOfEnds;
 @dynamic firstTeamScore;
 @dynamic secondTeamScore;
+@dynamic isFirstTeamColorRed;
 
 @end

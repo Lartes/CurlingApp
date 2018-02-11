@@ -75,12 +75,20 @@ static const float INDENT = 10.;
     self.colorBarLeftScore = [UIView new];
     self.colorBarRightScore = [UIView new];
     
-    self.colorBarTopNameFirst.backgroundColor = [UIColor redColor];
-    self.colorBarBottomNameFirst.backgroundColor = [UIColor redColor];
-    self.colorBarTopNameSecond.backgroundColor = [UIColor yellowColor];
-    self.colorBarBottomNameSecond.backgroundColor = [UIColor yellowColor];
-    self.colorBarLeftScore.backgroundColor = [UIColor redColor];
-    self.colorBarRightScore.backgroundColor = [UIColor yellowColor];
+    UIColor *firstColor = [UIColor redColor];
+    UIColor *secondColor = [UIColor yellowColor];
+    if(!self.gameInfo.isFirstTeamColorRed)
+    {
+        firstColor = [UIColor yellowColor];
+        secondColor = [UIColor redColor];
+    }
+    
+    self.colorBarTopNameFirst.backgroundColor = firstColor;
+    self.colorBarBottomNameFirst.backgroundColor = firstColor;
+    self.colorBarTopNameSecond.backgroundColor = secondColor;
+    self.colorBarBottomNameSecond.backgroundColor = secondColor;
+    self.colorBarLeftScore.backgroundColor = firstColor;
+    self.colorBarRightScore.backgroundColor = secondColor;
     
     [self.view addSubview:self.colorBarTopNameFirst];
     [self.view addSubview:self.colorBarBottomNameFirst];
@@ -208,7 +216,7 @@ static const float INDENT = 10.;
     EndScore *endScore = self.scoresArray[indexPath.row];
     NSString *score = [NSString stringWithFormat:@"%d:%d", endScore.firstTeamScore, endScore.secondTeamScore];
     cell.score.text = score;
-    cell.endNumber.text = [NSString stringWithFormat:@"%d.", endScore.endNumber];
+    cell.endNumber.text = [NSString stringWithFormat:@"%d энд", endScore.endNumber];
     
     [cell setNeedsUpdateConstraints];
     

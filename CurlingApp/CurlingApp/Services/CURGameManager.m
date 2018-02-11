@@ -62,6 +62,7 @@
 - (void)startEnd
 {
     self.endNumber += 1;
+    [self.output setEndNumber:self.endNumber];
     [self.stonesArray removeAllObjects];
     self.isEndFinishedBool = NO;
     self.stepNumber = 1;

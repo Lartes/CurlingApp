@@ -45,13 +45,13 @@ static const float INDENT = 10.;
     self.navigationItem.hidesBackButton = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, 120, CGRectGetHeight(self.navigationController.navigationBar.frame))];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
+    self.navigationItem.rightBarButtonItem = closeButton;
+    
+    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.navigationController.navigationBar.frame)) andCenterX:self.view.center.x - 8.];
     self.navigationItem.titleView = self.scoreView;
     
     self.gameManager.output = self.scoreView;
-    
-    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
-    self.navigationItem.rightBarButtonItem = closeButton;
     
     self.trackScrollView = [CURScrollView new];
     self.trackScrollView.showsVerticalScrollIndicator = NO;

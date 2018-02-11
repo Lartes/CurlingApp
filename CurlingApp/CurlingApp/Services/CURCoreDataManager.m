@@ -109,6 +109,7 @@
     gameInfo.teamNameSecond = gameInfoToSave.teamNameSecond;
     gameInfo.hashLink = gameInfoToSave.hashLink;
     gameInfo.date = gameInfoToSave.date;
+    gameInfo.isFirstTeamColorRed = gameInfoToSave.isFirstTeamColorRed;
     
     NSError *error = nil;
     if (![gameInfo.managedObjectContext save:&error])

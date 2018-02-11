@@ -38,9 +38,10 @@
 {
     UITouch *touch = touches.allObjects.firstObject;
     CGPoint touchCoord = [touch locationInView:self];
+    touchCoord = CGPointMake(MIN(MAX(touchCoord.x, 0), CGRectGetWidth(self.frame)),
+                       MIN(MAX(touchCoord.y, 0), CGRectGetHeight(self.frame)));
     UIView *touchView = touch.view;
     [self.output touchHappendAtCoord:touchCoord onView:touchView];
-    //NSLog(@"касание идет c координатами x = %f, y = %f", touchCoord.x, touchCoord.y);
 }
 
 @end

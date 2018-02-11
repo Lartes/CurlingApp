@@ -97,6 +97,10 @@
     cell.teamNameSecond.text = gameInfo.teamNameSecond;
     NSString *score = [NSString stringWithFormat:@"%d:%d", gameInfo.firstTeamScore, gameInfo.secondTeamScore];
     cell.teamsScore.text = score;
+    if(!gameInfo.isFirstTeamColorRed)
+    {
+        [cell makeFirstTeamColorYellow];
+    }
     
     [cell setNeedsUpdateConstraints];
     

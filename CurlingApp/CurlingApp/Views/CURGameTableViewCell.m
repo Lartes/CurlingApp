@@ -104,6 +104,14 @@ static const CGFloat INDENT = 10.;
     [super updateConstraints];
 }
 
+- (void)makeFirstTeamColorYellow
+{
+    _colorBarFirst.backgroundColor = [UIColor yellowColor];
+    _colorBarScoreFirst.backgroundColor = [UIColor yellowColor];
+    _colorBarSecond.backgroundColor = [UIColor redColor];
+    _colorBarScoreSecond.backgroundColor = [UIColor redColor];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
