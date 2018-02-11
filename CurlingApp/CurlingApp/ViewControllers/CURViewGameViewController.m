@@ -99,12 +99,6 @@ static const float INDENT = 10.;
     self.teamsScore.font = [UIFont systemFontOfSize:30];
     self.teamNameFirst.font = [UIFont systemFontOfSize:23];
     self.teamNameSecond.font = [UIFont systemFontOfSize:23];
-    /*
-    self.teamNameFirst.backgroundColor = [UIColor lightGrayColor];
-    self.teamNameSecond.backgroundColor = [UIColor lightGrayColor];
-    self.teamsScore.backgroundColor = [UIColor lightGrayColor];
-    self.tableView.backgroundColor = [UIColor grayColor];
-    */
 }
 
 - (void)updateViewConstraints

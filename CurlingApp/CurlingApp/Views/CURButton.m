@@ -25,4 +25,15 @@
     return self;
 }
 
+- (void)tapAnimation
+{
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    animation.repeatCount = 1;
+    animation.duration = 0.1;
+    animation.autoreverses = YES;
+    animation.fromValue = @1;
+    animation.toValue = @0.2;
+    [self.layer addAnimation:animation forKey:@"basicanimkey"];
+}
+    
 @end

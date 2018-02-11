@@ -12,8 +12,8 @@ static const CGFloat INDENT = 10.;
 
 @interface CURCloseGameViewController ()
 
-@property (nonatomic, strong) UIButton *nextEndButton;
-@property (nonatomic, strong) UIButton *closeGameButton;
+@property (nonatomic, strong) CURButton *nextEndButton;
+@property (nonatomic, strong) CURButton *closeGameButton;
 @property (nonatomic, strong) UITextField *firstTeamScore;
 @property (nonatomic, strong) UITextField *secondTeamScore;
 @property (nonatomic, strong) UILabel* teamNameFirst;
@@ -124,6 +124,8 @@ static const CGFloat INDENT = 10.;
 
 - (void)switchToNextEnd
 {
+    [self.nextEndButton tapAnimation];
+    
     [self.gameManager.coreDataManager saveFirstScore:[self.firstTeamScore.text intValue] andSecondScore:[self.secondTeamScore.text intValue] forEnd:[self.gameManager getEndNumber] andHash:self.gameInfo.hashLink];
     
     if ([self.firstTeamScore.text intValue] != [self.secondTeamScore.text intValue])
@@ -144,6 +146,8 @@ static const CGFloat INDENT = 10.;
 
 - (void)closeGame
 {
+    [self.closeGameButton tapAnimation];
+    
     [self.gameManager.coreDataManager saveFirstScore:[self.firstTeamScore.text intValue] andSecondScore:[self.secondTeamScore.text intValue] forEnd:[self.gameManager getEndNumber] andHash:self.gameInfo.hashLink];
     [self.gameManager finishGame];
     

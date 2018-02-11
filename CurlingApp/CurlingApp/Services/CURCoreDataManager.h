@@ -29,5 +29,6 @@
 - (void)saveFirstScore:(NSInteger)firstScore andSecondScore:(NSInteger)secondScore forEnd:(NSInteger)endNumber andHash:(NSString *)hashLink;
 - (void)deleteGameByHash:(NSString *)hashLink;
 - (void)deleteEndByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber;
+- (void)clearCoreData;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "CURGamesTableViewController.h"
+#import "CURSplashScreenViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,11 +20,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    
-    CURGamesTableViewController *gamesTableViewController = [CURGamesTableViewController new];
-    UINavigationController *gameNavigationController = [[UINavigationController alloc] initWithRootViewController:gamesTableViewController];
-        
-    self.window.rootViewController = gameNavigationController;
+    CURSplashScreenViewController *firstViewController = [CURSplashScreenViewController new];
+    self.window.rootViewController = firstViewController;
     [self.window makeKeyAndVisible];
     
     return YES;

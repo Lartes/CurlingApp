@@ -15,7 +15,7 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"GameInfo"];
 }
 
-@dynamic data;
+@dynamic date;
 @dynamic teamNameFirst;
 @dynamic teamNameSecond;
 @dynamic hashLink;

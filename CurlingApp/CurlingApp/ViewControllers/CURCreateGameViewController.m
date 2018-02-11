@@ -17,7 +17,7 @@ static const float FIELDHEIGHT = 40;
 @property (nonatomic, strong) UITextField *teamNameSecond;
 @property (nonatomic, strong) UIView *teamColorFirst;
 @property (nonatomic, strong) UIView *teamColorSecond;
-@property (nonatomic, strong) UIButton *createButton;
+@property (nonatomic, strong) CURButton *createButton;
 
 @end
 
@@ -115,10 +115,13 @@ static const float FIELDHEIGHT = 40;
 
 - (void)createGame
 {
+    [self.createButton tapAnimation];
+    
     CURGameInfo *gameInfo = [CURGameInfo new];
     gameInfo.teamNameFirst = self.teamNameFirst.text;
     gameInfo.teamNameSecond = self.teamNameSecond.text;
     gameInfo.hashLink = [NSString stringWithFormat:@"%@%@%d", gameInfo.teamNameFirst, gameInfo.teamNameSecond, rand()];
+    gameInfo.date = [NSDate date];
     [self.coreDataManager saveGameInfo:gameInfo];
     
     CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:self.teamColorFirst.backgroundColor andHash:gameInfo.hashLink];
@@ -126,6 +129,7 @@ static const float FIELDHEIGHT = 40;
     
     CURGameViewController *gameViewController = [[CURGameViewController alloc] initWithManager:gameManager];
     [self.navigationController pushViewController:gameViewController animated:YES];
+     
 }
 
 - (void)changeColor

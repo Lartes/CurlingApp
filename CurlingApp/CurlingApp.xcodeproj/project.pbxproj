@@ -36,6 +36,7 @@
 		A20A3BA12027A57100795C1D /* CURScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3BA02027A57100795C1D /* CURScoreView.m */; };
 		A2869A852028704D003C89D5 /* CURCloseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2869A842028704D003C89D5 /* CURCloseGameViewController.m */; };
 		A2DEF744202E0E4A0000A9D6 /* CURButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DEF743202E0E4A0000A9D6 /* CURButton.m */; };
+		A2DEF74A203047940000A9D6 /* CURSplashScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DEF749203047940000A9D6 /* CURSplashScreenViewController.m */; };
 		C5F9547C3C2100EA295B43D9 /* libPods-CurlingApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E669D126A5834AF9A8F98D /* libPods-CurlingApp.a */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +112,8 @@
 		A2869A842028704D003C89D5 /* CURCloseGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURCloseGameViewController.m; sourceTree = "<group>"; };
 		A2DEF742202E0E4A0000A9D6 /* CURButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURButton.h; sourceTree = "<group>"; };
 		A2DEF743202E0E4A0000A9D6 /* CURButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURButton.m; sourceTree = "<group>"; };
+		A2DEF748203047940000A9D6 /* CURSplashScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURSplashScreenViewController.h; sourceTree = "<group>"; };
+		A2DEF749203047940000A9D6 /* CURSplashScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURSplashScreenViewController.m; sourceTree = "<group>"; };
 		F6E669D126A5834AF9A8F98D /* libPods-CurlingApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CurlingApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -203,6 +206,8 @@
 		A20A3B7C20271DA200795C1D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A2DEF748203047940000A9D6 /* CURSplashScreenViewController.h */,
+				A2DEF749203047940000A9D6 /* CURSplashScreenViewController.m */,
 				A20A3B7D20271E0F00795C1D /* CURGamesTableViewController.h */,
 				A20A3B7E20271E0F00795C1D /* CURGamesTableViewController.m */,
 				A20A3B892027340900795C1D /* CURCreateGameViewController.h */,
@@ -457,6 +462,7 @@
 				A20A3B5720271CC500795C1D /* AppDelegate.m in Sources */,
 				A20A3B6820271CC500795C1D /* main.m in Sources */,
 				A20A3B6020271CC500795C1D /* CurlingApp.xcdatamodeld in Sources */,
+				A2DEF74A203047940000A9D6 /* CURSplashScreenViewController.m in Sources */,
 				A20A3B8E20273DB900795C1D /* CURViewGameViewController.m in Sources */,
 				A20156F32029CB72000000D8 /* StoneData+CoreDataProperties.m in Sources */,
 				A20A3B972027938D00795C1D /* CURScrollView.m in Sources */,

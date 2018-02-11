@@ -10,14 +10,15 @@
 
 @interface CURGameManager ()
 
-@property (nonatomic, strong) NSMutableArray<UIView *> *stonesArray;
+@property (nonatomic, strong) NSMutableArray<UIImageView *> *stonesArray;
 @property (nonatomic, strong) UIColor *stoneColor;
 @property (nonatomic, assign) NSInteger endNumber;
 @property (nonatomic, assign) BOOL isEndFinishedBool;
 @property (nonatomic, assign) NSInteger stepNumber;
 @property (nonatomic, copy) NSString *hashLink;
 @property (nonatomic, strong) UIColor *firstTeamColor;
-
+@property (nonatomic, strong) UIImage *redStone;
+@property (nonatomic, strong) UIImage *yellowStone;
 @end
 
 @implementation CURGameManager
@@ -34,6 +35,8 @@
         _endNumber = 0;
         _stepNumber = 1;
         _hashLink = hashLink;
+        _redStone = [UIImage imageNamed:@"stone_red"];
+        _yellowStone = [UIImage imageNamed:@"stone_yellow"];
     }
     return self;
 }
@@ -46,9 +49,10 @@
         self.stepNumber += 1;
     }
         
-    UIView *stone = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    stone.layer.cornerRadius = 15;
-    stone.backgroundColor = self.stoneColor;
+    UIImageView *stone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 38, 38)];
+    stone.userInteractionEnabled = YES;
+    stone.layer.cornerRadius = 18;
+    stone.image = self.stoneColor == [UIColor redColor] ? self.redStone : self.yellowStone;
     self.isEndFinishedBool = [self.output changeScoreForColor:self.stoneColor byNumber:-1];
     [self changeColor];
     [self.stonesArray addObject:stone];
@@ -125,12 +129,12 @@
 - (void)saveToCoreData
 {
     CURStoneData *stoneData = nil;
-    for (UIView *stone in self.stonesArray)
+    for (UIImageView *stone in self.stonesArray)
     {
         stoneData = [CURStoneData new];
         stoneData.endNumber = self.endNumber;
         stoneData.stepNumber = self.stepNumber;
-        stoneData.isStoneColorRed = [stone backgroundColor] == [UIColor redColor];
+        stoneData.isStoneColorRed = [stone image] == self.redStone;
         stoneData.stonePositionX = [stone center].x;
         stoneData.stonePositionY = [stone center].y;
         stoneData.hashLink = self.hashLink;

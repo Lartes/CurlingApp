@@ -15,7 +15,7 @@ static const float INDENT = 10.;
 @property (nonatomic, strong) CURScrollView *trackScrollView;
 @property (nonatomic, strong) CURScoreView *scoreView;
 @property (nonatomic, strong) CURGameManager *gameManager;
-@property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic, strong) CURButton *nextButton;
 
 @end
 
@@ -89,6 +89,8 @@ static const float INDENT = 10.;
 
 - (void)nextStone
 {
+    [self.nextButton tapAnimation];
+    
     if ([self.gameManager isEndFinished])
     {
         [self.gameManager finishEnd];

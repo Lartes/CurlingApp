@@ -10,4 +10,6 @@
 
 @interface CURButton : UIButton
 
+- (void)tapAnimation;
+
 @end

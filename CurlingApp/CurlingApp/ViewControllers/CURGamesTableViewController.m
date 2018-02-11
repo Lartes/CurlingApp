@@ -9,7 +9,7 @@
 
 #import "CURGamesTableViewController.h"
 
-@interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *gamesArray;
@@ -40,8 +40,10 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.title = @"Games";
+    
     UIBarButtonItem *newButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewGame)];
     self.navigationItem.rightBarButtonItem = newButton;
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
