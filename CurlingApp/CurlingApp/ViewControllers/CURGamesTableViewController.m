@@ -39,7 +39,7 @@
 {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationItem.title = @"Games";
+    self.navigationItem.title = @"Игры";
     
     UIBarButtonItem *newButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewGame)];
     self.navigationItem.rightBarButtonItem = newButton;

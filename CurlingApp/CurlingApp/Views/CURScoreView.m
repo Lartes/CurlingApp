@@ -8,13 +8,13 @@
 
 #import "CURScoreView.h"
 
-static const CGFloat STONESIZE = 15.;
+static const CGFloat STONESIZE = 30.;
 
 @interface CURScoreView ()
 
 @property (nonatomic, strong) UILabel *score;
-@property (nonatomic, strong) UIView *redStone;
-@property (nonatomic, strong) UIView *yellowStone;
+@property (nonatomic, strong) UIImageView *redStone;
+@property (nonatomic, strong) UIImageView *yellowStone;
 @property (nonatomic, assign) NSInteger redScore;
 @property (nonatomic, assign) NSInteger yellowScore;
 
@@ -34,16 +34,17 @@ static const CGFloat STONESIZE = 15.;
         _score.text = @"8:8";
         _score.textAlignment = NSTextAlignmentCenter;
         _score.textColor = [UIColor blackColor];
+        _score.font = [UIFont systemFontOfSize:20];
         [self addSubview:_score];
         
-        _redStone = [[UIView alloc] initWithFrame:CGRectMake(0,0,STONESIZE,STONESIZE)];
+        _redStone = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,STONESIZE,STONESIZE)];
         _redStone.layer.cornerRadius = STONESIZE/2.;
-        _redStone.backgroundColor = [UIColor redColor];
+        _redStone.image = [UIImage imageNamed:@"red_stone_small"];
         [self addSubview:_redStone];
         
-        _yellowStone = [[UIView alloc] initWithFrame:CGRectMake(0,0,STONESIZE,STONESIZE)];
+        _yellowStone = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,STONESIZE,STONESIZE)];
         _yellowStone.layer.cornerRadius = STONESIZE/2.;
-        _yellowStone.backgroundColor = [UIColor yellowColor];
+        _yellowStone.image = [UIImage imageNamed:@"yellow_stone_small"];
         [self addSubview:_yellowStone];
     }
     return self;

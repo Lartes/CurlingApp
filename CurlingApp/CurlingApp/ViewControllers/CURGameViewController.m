@@ -45,7 +45,7 @@ static const float INDENT = 10.;
     self.navigationItem.hidesBackButton = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, 100, CGRectGetHeight(self.navigationController.navigationBar.frame))];
+    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, 120, CGRectGetHeight(self.navigationController.navigationBar.frame))];
     self.navigationItem.titleView = self.scoreView;
     
     self.gameManager.output = self.scoreView;
@@ -65,7 +65,7 @@ static const float INDENT = 10.;
     [self.view addSubview:self.trackScrollView];
     
     self.nextButton = [CURButton new];
-    [self.nextButton setTitle:@"Next stone" forState:UIControlStateNormal];
+    [self.nextButton setTitle:@"Далее" forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextStone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.nextButton];
 }
@@ -108,8 +108,15 @@ static const float INDENT = 10.;
 
 - (void)closeGame
 {
-    [self.gameManager.coreDataManager deleteEndByHash:[self.gameManager getHashLink] andEndNumber:[self.gameManager getEndNumber]];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Закрыть игру?" message:@"Текущий энд не будет сохранен." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
+        [self.gameManager.coreDataManager deleteEndByHash:[self.gameManager getHashLink] andEndNumber:[self.gameManager getEndNumber]];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+    [alert addAction:actionCancel];
+    [alert addAction:actionOk];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - CURTouchDetectProtocol

@@ -40,7 +40,7 @@ static const float INDENT = 10.;
 {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Games" style:UIBarButtonItemStylePlain target:self action:@selector(toMainView)];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Игры" style:UIBarButtonItemStylePlain target:self action:@selector(toMainView)];
     self.navigationItem.leftBarButtonItem = backButton;
     
     UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteGame)];
@@ -177,8 +177,15 @@ static const float INDENT = 10.;
 
 - (void)deleteGame
 {
-    [self.coreDataManager deleteGameByHash:self.gameInfo.hashLink];
-    [self toMainView];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Удалить игру?" message:@"Это действие необратимо." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
+        [self.coreDataManager deleteGameByHash:self.gameInfo.hashLink];
+        [self toMainView];
+    }];
+    [alert addAction:actionCancel];
+    [alert addAction:actionOk];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)toMainView

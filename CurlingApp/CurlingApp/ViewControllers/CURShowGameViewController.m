@@ -45,7 +45,7 @@ static const float INDENT = 10.;
     self.navigationItem.hidesBackButton = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, 100, CGRectGetHeight(self.navigationController.navigationBar.frame))];
+    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, 120, CGRectGetHeight(self.navigationController.navigationBar.frame))];
     self.navigationItem.titleView = self.scoreView;
     
     self.showGameManager.output = self.scoreView;
@@ -65,13 +65,13 @@ static const float INDENT = 10.;
     [self.view addSubview:self.trackScrollView];
     
     self.nextEndButton = [CURButton new];
-    [self.nextEndButton setTitle:@"Next end" forState:UIControlStateNormal];
+    [self.nextEndButton setTitle:@"Следующий энд" forState:UIControlStateNormal];
     [self.nextEndButton addTarget:self action:@selector(nextEnd) forControlEvents:UIControlEventTouchUpInside];
     self.nextEndButton.hidden = YES;
     [self.view addSubview:self.nextEndButton];
     
     self.previousEndButton = [CURButton new];
-    [self.previousEndButton setTitle:@"Past end" forState:UIControlStateNormal];
+    [self.previousEndButton setTitle:@"Предыдущий энд" forState:UIControlStateNormal];
     [self.previousEndButton addTarget:self action:@selector(previousEnd) forControlEvents:UIControlEventTouchUpInside];
     if ([self.showGameManager isFirstEnd])
     {
