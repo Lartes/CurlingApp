@@ -29,9 +29,32 @@
     return self;
 }
 
+- (void)clearCoreData
+{
+    NSArray *data = [self.coreDataContext executeFetchRequest:[GameInfo fetchRequest] error:nil];
+    for (StoneData *item in data)
+    {
+        [self.coreDataContext deleteObject:item];
+    }
+    data = [self.coreDataContext executeFetchRequest:[StoneData fetchRequest] error:nil];
+    for (StoneData *item in data)
+    {
+        [self.coreDataContext deleteObject:item];
+    }
+    data = [self.coreDataContext executeFetchRequest:[EndScore fetchRequest] error:nil];
+    for (StoneData *item in data)
+    {
+        [self.coreDataContext deleteObject:item];
+    }
+    [self.coreDataContext save:nil];
+}
+
 - (NSArray *)loadAllGamesInfo
 {
-    NSArray* data = [self.coreDataContext executeFetchRequest:[GameInfo fetchRequest] error:nil];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"GameInfo"];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+    fetchRequest.sortDescriptors = @[sortDescriptor];
+    NSArray *data = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
     return data;
 }
 
@@ -85,6 +108,8 @@
     gameInfo.teamNameFirst = gameInfoToSave.teamNameFirst;
     gameInfo.teamNameSecond = gameInfoToSave.teamNameSecond;
     gameInfo.hashLink = gameInfoToSave.hashLink;
+    gameInfo.date = gameInfoToSave.date;
+    gameInfo.isFirstTeamColorRed = gameInfoToSave.isFirstTeamColorRed;
     
     NSError *error = nil;
     if (![gameInfo.managedObjectContext save:&error])

@@ -16,13 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<GameInfo *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *data;
+@property (nullable, nonatomic, copy) NSDate *date;
 @property (nullable, nonatomic, copy) NSString *teamNameFirst;
 @property (nullable, nonatomic, copy) NSString *teamNameSecond;
 @property (nullable, nonatomic, copy) NSString *hashLink;
 @property (nonatomic) int32_t numberOfEnds;
 @property (nonatomic) int32_t firstTeamScore;
 @property (nonatomic) int32_t secondTeamScore;
+@property (nonatomic) BOOL isFirstTeamColorRed;
 
 @end
 

@@ -12,8 +12,8 @@ static const CGFloat INDENT = 10.;
 
 @interface CURCloseGameViewController ()
 
-@property (nonatomic, strong) UIButton *nextEndButton;
-@property (nonatomic, strong) UIButton *closeGameButton;
+@property (nonatomic, strong) CURButton *nextEndButton;
+@property (nonatomic, strong) CURButton *closeGameButton;
 @property (nonatomic, strong) UITextField *firstTeamScore;
 @property (nonatomic, strong) UITextField *secondTeamScore;
 @property (nonatomic, strong) UILabel* teamNameFirst;
@@ -32,7 +32,7 @@ static const CGFloat INDENT = 10.;
 
 - (void)prepareUI
 {
-    self.navigationItem.title = @"Score";
+    self.navigationItem.title = @"Счет";
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.hidesBackButton = YES;
@@ -72,13 +72,13 @@ static const CGFloat INDENT = 10.;
     self.secondTeamScore.font = [UIFont systemFontOfSize:30];
     
     self.nextEndButton = [CURButton new];
-    [self.nextEndButton setTitle:@"Next end" forState:UIControlStateNormal];
-    [self.nextEndButton addTarget:self action:@selector(switchToNextEnd) forControlEvents:UIControlEventTouchUpInside];
+    [self.nextEndButton setTitle:@"Следующий энд" forState:UIControlStateNormal];
+    [self.nextEndButton addTarget:self action:@selector(nextEndButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.nextEndButton];
     
     self.closeGameButton = [CURButton new];
-    [self.closeGameButton setTitle:@"End game" forState:UIControlStateNormal];
-    [self.closeGameButton addTarget:self action:@selector(closeGame) forControlEvents:UIControlEventTouchUpInside];
+    [self.closeGameButton setTitle:@"Завершить игру" forState:UIControlStateNormal];
+    [self.closeGameButton addTarget:self action:@selector(closeGameButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.closeGameButton];
 }
 
@@ -100,7 +100,6 @@ static const CGFloat INDENT = 10.;
             make.top.mas_greaterThanOrEqualTo(self.teamNameFirst);
             make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(INDENT);
             make.right.mas_equalTo(self.view).with.offset(-INDENT*2);
-            //make.width.mas_equalTo(self.firstTeamScore.mas_height);
         }];
         [self.secondTeamScore mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.mas_equalTo(self.firstTeamScore.mas_bottom).with.offset(INDENT);
@@ -122,8 +121,25 @@ static const CGFloat INDENT = 10.;
     [super updateViewConstraints];
 }
 
+- (void)nextEndButtonPressed
+{
+    if(self.firstTeamScore.text.length > 0 && self.secondTeamScore.text.length > 0)
+    {
+        [self switchToNextEnd];
+    }
+    else
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Введите счет команд." message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:actionCancel];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
 - (void)switchToNextEnd
 {
+    [self.nextEndButton tapAnimation];
+    
     [self.gameManager.coreDataManager saveFirstScore:[self.firstTeamScore.text intValue] andSecondScore:[self.secondTeamScore.text intValue] forEnd:[self.gameManager getEndNumber] andHash:self.gameInfo.hashLink];
     
     if ([self.firstTeamScore.text intValue] != [self.secondTeamScore.text intValue])
@@ -142,8 +158,25 @@ static const CGFloat INDENT = 10.;
     [self.navigationController pushViewController:gameViewController animated:YES];
 }
 
+- (void)closeGameButtonPressed
+{
+    if(self.firstTeamScore.text.length > 0 && self.secondTeamScore.text.length > 0)
+    {
+        [self closeGame];
+    }
+    else
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Введите счет команд" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:actionCancel];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
 - (void)closeGame
 {
+    [self.closeGameButton tapAnimation];
+    
     [self.gameManager.coreDataManager saveFirstScore:[self.firstTeamScore.text intValue] andSecondScore:[self.secondTeamScore.text intValue] forEnd:[self.gameManager getEndNumber] andHash:self.gameInfo.hashLink];
     [self.gameManager finishGame];
     

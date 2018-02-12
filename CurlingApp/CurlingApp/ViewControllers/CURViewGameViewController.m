@@ -40,7 +40,7 @@ static const float INDENT = 10.;
 {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Games" style:UIBarButtonItemStylePlain target:self action:@selector(toMainView)];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Игры" style:UIBarButtonItemStylePlain target:self action:@selector(toMainView)];
     self.navigationItem.leftBarButtonItem = backButton;
     
     UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteGame)];
@@ -75,12 +75,20 @@ static const float INDENT = 10.;
     self.colorBarLeftScore = [UIView new];
     self.colorBarRightScore = [UIView new];
     
-    self.colorBarTopNameFirst.backgroundColor = [UIColor redColor];
-    self.colorBarBottomNameFirst.backgroundColor = [UIColor redColor];
-    self.colorBarTopNameSecond.backgroundColor = [UIColor yellowColor];
-    self.colorBarBottomNameSecond.backgroundColor = [UIColor yellowColor];
-    self.colorBarLeftScore.backgroundColor = [UIColor redColor];
-    self.colorBarRightScore.backgroundColor = [UIColor yellowColor];
+    UIColor *firstColor = [UIColor redColor];
+    UIColor *secondColor = [UIColor yellowColor];
+    if(!self.gameInfo.isFirstTeamColorRed)
+    {
+        firstColor = [UIColor yellowColor];
+        secondColor = [UIColor redColor];
+    }
+    
+    self.colorBarTopNameFirst.backgroundColor = firstColor;
+    self.colorBarBottomNameFirst.backgroundColor = firstColor;
+    self.colorBarTopNameSecond.backgroundColor = secondColor;
+    self.colorBarBottomNameSecond.backgroundColor = secondColor;
+    self.colorBarLeftScore.backgroundColor = firstColor;
+    self.colorBarRightScore.backgroundColor = secondColor;
     
     [self.view addSubview:self.colorBarTopNameFirst];
     [self.view addSubview:self.colorBarBottomNameFirst];
@@ -99,12 +107,6 @@ static const float INDENT = 10.;
     self.teamsScore.font = [UIFont systemFontOfSize:30];
     self.teamNameFirst.font = [UIFont systemFontOfSize:23];
     self.teamNameSecond.font = [UIFont systemFontOfSize:23];
-    /*
-    self.teamNameFirst.backgroundColor = [UIColor lightGrayColor];
-    self.teamNameSecond.backgroundColor = [UIColor lightGrayColor];
-    self.teamsScore.backgroundColor = [UIColor lightGrayColor];
-    self.tableView.backgroundColor = [UIColor grayColor];
-    */
 }
 
 - (void)updateViewConstraints
@@ -183,8 +185,15 @@ static const float INDENT = 10.;
 
 - (void)deleteGame
 {
-    [self.coreDataManager deleteGameByHash:self.gameInfo.hashLink];
-    [self toMainView];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Удалить игру?" message:@"Это действие необратимо." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
+        [self.coreDataManager deleteGameByHash:self.gameInfo.hashLink];
+        [self toMainView];
+    }];
+    [alert addAction:actionCancel];
+    [alert addAction:actionOk];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)toMainView
@@ -207,7 +216,7 @@ static const float INDENT = 10.;
     EndScore *endScore = self.scoresArray[indexPath.row];
     NSString *score = [NSString stringWithFormat:@"%d:%d", endScore.firstTeamScore, endScore.secondTeamScore];
     cell.score.text = score;
-    cell.endNumber.text = [NSString stringWithFormat:@"%d.", endScore.endNumber];
+    cell.endNumber.text = [NSString stringWithFormat:@"%d энд", endScore.endNumber];
     
     [cell setNeedsUpdateConstraints];
     

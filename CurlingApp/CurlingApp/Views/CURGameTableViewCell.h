@@ -19,5 +19,6 @@
 @property (nonatomic, strong) UIView *colorBarScoreFirst;
 @property (nonatomic, strong) UIView *colorBarScoreSecond;
 
+- (void)makeFirstTeamColorYellow;
 
 @end

@@ -15,10 +15,10 @@ static const float INDENT = 10.;
 @property (nonatomic, strong) CURScrollView *trackScrollView;
 @property (nonatomic, strong) CURScoreView *scoreView;
 @property (nonatomic, strong) CURShowGameManager *showGameManager;
-@property (nonatomic, strong) UIButton *nextButton;
-@property (nonatomic, strong) UIButton *previousButton;
-@property (nonatomic, strong) UIButton *nextEndButton;
-@property (nonatomic, strong) UIButton *previousEndButton;
+@property (nonatomic, strong) CURButton *nextButton;
+@property (nonatomic, strong) CURButton *previousButton;
+@property (nonatomic, strong) CURButton *nextEndButton;
+@property (nonatomic, strong) CURButton *previousEndButton;
 
 @end
 
@@ -45,13 +45,13 @@ static const float INDENT = 10.;
     self.navigationItem.hidesBackButton = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, 100, CGRectGetHeight(self.navigationController.navigationBar.frame))];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
+    self.navigationItem.rightBarButtonItem = closeButton;
+    
+    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.navigationController.navigationBar.frame)) andCenterX:self.view.center.x - 8.];
     self.navigationItem.titleView = self.scoreView;
     
     self.showGameManager.output = self.scoreView;
-    
-    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
-    self.navigationItem.rightBarButtonItem = closeButton;
     
     self.trackScrollView = [CURScrollView new];
     self.trackScrollView.showsVerticalScrollIndicator = NO;
@@ -65,13 +65,13 @@ static const float INDENT = 10.;
     [self.view addSubview:self.trackScrollView];
     
     self.nextEndButton = [CURButton new];
-    [self.nextEndButton setTitle:@"Next end" forState:UIControlStateNormal];
+    [self.nextEndButton setTitle:@"Следующий энд" forState:UIControlStateNormal];
     [self.nextEndButton addTarget:self action:@selector(nextEnd) forControlEvents:UIControlEventTouchUpInside];
     self.nextEndButton.hidden = YES;
     [self.view addSubview:self.nextEndButton];
     
     self.previousEndButton = [CURButton new];
-    [self.previousEndButton setTitle:@"Past end" forState:UIControlStateNormal];
+    [self.previousEndButton setTitle:@"Предыдущий энд" forState:UIControlStateNormal];
     [self.previousEndButton addTarget:self action:@selector(previousEnd) forControlEvents:UIControlEventTouchUpInside];
     if ([self.showGameManager isFirstEnd])
     {
@@ -107,7 +107,7 @@ static const float INDENT = 10.;
         }];
         [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
-            make.right.mas_equalTo(self.view).with.offset(-INDENT);
+            make.left.mas_equalTo(self.view.mas_centerX).with.offset(INDENT*2);
         }];
         [self.nextEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
@@ -115,7 +115,7 @@ static const float INDENT = 10.;
         }];
         [self.previousButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
-            make.left.mas_equalTo(self.view).with.offset(INDENT);
+            make.right.mas_equalTo(self.view.mas_centerX).with.offset(-INDENT*2);
         }];
         [self.previousEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
@@ -128,6 +128,8 @@ static const float INDENT = 10.;
 
 - (void)nextStone
 {
+    [self.nextButton tapAnimation];
+    
     self.nextButton.hidden = [self.showGameManager showNextStep];
     self.previousButton.hidden = NO;
     self.previousEndButton.hidden = YES;
@@ -139,6 +141,8 @@ static const float INDENT = 10.;
 
 - (void)previousStone
 {
+    [self.previousButton tapAnimation];
+    
     self.previousButton.hidden = [self.showGameManager showPreviousStep];
     self.nextButton.hidden = NO;
     self.nextEndButton.hidden = YES;
@@ -150,6 +154,8 @@ static const float INDENT = 10.;
 
 - (void)nextEnd
 {
+    [self.nextEndButton tapAnimation];
+    
     [self.scoreView resetScore];
     [self.showGameManager changeEndOnNumber:1];
     
@@ -161,6 +167,8 @@ static const float INDENT = 10.;
 
 - (void)previousEnd
 {
+    [self.previousEndButton tapAnimation];
+    
     [self.scoreView resetScore];
     [self.showGameManager changeEndOnNumber:-1];
     

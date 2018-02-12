@@ -15,7 +15,7 @@ static const float INDENT = 10.;
 @property (nonatomic, strong) CURScrollView *trackScrollView;
 @property (nonatomic, strong) CURScoreView *scoreView;
 @property (nonatomic, strong) CURGameManager *gameManager;
-@property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic, strong) CURButton *nextButton;
 
 @end
 
@@ -45,13 +45,13 @@ static const float INDENT = 10.;
     self.navigationItem.hidesBackButton = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, 100, CGRectGetHeight(self.navigationController.navigationBar.frame))];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
+    self.navigationItem.rightBarButtonItem = closeButton;
+    
+    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.navigationController.navigationBar.frame)) andCenterX:self.view.center.x - 8.];
     self.navigationItem.titleView = self.scoreView;
     
     self.gameManager.output = self.scoreView;
-    
-    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
-    self.navigationItem.rightBarButtonItem = closeButton;
     
     self.trackScrollView = [CURScrollView new];
     self.trackScrollView.showsVerticalScrollIndicator = NO;
@@ -65,7 +65,7 @@ static const float INDENT = 10.;
     [self.view addSubview:self.trackScrollView];
     
     self.nextButton = [CURButton new];
-    [self.nextButton setTitle:@"Next stone" forState:UIControlStateNormal];
+    [self.nextButton setTitle:@"Далее" forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextStone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.nextButton];
 }
@@ -89,6 +89,8 @@ static const float INDENT = 10.;
 
 - (void)nextStone
 {
+    [self.nextButton tapAnimation];
+    
     if ([self.gameManager isEndFinished])
     {
         [self.gameManager finishEnd];
@@ -106,8 +108,15 @@ static const float INDENT = 10.;
 
 - (void)closeGame
 {
-    [self.gameManager.coreDataManager deleteEndByHash:[self.gameManager getHashLink] andEndNumber:[self.gameManager getEndNumber]];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Закрыть игру?" message:@"Текущий энд не будет сохранен." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
+        [self.gameManager.coreDataManager deleteEndByHash:[self.gameManager getHashLink] andEndNumber:[self.gameManager getEndNumber]];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+    [alert addAction:actionCancel];
+    [alert addAction:actionOk];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - CURTouchDetectProtocol

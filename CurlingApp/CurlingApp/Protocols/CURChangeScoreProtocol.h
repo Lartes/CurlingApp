@@ -13,6 +13,7 @@
 @optional
 
 - (BOOL)changeScoreForColor:(UIColor *)color byNumber:(NSInteger)number;
+- (void)setEndNumber:(NSInteger)endNumber;
 
 @end
 

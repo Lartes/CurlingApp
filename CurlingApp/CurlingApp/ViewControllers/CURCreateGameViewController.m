@@ -17,7 +17,7 @@ static const float FIELDHEIGHT = 40;
 @property (nonatomic, strong) UITextField *teamNameSecond;
 @property (nonatomic, strong) UIView *teamColorFirst;
 @property (nonatomic, strong) UIView *teamColorSecond;
-@property (nonatomic, strong) UIButton *createButton;
+@property (nonatomic, strong) CURButton *createButton;
 
 @end
 
@@ -52,12 +52,12 @@ static const float FIELDHEIGHT = 40;
     [self.teamColorSecond addGestureRecognizer:tapRecognizerSecond];
     
     self.teamNameFirst = [UITextField new];
-    self.teamNameFirst.placeholder = @"First team name";
+    self.teamNameFirst.placeholder = @"Первая команда";
     self.teamNameFirst.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:self.teamNameFirst];
     
     self.teamNameSecond = [UITextField new];
-    self.teamNameSecond.placeholder = @"Second team name";
+    self.teamNameSecond.placeholder = @"Вторая команда";
     self.teamNameSecond.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:self.teamNameSecond];
     
@@ -69,8 +69,8 @@ static const float FIELDHEIGHT = 40;
     
     self.createButton = [CURButton new];
     self.createButton.titleLabel.font = [UIFont systemFontOfSize:20];
-    [self.createButton setTitle:@"Create game" forState:UIControlStateNormal];
-    [self.createButton addTarget:self action:@selector(createGame) forControlEvents:UIControlEventTouchUpInside];
+    [self.createButton setTitle:@"Создать игру" forState:UIControlStateNormal];
+    [self.createButton addTarget:self action:@selector(createButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.createButton];
 }
 
@@ -113,12 +113,31 @@ static const float FIELDHEIGHT = 40;
     [super updateViewConstraints];
 }
 
+- (void)createButtonPressed
+{
+    if(self.teamNameFirst.text.length > 0 && self.teamNameSecond.text.length > 0)
+    {
+        [self createGame];
+    }
+    else
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Введите названия команд" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:actionCancel];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
 - (void)createGame
 {
+    [self.createButton tapAnimation];
+    
     CURGameInfo *gameInfo = [CURGameInfo new];
     gameInfo.teamNameFirst = self.teamNameFirst.text;
     gameInfo.teamNameSecond = self.teamNameSecond.text;
     gameInfo.hashLink = [NSString stringWithFormat:@"%@%@%d", gameInfo.teamNameFirst, gameInfo.teamNameSecond, rand()];
+    gameInfo.date = [NSDate date];
+    gameInfo.isFirstTeamColorRed = self.teamColorFirst.backgroundColor == [UIColor redColor];
     [self.coreDataManager saveGameInfo:gameInfo];
     
     CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:self.teamColorFirst.backgroundColor andHash:gameInfo.hashLink];
@@ -126,6 +145,7 @@ static const float FIELDHEIGHT = 40;
     
     CURGameViewController *gameViewController = [[CURGameViewController alloc] initWithManager:gameManager];
     [self.navigationController pushViewController:gameViewController animated:YES];
+     
 }
 
 - (void)changeColor

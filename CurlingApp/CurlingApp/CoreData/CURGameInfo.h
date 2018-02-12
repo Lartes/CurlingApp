@@ -10,9 +10,10 @@
 
 @interface CURGameInfo : NSObject
 
-@property (nullable, nonatomic, copy) NSString *data;
+@property (nullable, nonatomic, copy) NSDate *date;
 @property (nullable, nonatomic, copy) NSString *teamNameFirst;
 @property (nullable, nonatomic, copy) NSString *teamNameSecond;
 @property (nullable, nonatomic, copy) NSString *hashLink;
+@property (nonatomic) BOOL isFirstTeamColorRed;
 
 @end

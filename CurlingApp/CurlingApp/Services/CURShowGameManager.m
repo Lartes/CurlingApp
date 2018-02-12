@@ -10,7 +10,7 @@
 
 @interface CURShowGameManager ()
 
-@property (nonatomic, strong) NSArray<UIView *> *stonesArray;
+@property (nonatomic, strong) NSArray<UIImageView *> *stonesArray;
 @property (nonatomic, strong) UIColor *stoneColor;
 @property (nonatomic, assign) NSInteger endNumber;
 @property (nonatomic, assign) NSInteger numberOfEnds;
@@ -18,6 +18,8 @@
 @property (nonatomic, copy) NSString *hashLink;
 @property (nonatomic, strong) NSArray<StoneData *> *stonesData;
 @property (nonatomic, assign) NSInteger indexInStonesData;
+@property (nonatomic, strong) UIImage *redStone;
+@property (nonatomic, strong) UIImage *yellowStone;
 
 @end
 
@@ -35,21 +37,26 @@
         _hashLink = gameInfo.hashLink;
         _numberOfEnds = gameInfo.numberOfEnds;
         _indexInStonesData = 0;
+        _redStone = [UIImage imageNamed:@"stone_red"];
+        _yellowStone = [UIImage imageNamed:@"stone_yellow"];
+        
     }
     return self;
 }
 
 - (NSArray *)startShowGame
 {
+    [self.output setEndNumber:self.endNumber];
     self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink andEndNumber:self.endNumber];
     self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
     
     NSMutableArray *stones = [NSMutableArray new];
-    UIView *stone = nil;
+    UIImageView *stone = nil;
     for (int i = 0; i<16; i++)
     {
-        stone = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        stone.layer.cornerRadius = 15;
+        stone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
+        stone.userInteractionEnabled = YES;
+        stone.layer.cornerRadius = 18;
         stone.hidden = YES;
         [stones addObject:stone];
     }
@@ -62,6 +69,7 @@
 - (BOOL)changeEndOnNumber:(NSInteger)number;
 {
     self.endNumber += number;
+    [self.output setEndNumber:self.endNumber];
     self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink andEndNumber:self.endNumber];
     self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
     for (int i = 0; i<16; i++)
@@ -89,7 +97,7 @@
     {
         stone = self.stonesData[self.indexInStonesData];
         self.stonesArray[indexInStonesArray].center = CGPointMake(stone.stonePositionX, stone.stonePositionY);
-        self.stonesArray[indexInStonesArray].backgroundColor = stone.isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
+        self.stonesArray[indexInStonesArray].image = stone.isStoneColorRed ? self.redStone : self.yellowStone;
         self.stonesArray[indexInStonesArray].hidden = NO;
         
         indexInStonesArray += 1;
@@ -121,7 +129,7 @@
     {
         stone = self.stonesData[self.indexInStonesData];
         self.stonesArray[indexInStonesArray].center = CGPointMake(stone.stonePositionX, stone.stonePositionY);
-        self.stonesArray[indexInStonesArray].backgroundColor = stone.isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
+        self.stonesArray[indexInStonesArray].image = stone.isStoneColorRed ? self.redStone : self.yellowStone;
         self.stonesArray[indexInStonesArray].hidden = NO;
         
         indexInStonesArray += 1;

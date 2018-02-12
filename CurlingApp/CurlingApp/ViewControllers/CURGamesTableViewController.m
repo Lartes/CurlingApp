@@ -9,7 +9,7 @@
 
 #import "CURGamesTableViewController.h"
 
-@interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *gamesArray;
@@ -39,9 +39,11 @@
 {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationItem.title = @"Games";
+    self.navigationItem.title = @"Игры";
+    
     UIBarButtonItem *newButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewGame)];
     self.navigationItem.rightBarButtonItem = newButton;
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -95,6 +97,10 @@
     cell.teamNameSecond.text = gameInfo.teamNameSecond;
     NSString *score = [NSString stringWithFormat:@"%d:%d", gameInfo.firstTeamScore, gameInfo.secondTeamScore];
     cell.teamsScore.text = score;
+    if(!gameInfo.isFirstTeamColorRed)
+    {
+        [cell makeFirstTeamColorYellow];
+    }
     
     [cell setNeedsUpdateConstraints];
     
