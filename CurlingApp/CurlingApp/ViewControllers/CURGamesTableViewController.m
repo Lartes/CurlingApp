@@ -44,6 +44,9 @@
     UIBarButtonItem *newButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewGame)];
     self.navigationItem.rightBarButtonItem = newButton;
     
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(openSettings)];
+    self.navigationItem.leftBarButtonItem = settingsButton;
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -79,6 +82,13 @@
     CURCreateGameViewController *createGameViewController = [CURCreateGameViewController new];
     createGameViewController.coreDataManager = self.coreDataManager;
     [self.navigationController pushViewController:createGameViewController animated:YES];
+}
+
+- (void)openSettings
+{
+    CURSettingsViewController *settingViewController = [CURSettingsViewController new];
+    settingViewController.coreDataManager = self.coreDataManager;
+    [self.navigationController pushViewController:settingViewController animated:YES];
 }
 
 #pragma mark - UITableViewDataSource

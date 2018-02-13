@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/ViewControllers/CURGameViewController.m"
-            timestampString = "540078455.945172"
+            timestampString = "540146176.668117"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "91"
@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "82"
             endingLineNumber = "82"
-            landmarkName = "-resetScore"
+            landmarkName = "-changeScoreForColor:byNumber:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

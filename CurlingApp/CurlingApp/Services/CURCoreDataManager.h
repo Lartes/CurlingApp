@@ -12,12 +12,14 @@
 #import "GameInfo+CoreDataClass.h"
 #import "StoneData+CoreDataClass.h"
 #import "EndScore+CoreDataClass.h"
+#import "AppData+CoreDataClass.h"
 #import "CURGameInfo.h"
 #import "CURStoneData.h"
 
 @interface CURCoreDataManager : NSObject
 
 - (NSArray *)loadAllGamesInfo;
+- (AppData *)loadAppData;
 - (GameInfo *)loadGamesInfoByHash:(NSString *)hashLink;
 - (NSArray *)loadStonesDataByHash:(NSString *)hashLink;
 - (NSArray *)loadStonesDataByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber;
@@ -30,5 +32,8 @@
 - (void)deleteGameByHash:(NSString *)hashLink;
 - (void)deleteEndByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber;
 - (void)clearCoreData;
+
+- (BOOL)saveAccessToken:(NSString *)accessToken;
+- (void)saveToDropbox;
 
 @end

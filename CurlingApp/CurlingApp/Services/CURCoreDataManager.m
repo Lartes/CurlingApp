@@ -58,6 +58,17 @@
     return data;
 }
 
+- (AppData *)loadAppData
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"AppData"];
+    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
+    if (fetchedObjects.count > 0)
+    {
+        return fetchedObjects[0];
+    }
+    return nil;
+}
+
 - (GameInfo *)loadGamesInfoByHash:(NSString *)hashLink
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"GameInfo"];
@@ -214,6 +225,37 @@
         [self.coreDataContext deleteObject:stoneData];
     }
     [self.coreDataContext save:nil];
+}
+
+- (BOOL)saveAccessToken:(NSString *)accessToken
+{
+    if(accessToken.length>0)
+    {
+        AppData *appData = [self loadAppData];
+        if(!appData)
+        {
+            appData = [NSEntityDescription insertNewObjectForEntityForName:@"AppData" inManagedObjectContext:self.coreDataContext];
+        }
+        appData.accessToken = accessToken;
+        
+        NSError *error = nil;
+        if (![appData.managedObjectContext save:&error])
+        {
+            NSLog(@"Object wasn't saved");
+            NSLog(@"%@, %@", error, error.localizedDescription);
+            return NO;
+        }
+        
+        return YES;
+    }
+    return NO;
+}
+
+- (void)saveToDropbox
+{
+    NSArray *gamesInfo = [self loadAllGamesInfo];
+    NSLog(@"%d", [NSJSONSerialization isValidJSONObject:gamesInfo[0]]);
+    //NSData *data = [NSJSONSerialization dataWithJSONObject:<#(nonnull id)#> options:nil error:nil];
 }
 
 @end
