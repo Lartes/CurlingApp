@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CURCoreDataManager.h"
+#import "CURNetworkManager.h"
+#import "CURNetworkManagerProtocol.h"
 
-@interface CURSettingsViewController : UIViewController
+@interface CURSettingsViewController : UIViewController <CURNetworkManagerProtocol>
 
 @property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 

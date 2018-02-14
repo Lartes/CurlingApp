@@ -19,6 +19,8 @@
 @interface CURCoreDataManager : NSObject
 
 - (NSArray *)loadAllGamesInfo;
+- (NSArray *)loadAllStoneData;
+- (NSArray *)loadAllEndScore;
 - (AppData *)loadAppData;
 - (GameInfo *)loadGamesInfoByHash:(NSString *)hashLink;
 - (NSArray *)loadStonesDataByHash:(NSString *)hashLink;
@@ -29,11 +31,9 @@
 - (void)saveNumberOfEnds:(NSInteger)number forHash:(NSString *)hashLink;
 - (void)saveFirstScore:(NSInteger)firstScore andSecondScore:(NSInteger)secondScore forHash:(NSString *)hashLink;
 - (void)saveFirstScore:(NSInteger)firstScore andSecondScore:(NSInteger)secondScore forEnd:(NSInteger)endNumber andHash:(NSString *)hashLink;
+- (BOOL)saveAccessToken:(NSString *)accessToken;
 - (void)deleteGameByHash:(NSString *)hashLink;
 - (void)deleteEndByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber;
 - (void)clearCoreData;
-
-- (BOOL)saveAccessToken:(NSString *)accessToken;
-- (void)saveToDropbox;
 
 @end

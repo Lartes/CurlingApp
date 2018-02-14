@@ -36,11 +36,35 @@
     [saveButton addTarget:self action:@selector(saveButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [saveButton setTitle:@"Save" forState:UIControlStateNormal];
     [self.view addSubview:saveButton];
+    
+    UIButton *loadButton = [[UIButton alloc] initWithFrame:CGRectMake(50, 250, 100, 50)];
+    loadButton.backgroundColor = [UIColor grayColor];
+    [loadButton addTarget:self action:@selector(loadButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [loadButton setTitle:@"Load" forState:UIControlStateNormal];
+    [self.view addSubview:loadButton];
 }
 
 - (void)saveButtonPressed
 {
-    [self.coreDataManager saveToDropbox];
+    CURNetworkManager *networkManager = [CURNetworkManager new];
+    networkManager.coreDataManager = self.coreDataManager;
+    networkManager.output = self;
+    [networkManager saveToDropbox];
+}
+
+- (void)loadButtonPressed
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Загрузить данные?" message:@"Вся текущая информация будет удалена" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
+        CURNetworkManager *networkManager = [CURNetworkManager new];
+        networkManager.coreDataManager = self.coreDataManager;
+        networkManager.output = self;
+        [networkManager loadFromDropbox];
+    }];
+    [alert addAction:actionCancel];
+    [alert addAction:actionOk];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)loginButtonPressed
@@ -77,6 +101,27 @@
     else
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ не получен" message:@"Повторите попытку" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:actionCancel];
+        [self presentViewController:alert animated:YES completion:nil];
+    };
+}
+
+
+#pragma mark - CURNetworkManagerProtocol
+
+- (void)taskDidFinishedWithStatus:(BOOL)status
+{
+    if(status)
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Загрузка завершена" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:actionCancel];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    else
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ошибка загрузки" message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:actionCancel];
         [self presentViewController:alert animated:YES completion:nil];

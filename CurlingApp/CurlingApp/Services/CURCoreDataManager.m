@@ -58,10 +58,21 @@
     return data;
 }
 
+- (NSArray *)loadAllStoneData
+{
+    NSArray *data = [self.coreDataContext executeFetchRequest:[StoneData fetchRequest] error:nil];
+    return data;
+}
+
+- (NSArray *)loadAllEndScore
+{
+    NSArray *data = [self.coreDataContext executeFetchRequest:[EndScore fetchRequest] error:nil];
+    return data;
+}
+
 - (AppData *)loadAppData
 {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"AppData"];
-    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
+    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:[AppData fetchRequest] error:nil];
     if (fetchedObjects.count > 0)
     {
         return fetchedObjects[0];
@@ -121,6 +132,9 @@
     gameInfo.hashLink = gameInfoToSave.hashLink;
     gameInfo.date = gameInfoToSave.date;
     gameInfo.isFirstTeamColorRed = gameInfoToSave.isFirstTeamColorRed;
+    gameInfo.numberOfEnds = gameInfoToSave.numberOfEnds;
+    gameInfo.firstTeamScore = gameInfoToSave.firstTeamScore;
+    gameInfo.secondTeamScore = gameInfoToSave.secondTeamScore;
     
     NSError *error = nil;
     if (![gameInfo.managedObjectContext save:&error])
@@ -249,13 +263,6 @@
         return YES;
     }
     return NO;
-}
-
-- (void)saveToDropbox
-{
-    NSArray *gamesInfo = [self loadAllGamesInfo];
-    NSLog(@"%d", [NSJSONSerialization isValidJSONObject:gamesInfo[0]]);
-    //NSData *data = [NSJSONSerialization dataWithJSONObject:<#(nonnull id)#> options:nil error:nil];
 }
 
 @end
