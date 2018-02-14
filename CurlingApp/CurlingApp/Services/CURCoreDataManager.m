@@ -32,7 +32,7 @@
 - (void)clearCoreData
 {
     NSArray *data = [self.coreDataContext executeFetchRequest:[GameInfo fetchRequest] error:nil];
-    for (StoneData *item in data)
+    for (GameInfo *item in data)
     {
         [self.coreDataContext deleteObject:item];
     }
@@ -42,7 +42,7 @@
         [self.coreDataContext deleteObject:item];
     }
     data = [self.coreDataContext executeFetchRequest:[EndScore fetchRequest] error:nil];
-    for (StoneData *item in data)
+    for (EndScore *item in data)
     {
         [self.coreDataContext deleteObject:item];
     }
@@ -56,6 +56,28 @@
     fetchRequest.sortDescriptors = @[sortDescriptor];
     NSArray *data = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
     return data;
+}
+
+- (NSArray *)loadAllStoneData
+{
+    NSArray *data = [self.coreDataContext executeFetchRequest:[StoneData fetchRequest] error:nil];
+    return data;
+}
+
+- (NSArray *)loadAllEndScore
+{
+    NSArray *data = [self.coreDataContext executeFetchRequest:[EndScore fetchRequest] error:nil];
+    return data;
+}
+
+- (AppData *)loadAppData
+{
+    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:[AppData fetchRequest] error:nil];
+    if (fetchedObjects.count > 0)
+    {
+        return fetchedObjects[0];
+    }
+    return nil;
 }
 
 - (GameInfo *)loadGamesInfoByHash:(NSString *)hashLink
@@ -110,6 +132,9 @@
     gameInfo.hashLink = gameInfoToSave.hashLink;
     gameInfo.date = gameInfoToSave.date;
     gameInfo.isFirstTeamColorRed = gameInfoToSave.isFirstTeamColorRed;
+    gameInfo.numberOfEnds = gameInfoToSave.numberOfEnds;
+    gameInfo.firstTeamScore = gameInfoToSave.firstTeamScore;
+    gameInfo.secondTeamScore = gameInfoToSave.secondTeamScore;
     
     NSError *error = nil;
     if (![gameInfo.managedObjectContext save:&error])
@@ -214,6 +239,30 @@
         [self.coreDataContext deleteObject:stoneData];
     }
     [self.coreDataContext save:nil];
+}
+
+- (BOOL)saveAccessToken:(NSString *)accessToken
+{
+    if(accessToken.length>0)
+    {
+        AppData *appData = [self loadAppData];
+        if(!appData)
+        {
+            appData = [NSEntityDescription insertNewObjectForEntityForName:@"AppData" inManagedObjectContext:self.coreDataContext];
+        }
+        appData.accessToken = accessToken;
+        
+        NSError *error = nil;
+        if (![appData.managedObjectContext save:&error])
+        {
+            NSLog(@"Object wasn't saved");
+            NSLog(@"%@, %@", error, error.localizedDescription);
+            return NO;
+        }
+        
+        return YES;
+    }
+    return NO;
 }
 
 @end

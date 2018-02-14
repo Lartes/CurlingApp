@@ -34,9 +34,14 @@
 		A20A3B972027938D00795C1D /* CURScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B962027938D00795C1D /* CURScrollView.m */; };
 		A20A3B9E20279D7C00795C1D /* CURGameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B9D20279D7C00795C1D /* CURGameManager.m */; };
 		A20A3BA12027A57100795C1D /* CURScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3BA02027A57100795C1D /* CURScoreView.m */; };
+		A262C76420332B5900161741 /* AppData+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A262C76020332B5700161741 /* AppData+CoreDataClass.m */; };
+		A262C76520332B5900161741 /* AppData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A262C76320332B5800161741 /* AppData+CoreDataProperties.m */; };
+		A262C7682033A9A800161741 /* CURNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A262C7672033A9A800161741 /* CURNetworkManager.m */; };
+		A262C76C2033E6AF00161741 /* CURLoadingAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A262C76B2033E6AF00161741 /* CURLoadingAnimationView.m */; };
 		A2869A852028704D003C89D5 /* CURCloseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2869A842028704D003C89D5 /* CURCloseGameViewController.m */; };
 		A2DEF744202E0E4A0000A9D6 /* CURButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DEF743202E0E4A0000A9D6 /* CURButton.m */; };
 		A2DEF74A203047940000A9D6 /* CURSplashScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DEF749203047940000A9D6 /* CURSplashScreenViewController.m */; };
+		A2DEF74D2031F24B0000A9D6 /* CURSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DEF74C2031F24B0000A9D6 /* CURSettingsViewController.m */; };
 		C5F9547C3C2100EA295B43D9 /* libPods-CurlingApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E669D126A5834AF9A8F98D /* libPods-CurlingApp.a */; };
 /* End PBXBuildFile section */
 
@@ -108,12 +113,23 @@
 		A20A3B9F2027A57100795C1D /* CURScoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURScoreView.h; sourceTree = "<group>"; };
 		A20A3BA02027A57100795C1D /* CURScoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURScoreView.m; sourceTree = "<group>"; };
 		A20A3BA22027B0D300795C1D /* CURChangeScoreProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURChangeScoreProtocol.h; sourceTree = "<group>"; };
+		A262C76020332B5700161741 /* AppData+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppData+CoreDataClass.m"; path = "/Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/CoreData/AppData+CoreDataClass.m"; sourceTree = "<absolute>"; };
+		A262C76120332B5800161741 /* AppData+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppData+CoreDataProperties.h"; path = "/Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/CoreData/AppData+CoreDataProperties.h"; sourceTree = "<absolute>"; };
+		A262C76220332B5800161741 /* AppData+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppData+CoreDataClass.h"; path = "/Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/CoreData/AppData+CoreDataClass.h"; sourceTree = "<absolute>"; };
+		A262C76320332B5800161741 /* AppData+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppData+CoreDataProperties.m"; path = "/Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/CoreData/AppData+CoreDataProperties.m"; sourceTree = "<absolute>"; };
+		A262C7662033A9A800161741 /* CURNetworkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURNetworkManager.h; sourceTree = "<group>"; };
+		A262C7672033A9A800161741 /* CURNetworkManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURNetworkManager.m; sourceTree = "<group>"; };
+		A262C7692033C78700161741 /* CURNetworkManagerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURNetworkManagerProtocol.h; sourceTree = "<group>"; };
+		A262C76A2033E6AF00161741 /* CURLoadingAnimationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURLoadingAnimationView.h; sourceTree = "<group>"; };
+		A262C76B2033E6AF00161741 /* CURLoadingAnimationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURLoadingAnimationView.m; sourceTree = "<group>"; };
 		A2869A832028704D003C89D5 /* CURCloseGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURCloseGameViewController.h; sourceTree = "<group>"; };
 		A2869A842028704D003C89D5 /* CURCloseGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURCloseGameViewController.m; sourceTree = "<group>"; };
 		A2DEF742202E0E4A0000A9D6 /* CURButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURButton.h; sourceTree = "<group>"; };
 		A2DEF743202E0E4A0000A9D6 /* CURButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURButton.m; sourceTree = "<group>"; };
 		A2DEF748203047940000A9D6 /* CURSplashScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURSplashScreenViewController.h; sourceTree = "<group>"; };
 		A2DEF749203047940000A9D6 /* CURSplashScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURSplashScreenViewController.m; sourceTree = "<group>"; };
+		A2DEF74B2031F24B0000A9D6 /* CURSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURSettingsViewController.h; sourceTree = "<group>"; };
+		A2DEF74C2031F24B0000A9D6 /* CURSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURSettingsViewController.m; sourceTree = "<group>"; };
 		F6E669D126A5834AF9A8F98D /* libPods-CurlingApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CurlingApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -220,6 +236,8 @@
 				A20A3B8D20273DB900795C1D /* CURViewGameViewController.m */,
 				A20822D8202AF0D8009F0484 /* CURShowGameViewController.h */,
 				A20822D9202AF0D8009F0484 /* CURShowGameViewController.m */,
+				A2DEF74B2031F24B0000A9D6 /* CURSettingsViewController.h */,
+				A2DEF74C2031F24B0000A9D6 /* CURSettingsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -229,6 +247,7 @@
 			children = (
 				A20A3B982027968B00795C1D /* CURTouchDetectProtocol.h */,
 				A20A3BA22027B0D300795C1D /* CURChangeScoreProtocol.h */,
+				A262C7692033C78700161741 /* CURNetworkManagerProtocol.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -246,6 +265,8 @@
 				A20A3BA02027A57100795C1D /* CURScoreView.m */,
 				A2DEF742202E0E4A0000A9D6 /* CURButton.h */,
 				A2DEF743202E0E4A0000A9D6 /* CURButton.m */,
+				A262C76A2033E6AF00161741 /* CURLoadingAnimationView.h */,
+				A262C76B2033E6AF00161741 /* CURLoadingAnimationView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -259,6 +280,8 @@
 				A20822D6202A68E4009F0484 /* CURShowGameManager.m */,
 				A20822CB2029EE80009F0484 /* CURCoreDataManager.h */,
 				A20822CC2029EE80009F0484 /* CURCoreDataManager.m */,
+				A262C7662033A9A800161741 /* CURNetworkManager.h */,
+				A262C7672033A9A800161741 /* CURNetworkManager.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -266,6 +289,10 @@
 		A28128C02029B32E009FBCEE /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				A262C76220332B5800161741 /* AppData+CoreDataClass.h */,
+				A262C76020332B5700161741 /* AppData+CoreDataClass.m */,
+				A262C76120332B5800161741 /* AppData+CoreDataProperties.h */,
+				A262C76320332B5800161741 /* AppData+CoreDataProperties.m */,
 				A20156EE2029CB72000000D8 /* GameInfo+CoreDataClass.h */,
 				A20156EF2029CB72000000D8 /* GameInfo+CoreDataClass.m */,
 				A20156F02029CB72000000D8 /* GameInfo+CoreDataProperties.h */,
@@ -445,11 +472,13 @@
 				A20A3B852027232E00795C1D /* CURGameTableViewCell.m in Sources */,
 				A2DEF744202E0E4A0000A9D6 /* CURButton.m in Sources */,
 				A20822D7202A68E4009F0484 /* CURShowGameManager.m in Sources */,
+				A2DEF74D2031F24B0000A9D6 /* CURSettingsViewController.m in Sources */,
 				A209A06E202B78220060872E /* EndScore+CoreDataClass.m in Sources */,
 				A20822D1202A0523009F0484 /* CURGameInfo.m in Sources */,
 				A20156F22029CB72000000D8 /* StoneData+CoreDataClass.m in Sources */,
 				A20156F52029CB72000000D8 /* GameInfo+CoreDataProperties.m in Sources */,
 				A209A06F202B78220060872E /* EndScore+CoreDataProperties.m in Sources */,
+				A262C7682033A9A800161741 /* CURNetworkManager.m in Sources */,
 				A2869A852028704D003C89D5 /* CURCloseGameViewController.m in Sources */,
 				A20A3B9E20279D7C00795C1D /* CURGameManager.m in Sources */,
 				A20156F42029CB72000000D8 /* GameInfo+CoreDataClass.m in Sources */,
@@ -459,13 +488,16 @@
 				A20822D4202A057C009F0484 /* CURStoneData.m in Sources */,
 				A20A3B7F20271E0F00795C1D /* CURGamesTableViewController.m in Sources */,
 				A20A3B9420274F5E00795C1D /* CURGameViewController.m in Sources */,
+				A262C76520332B5900161741 /* AppData+CoreDataProperties.m in Sources */,
 				A20A3B5720271CC500795C1D /* AppDelegate.m in Sources */,
 				A20A3B6820271CC500795C1D /* main.m in Sources */,
+				A262C76C2033E6AF00161741 /* CURLoadingAnimationView.m in Sources */,
 				A20A3B6020271CC500795C1D /* CurlingApp.xcdatamodeld in Sources */,
 				A2DEF74A203047940000A9D6 /* CURSplashScreenViewController.m in Sources */,
 				A20A3B8E20273DB900795C1D /* CURViewGameViewController.m in Sources */,
 				A20156F32029CB72000000D8 /* StoneData+CoreDataProperties.m in Sources */,
 				A20A3B972027938D00795C1D /* CURScrollView.m in Sources */,
+				A262C76420332B5900161741 /* AppData+CoreDataClass.m in Sources */,
 				A20822DA202AF0D8009F0484 /* CURShowGameViewController.m in Sources */,
 				A20A3B8B2027340900795C1D /* CURCreateGameViewController.m in Sources */,
 			);

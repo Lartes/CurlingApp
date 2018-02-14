@@ -7,8 +7,13 @@
 //
 
 #import "AppDelegate.h"
-#import "CURGamesTableViewController.h"
 #import "CURSplashScreenViewController.h"
+
+@interface UIViewController ()
+
+- (void)setReceivedURL:(NSURL *)url;
+
+@end
 
 @interface AppDelegate ()
 
@@ -27,6 +32,14 @@
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    UINavigationController *navigationViewController = (UINavigationController *)self.window.rootViewController.presentedViewController;
+    [navigationViewController.topViewController setReceivedURL:url];
+    
+    return YES;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
