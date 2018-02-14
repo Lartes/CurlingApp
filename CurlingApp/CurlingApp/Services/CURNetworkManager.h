@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CURCoreDataManager.h"
 #import "CURNetworkManagerProtocol.h"
+#import "Constants.h"
 
 @interface CURNetworkManager : NSObject
 

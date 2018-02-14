@@ -42,12 +42,4 @@
     [self.layer removeAnimationForKey:@"basicanimkey"];
 }
 
-
-#pragma mark - CAAnimationDelegate
-/*
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
-{
-    [self startAnimation];
-}
-*/
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CURChangeScoreProtocol.h"
+#import "Constants.h"
 
 @interface CURScoreView : UIView <CURChangeScoreProtocol>
 

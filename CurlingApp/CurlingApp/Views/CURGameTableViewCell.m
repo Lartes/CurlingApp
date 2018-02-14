@@ -8,8 +8,6 @@
 
 #import "CURGameTableViewCell.h"
 
-static const CGFloat INDENT = 10.;
-
 @implementation CURGameTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -38,9 +36,9 @@ static const CGFloat INDENT = 10.;
         _teamsScore.textColor = [UIColor blackColor];
 
         _teamsScore.textAlignment = NSTextAlignmentCenter;
-        _teamsScore.font = [UIFont systemFontOfSize:30];
-        _teamNameFirst.font = [UIFont systemFontOfSize:20];
-        _teamNameSecond.font = [UIFont systemFontOfSize:20];
+        _teamsScore.font = [UIFont systemFontOfSize:BIGFONT];
+        _teamNameFirst.font = [UIFont systemFontOfSize:SMALLFONT];
+        _teamNameSecond.font = [UIFont systemFontOfSize:SMALLFONT];
         
         _colorBarFirst.backgroundColor = [UIColor redColor];
         _colorBarScoreFirst.backgroundColor = [UIColor redColor];

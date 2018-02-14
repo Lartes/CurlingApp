@@ -17,7 +17,7 @@
 @property (nonatomic, weak) id<CURChangeScoreProtocol> output;
 @property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
-- (instancetype)initWithColor:(UIColor *)firstStoneColor andHash:(NSString *)hashLink;
+- (instancetype)initWithColor:(UIColor *)firstStoneColor andHash:(NSString *)hashLink andStoneSize:(NSInteger)stoneSize;
 
 - (void)startEnd;
 - (UIView *)addStone;

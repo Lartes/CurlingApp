@@ -8,8 +8,6 @@
 
 #import "CURSettingsViewController.h"
 
-static const float INDENT = 10.;
-
 @interface CURSettingsViewController ()
 
 @property (nonatomic, strong) CURButton *loginButton;
@@ -97,7 +95,7 @@ static const float INDENT = 10.;
 - (void)toMainView
 {
     CATransition *transition = [CATransition animation];
-    transition.duration = 0.5;
+    transition.duration = SETTINGSTRANSITIONDURATION;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionMoveIn;
     transition.subtype = kCATransitionFromRight;

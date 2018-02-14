@@ -8,8 +8,6 @@
 
 #import "CURCloseGameViewController.h"
 
-static const CGFloat INDENT = 10.;
-
 @interface CURCloseGameViewController ()
 
 @property (nonatomic, strong) CURButton *nextEndButton;
@@ -51,8 +49,8 @@ static const CGFloat INDENT = 10.;
     self.teamNameSecond.adjustsFontSizeToFitWidth = YES;
     [self.view addSubview:self.teamNameSecond];
     
-    self.teamNameFirst.font = [UIFont systemFontOfSize:23];
-    self.teamNameSecond.font = [UIFont systemFontOfSize:23];
+    self.teamNameFirst.font = [UIFont systemFontOfSize:MEDIUMFONT];
+    self.teamNameSecond.font = [UIFont systemFontOfSize:MEDIUMFONT];
     
     self.firstTeamScore = [UITextField new];
     self.firstTeamScore.keyboardType = UIKeyboardTypeNumberPad;
@@ -68,8 +66,8 @@ static const CGFloat INDENT = 10.;
     self.secondTeamScore.placeholder = @"-";
     [self.view addSubview:self.secondTeamScore];
     
-    self.firstTeamScore.font = [UIFont systemFontOfSize:30];
-    self.secondTeamScore.font = [UIFont systemFontOfSize:30];
+    self.firstTeamScore.font = [UIFont systemFontOfSize:BIGFONT];
+    self.secondTeamScore.font = [UIFont systemFontOfSize:BIGFONT];
     
     self.nextEndButton = [CURButton new];
     [self.nextEndButton setTitle:@"Следующий энд" forState:UIControlStateNormal];

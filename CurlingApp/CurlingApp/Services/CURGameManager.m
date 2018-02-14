@@ -19,17 +19,19 @@
 @property (nonatomic, strong) UIColor *firstTeamColor;
 @property (nonatomic, strong) UIImage *redStone;
 @property (nonatomic, strong) UIImage *yellowStone;
+@property (nonatomic, assign) NSInteger stoneSize;
 @end
 
 @implementation CURGameManager
 
-- (instancetype)initWithColor:(UIColor *)firstStoneColor andHash:(NSString *)hashLink
+- (instancetype)initWithColor:(UIColor *)firstStoneColor andHash:(NSString *)hashLink andStoneSize:(NSInteger)stoneSize
 {
     self = [super init];
     if(self)
     {
         _stonesArray = [NSMutableArray new];
         _isEndFinishedBool = NO;
+        _stoneSize = stoneSize;
         _stoneColor = firstStoneColor;
         _firstTeamColor = firstStoneColor;
         _endNumber = 0;
@@ -49,9 +51,9 @@
         self.stepNumber += 1;
     }
         
-    UIImageView *stone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 38, 38)];
+    UIImageView *stone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.stoneSize, self.stoneSize)];
     stone.userInteractionEnabled = YES;
-    stone.layer.cornerRadius = 18;
+    stone.layer.cornerRadius = self.stoneSize/2.;
     stone.image = self.stoneColor == [UIColor redColor] ? self.redStone : self.yellowStone;
     self.isEndFinishedBool = [self.output changeScoreForColor:self.stoneColor byNumber:-1];
     [self changeColor];

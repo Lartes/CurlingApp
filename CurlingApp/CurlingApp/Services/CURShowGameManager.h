@@ -12,13 +12,14 @@
 #import "CURCoreDataManager.h"
 #import "StoneData+CoreDataClass.h"
 #import "GameInfo+CoreDataClass.h"
+#import "Constants.h"
 
 @interface CURShowGameManager : NSObject
 
 @property (nonatomic, weak) id<CURChangeScoreProtocol> output;
 @property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
-- (instancetype)initWithGameInfo:(GameInfo *)gameInfo andEndNumber:(NSInteger)endNumber;
+- (instancetype)initWithGameInfo:(GameInfo *)gameInfo andEndNumber:(NSInteger)endNumber andStoneSize:(NSInteger)stoneSize;
 
 - (NSArray *)startShowGame;
 - (BOOL)showNextStep;

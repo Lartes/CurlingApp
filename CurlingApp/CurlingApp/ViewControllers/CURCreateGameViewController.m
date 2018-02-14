@@ -8,9 +8,6 @@
 
 #import "CURCreateGameViewController.h"
 
-static const float INDENT = 10;
-static const float FIELDHEIGHT = 40;
-
 @interface CURCreateGameViewController ()
 
 @property (nonatomic, strong) UITextField *teamNameFirst;
@@ -64,11 +61,11 @@ static const float FIELDHEIGHT = 40;
     self.teamNameFirst.borderStyle = UITextBorderStyleRoundedRect;
     self.teamNameSecond.borderStyle = UITextBorderStyleRoundedRect;
     
-    self.teamNameFirst.font = [UIFont systemFontOfSize:20];
-    self.teamNameSecond.font = [UIFont systemFontOfSize:20];
+    self.teamNameFirst.font = [UIFont systemFontOfSize:SMALLFONT];
+    self.teamNameSecond.font = [UIFont systemFontOfSize:SMALLFONT];
     
     self.createButton = [CURButton new];
-    self.createButton.titleLabel.font = [UIFont systemFontOfSize:20];
+    self.createButton.titleLabel.font = [UIFont systemFontOfSize:SMALLFONT];
     [self.createButton setTitle:@"Создать игру" forState:UIControlStateNormal];
     [self.createButton addTarget:self action:@selector(createButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.createButton];
@@ -140,7 +137,7 @@ static const float FIELDHEIGHT = 40;
     gameInfo.isFirstTeamColorRed = self.teamColorFirst.backgroundColor == [UIColor redColor];
     [self.coreDataManager saveGameInfo:gameInfo];
     
-    CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:self.teamColorFirst.backgroundColor andHash:gameInfo.hashLink];
+    CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:self.teamColorFirst.backgroundColor andHash:gameInfo.hashLink andStoneSize:CGRectGetWidth(self.view.frame)/STONESIZEDIVIDER];
     gameManager.coreDataManager = self.coreDataManager;
     
     CURGameViewController *gameViewController = [[CURGameViewController alloc] initWithManager:gameManager];

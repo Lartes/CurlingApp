@@ -8,8 +8,6 @@
 
 #import "CURScoreTableViewCell.h"
 
-static const float INDENT = 10.;
-
 @implementation CURScoreTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -26,7 +24,7 @@ static const float INDENT = 10.;
         _score.textColor = [UIColor blackColor];
         _endNumber.textColor = [UIColor blackColor];
         
-        _score.font = [UIFont systemFontOfSize:23];
+        _score.font = [UIFont systemFontOfSize:MEDIUMFONT];
         
         [self.contentView addSubview:_score];
         [self.contentView addSubview:_endNumber];

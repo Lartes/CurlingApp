@@ -83,7 +83,7 @@
     
     NSURLSessionUploadTask *task = [urlSession uploadTaskWithRequest:request fromData:dataJSON completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == 200];
+            [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == DROPBOXSUCCESSSTATUSCODE];
             [urlSession finishTasksAndInvalidate];
         });
     }];
@@ -103,11 +103,11 @@
     [request setValue:[NSString stringWithFormat:@"Bearer %@", appData.accessToken] forHTTPHeaderField:@"Authorization"];
     
     NSURLSessionDownloadTask *task = [urlSession downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error){
-        if([(NSHTTPURLResponse *)response statusCode] == 200)
+        if([(NSHTTPURLResponse *)response statusCode] == DROPBOXSUCCESSSTATUSCODE)
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self saveDownloadDataToCoreData:location];
-                [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == 200];
+                [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == DROPBOXSUCCESSSTATUSCODE];
                 [urlSession finishTasksAndInvalidate];
             });
         }

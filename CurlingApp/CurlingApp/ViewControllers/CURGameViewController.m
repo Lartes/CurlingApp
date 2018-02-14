@@ -8,8 +8,6 @@
 
 #import "CURGameViewController.h"
 
-static const float INDENT = 10.;
-
 @interface CURGameViewController ()
 
 @property (nonatomic, strong) CURScrollView *trackScrollView;

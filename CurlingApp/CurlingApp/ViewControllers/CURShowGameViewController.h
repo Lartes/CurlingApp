@@ -14,6 +14,7 @@
 #import "CURScoreView.h"
 #import "CURButton.h"
 #import "Masonry.h"
+#import "Constants.h"
 
 @interface CURShowGameViewController : UIViewController <CURTouchDetectProtocol>
 

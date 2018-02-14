@@ -13,6 +13,7 @@
 #import "GameInfo+CoreDataClass.h"
 #import "CURButton.h"
 #import "Masonry.h"
+#import "Constants.h"
 
 @interface CURCreateGameViewController : UIViewController
 

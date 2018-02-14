@@ -8,8 +8,6 @@
 
 #import "CURViewGameViewController.h"
 
-static const float INDENT = 10.;
-
 @interface CURViewGameViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UILabel *teamNameFirst;
@@ -104,9 +102,9 @@ static const float INDENT = 10.;
     [self.tableView registerClass:[CURScoreTableViewCell class] forCellReuseIdentifier:@"ScoreTableViewCell"];
     [self.view addSubview:self.tableView];
     
-    self.teamsScore.font = [UIFont systemFontOfSize:30];
-    self.teamNameFirst.font = [UIFont systemFontOfSize:23];
-    self.teamNameSecond.font = [UIFont systemFontOfSize:23];
+    self.teamsScore.font = [UIFont systemFontOfSize:BIGFONT];
+    self.teamNameFirst.font = [UIFont systemFontOfSize:MEDIUMFONT];
+    self.teamNameSecond.font = [UIFont systemFontOfSize:MEDIUMFONT];
 }
 
 - (void)updateViewConstraints
@@ -228,7 +226,7 @@ static const float INDENT = 10.;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CURShowGameManager *gameManager = [[CURShowGameManager alloc] initWithGameInfo:self.gameInfo andEndNumber:self.scoresArray[indexPath.row].endNumber];
+    CURShowGameManager *gameManager = [[CURShowGameManager alloc] initWithGameInfo:self.gameInfo andEndNumber:self.scoresArray[indexPath.row].endNumber andStoneSize:CGRectGetWidth(self.view.frame)/STONESIZEDIVIDER];
     gameManager.coreDataManager = self.coreDataManager;
 
     CURShowGameViewController *gameViewController = [[CURShowGameViewController alloc] initWithManager:gameManager];

@@ -90,7 +90,7 @@
     settingViewController.coreDataManager = self.coreDataManager;
     
     CATransition *transition = [CATransition animation];
-    transition.duration = 0.5;
+    transition.duration = SETTINGSTRANSITIONDURATION;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionReveal;
     transition.subtype = kCATransitionFromLeft;

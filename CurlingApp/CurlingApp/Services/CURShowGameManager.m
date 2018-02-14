@@ -20,18 +20,20 @@
 @property (nonatomic, assign) NSInteger indexInStonesData;
 @property (nonatomic, strong) UIImage *redStone;
 @property (nonatomic, strong) UIImage *yellowStone;
+@property (nonatomic, assign) NSInteger stoneSize;
 
 @end
 
 @implementation CURShowGameManager
 
-- (instancetype)initWithGameInfo:(GameInfo *)gameInfo andEndNumber:(NSInteger)endNumber;
+- (instancetype)initWithGameInfo:(GameInfo *)gameInfo andEndNumber:(NSInteger)endNumber andStoneSize:(NSInteger)stoneSize;
 {
     self = [super init];
     if(self)
     {
         _stonesArray = [NSMutableArray new];
         _stonesData = nil;
+        _stoneSize = stoneSize;
         _endNumber = endNumber;
         _stepNumber = 0;
         _hashLink = gameInfo.hashLink;
@@ -52,11 +54,11 @@
     
     NSMutableArray *stones = [NSMutableArray new];
     UIImageView *stone = nil;
-    for (int i = 0; i<16; i++)
+    for (int i = 0; i<NUMBEROFSTONESPEREND; i++)
     {
-        stone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
+        stone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.stoneSize, self.stoneSize)];
         stone.userInteractionEnabled = YES;
-        stone.layer.cornerRadius = 18;
+        stone.layer.cornerRadius = self.stoneSize/2.;
         stone.hidden = YES;
         [stones addObject:stone];
     }
@@ -72,7 +74,7 @@
     [self.output setEndNumber:self.endNumber];
     self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink andEndNumber:self.endNumber];
     self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
-    for (int i = 0; i<16; i++)
+    for (int i = 0; i<NUMBEROFSTONESPEREND; i++)
     {
         self.stonesArray[i].hidden = YES;
     }
@@ -108,7 +110,7 @@
     [self.output changeScoreForColor:self.stoneColor byNumber:-1];
     [self changeColor];
     
-    if (self.stepNumber == 16)
+    if (self.stepNumber == NUMBEROFSTONESPEREND)
     {
         return YES;
     }
@@ -136,7 +138,7 @@
         self.indexInStonesData -= 1;
     }
     self.indexInStonesData += 1;
-    for (; indexInStonesArray<16; indexInStonesArray++)
+    for (; indexInStonesArray<NUMBEROFSTONESPEREND; indexInStonesArray++)
     {
         self.stonesArray[indexInStonesArray].hidden = YES;
     }
