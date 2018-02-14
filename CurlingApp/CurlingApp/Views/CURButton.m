@@ -21,6 +21,7 @@
         self.layer.cornerRadius = 5.;
         self.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
         [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     }
     return self;
 }

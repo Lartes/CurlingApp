@@ -32,7 +32,7 @@
 - (void)clearCoreData
 {
     NSArray *data = [self.coreDataContext executeFetchRequest:[GameInfo fetchRequest] error:nil];
-    for (StoneData *item in data)
+    for (GameInfo *item in data)
     {
         [self.coreDataContext deleteObject:item];
     }
@@ -42,7 +42,7 @@
         [self.coreDataContext deleteObject:item];
     }
     data = [self.coreDataContext executeFetchRequest:[EndScore fetchRequest] error:nil];
-    for (StoneData *item in data)
+    for (EndScore *item in data)
     {
         [self.coreDataContext deleteObject:item];
     }

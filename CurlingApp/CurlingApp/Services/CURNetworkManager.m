@@ -82,8 +82,10 @@
     [request setValue:[NSString stringWithFormat:@"Bearer %@", appData.accessToken] forHTTPHeaderField:@"Authorization"];
     
     NSURLSessionUploadTask *task = [urlSession uploadTaskWithRequest:request fromData:dataJSON completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
-        [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == 200];
-        [urlSession finishTasksAndInvalidate];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == 200];
+            [urlSession finishTasksAndInvalidate];
+        });
     }];
     [task resume];
 }
@@ -103,10 +105,12 @@
     NSURLSessionDownloadTask *task = [urlSession downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error){
         if([(NSHTTPURLResponse *)response statusCode] == 200)
         {
-            [self saveDownloadDataToCoreData:location];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self saveDownloadDataToCoreData:location];
+                [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == 200];
+                [urlSession finishTasksAndInvalidate];
+            });
         }
-        [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == 200];
-        [urlSession finishTasksAndInvalidate];
     }];
     [task resume];
 }

@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/ViewControllers/CURViewGameViewController.m"
-            timestampString = "540078455.944659"
+            timestampString = "540283697.989688"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "199"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/ViewControllers/CURViewGameViewController.m"
-            timestampString = "540078455.94496"
+            timestampString = "540283697.9897979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "112"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/ViewControllers/CURViewGameViewController.m"
-            timestampString = "540078455.9450639"
+            timestampString = "540283697.989866"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "118"
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/ViewControllers/CURGamesTableViewController.m"
-            timestampString = "540215171.273249"
+            timestampString = "540287728.052918"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/ViewControllers/CURSettingsViewController.m"
-            timestampString = "540265456.685876"
+            timestampString = "540287728.053914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "-setReceivedURL:"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/Services/CURNetworkManager.m"
-            timestampString = "540265456.6872571"
+            timestampString = "540287728.0548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "-saveDownloadDataToCoreData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/Services/CURNetworkManager.m"
-            timestampString = "540265456.689908"
+            timestampString = "540287728.054965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "-saveDownloadDataToCoreData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/Services/CURNetworkManager.m"
-            timestampString = "540265456.6910959"
+            timestampString = "540287728.055083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
             landmarkName = "-saveDownloadDataToCoreData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/Services/CURNetworkManager.m"
-            timestampString = "540265456.692294"
+            timestampString = "540287728.055197"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "-saveDownloadDataToCoreData:"
             landmarkType = "7">
             <Locations>
@@ -214,31 +214,31 @@
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[CURNetworkManager URLSession:downloadTask:didFinishDownloadingToURL:]"
+                  symbolName = "-[CURNetworkManager saveDownloadDataToCoreData:]"
                   moduleName = "CurlingApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/Services/CURNetworkManager.m"
-                  timestampString = "540262756.800604"
+                  timestampString = "540279909.765496"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "149"
-                  endingLineNumber = "149"
-                  offsetFromSymbolStart = "3230">
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "3141">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[CURNetworkManager URLSession:downloadTask:didFinishDownloadingToURL:]"
+                  symbolName = "-[CURNetworkManager saveDownloadDataToCoreData:]"
                   moduleName = "CurlingApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/Services/CURNetworkManager.m"
-                  timestampString = "540262756.815676"
+                  timestampString = "540279909.838639"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "149"
-                  endingLineNumber = "149"
-                  offsetFromSymbolStart = "3242">
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "3153">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/Services/CURNetworkManager.m"
-            timestampString = "540265456.6935771"
+            timestampString = "540287728.055661"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "-saveDownloadDataToCoreData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/Services/CURNetworkManager.m"
-            timestampString = "540265456.69577"
+            timestampString = "540287728.055781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "-saveDownloadDataToCoreData:"
             landmarkType = "7">
             <Locations>
@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurlingApp/Services/CURNetworkManager.m"
-            timestampString = "540265515.090541"
+            timestampString = "540287728.055881"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
             landmarkName = "-saveDownloadDataToCoreData:"
             landmarkType = "7">
          </BreakpointContent>

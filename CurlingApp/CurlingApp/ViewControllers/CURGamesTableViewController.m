@@ -43,7 +43,7 @@
     
     UIBarButtonItem *newButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewGame)];
     self.navigationItem.rightBarButtonItem = newButton;
-    
+
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(openSettings)];
     self.navigationItem.leftBarButtonItem = settingsButton;
     
@@ -88,7 +88,20 @@
 {
     CURSettingsViewController *settingViewController = [CURSettingsViewController new];
     settingViewController.coreDataManager = self.coreDataManager;
-    [self.navigationController pushViewController:settingViewController animated:YES];
+    
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionReveal;
+    transition.subtype = kCATransitionFromLeft;
+    [self.navigationController.view.layer addAnimation:transition forKey:kCATransition];
+    
+    [self.navigationController pushViewController:settingViewController animated:NO];
+}
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
 }
 
 #pragma mark - UITableViewDataSource

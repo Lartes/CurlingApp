@@ -10,6 +10,9 @@
 #import "CURCoreDataManager.h"
 #import "CURNetworkManager.h"
 #import "CURNetworkManagerProtocol.h"
+#import "CURButton.h"
+#import "CURLoadingAnimationView.h"
+#import "Masonry.h"
 
 @interface CURSettingsViewController : UIViewController <CURNetworkManagerProtocol>
 
