@@ -11,6 +11,7 @@
 #import "CURChangeScoreProtocol.h"
 #import "CURCoreDataManager.h"
 #import "StoneData+CoreDataClass.h"
+#import "Constants.h"
 
 @interface CURGameManager : NSObject
 
@@ -27,7 +28,7 @@
 - (void)setFirstStoneColor:(UIColor *)color;
 
 - (NSString *)getHashLink;
-- (NSInteger)getEndNumber;
+- (int)getEndNumber;
 - (UIColor *)getFirstTeamColor;
 
 @end

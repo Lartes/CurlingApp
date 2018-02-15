@@ -12,14 +12,15 @@
 
 @property (nonatomic, strong) NSMutableArray<UIImageView *> *stonesArray;
 @property (nonatomic, strong) UIColor *stoneColor;
-@property (nonatomic, assign) NSInteger endNumber;
+@property (nonatomic, assign) int endNumber;
 @property (nonatomic, assign) BOOL isEndFinishedBool;
-@property (nonatomic, assign) NSInteger stepNumber;
+@property (nonatomic, assign) int stepNumber;
 @property (nonatomic, copy) NSString *hashLink;
 @property (nonatomic, strong) UIColor *firstTeamColor;
 @property (nonatomic, strong) UIImage *redStone;
 @property (nonatomic, strong) UIImage *yellowStone;
 @property (nonatomic, assign) NSInteger stoneSize;
+
 @end
 
 @implementation CURGameManager
@@ -77,8 +78,8 @@
 
 - (void)finishGame
 {
-    NSInteger firstTeamScore = 0;
-    NSInteger secondTeamScore = 0;
+    int firstTeamScore = 0;
+    int secondTeamScore = 0;
     NSArray<EndScore *> *endScores = [self.coreDataManager loadEndScoreByHash:self.hashLink];
     for (EndScore *endScore in endScores)
     {
@@ -112,7 +113,7 @@
     return self.hashLink;
 }
 
-- (NSInteger)getEndNumber
+- (int)getEndNumber
 {
     return self.endNumber;
 }

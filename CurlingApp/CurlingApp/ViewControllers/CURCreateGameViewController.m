@@ -69,43 +69,42 @@
     [self.createButton setTitle:@"Создать игру" forState:UIControlStateNormal];
     [self.createButton addTarget:self action:@selector(createButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.createButton];
+    
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)updateViewConstraints
 {
-    if (self.navigationController)
-    {
-        [self.teamNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.navigationController.navigationBar.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.view).with.offset(INDENT);
-            make.height.mas_equalTo(FIELDHEIGHT);
-        }];
-        [self.teamNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.teamNameFirst.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.teamNameFirst);
-            make.size.mas_equalTo(self.teamNameFirst);
-        }];
-        [self.teamColorFirst mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.teamNameFirst);
-            make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(INDENT);
-            make.right.mas_equalTo(self.view).with.offset(-INDENT);
-            make.width.mas_equalTo(self.teamColorFirst.mas_height);
-        }];
-        [self.teamColorSecond mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.teamColorFirst.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.teamColorFirst);
-            make.size.mas_equalTo(self.teamColorFirst);
-            make.bottom.mas_equalTo(self.teamNameSecond);
-        }];
-        [self.createButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.teamNameSecond.mas_bottom).with.offset(INDENT);
-            make.left.mas_greaterThanOrEqualTo(self.view).with.offset(INDENT);
-            make.right.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
-            make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(INDENT);
-            make.centerX.mas_equalTo(self.view);
-            make.height.mas_equalTo(FIELDHEIGHT);
-        }];
-    }
+    [self.teamNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view).with.offset(TABBARHEIGHT+INDENT);
+        make.left.mas_equalTo(self.view).with.offset(INDENT);
+        make.height.mas_equalTo(FIELDHEIGHT);
+    }];
+    [self.teamNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.teamNameFirst.mas_bottom).with.offset(INDENT);
+        make.left.mas_equalTo(self.teamNameFirst);
+        make.size.mas_equalTo(self.teamNameFirst);
+    }];
+    [self.teamColorFirst mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.teamNameFirst);
+        make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(INDENT);
+        make.right.mas_equalTo(self.view).with.offset(-INDENT);
+        make.width.mas_equalTo(self.teamColorFirst.mas_height);
+    }];
+    [self.teamColorSecond mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.teamColorFirst.mas_bottom).with.offset(INDENT);
+        make.left.mas_equalTo(self.teamColorFirst);
+        make.size.mas_equalTo(self.teamColorFirst);
+        make.bottom.mas_equalTo(self.teamNameSecond);
+    }];
+    [self.createButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.teamNameSecond.mas_bottom).with.offset(INDENT);
+        make.left.mas_greaterThanOrEqualTo(self.view).with.offset(INDENT);
+        make.right.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
+        make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(INDENT);
+        make.centerX.mas_equalTo(self.view);
+        make.height.mas_equalTo(FIELDHEIGHT);
+    }];
     
     [super updateViewConstraints];
 }

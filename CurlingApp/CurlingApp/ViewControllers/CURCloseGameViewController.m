@@ -78,49 +78,50 @@
     [self.closeGameButton setTitle:@"Завершить игру" forState:UIControlStateNormal];
     [self.closeGameButton addTarget:self action:@selector(closeGameButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.closeGameButton];
+    
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)updateViewConstraints
 {
-    if (self.navigationController)
-    {
-        [self.teamNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.navigationController.navigationBar.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.view).with.offset(INDENT);
-        }];
-        [self.teamNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.teamNameFirst.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.teamNameFirst);
-            make.size.mas_equalTo(self.teamNameFirst);
-            make.bottom.mas_equalTo(self.secondTeamScore);
-        }];
-        [self.firstTeamScore mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_greaterThanOrEqualTo(self.teamNameFirst);
-            make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(INDENT);
-            make.right.mas_equalTo(self.view).with.offset(-INDENT*2);
-        }];
-        [self.secondTeamScore mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.firstTeamScore.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.firstTeamScore);
-            make.size.mas_equalTo(self.firstTeamScore);
-        }];
-        [self.nextEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.teamNameSecond.mas_bottom).with.offset(INDENT);
-            make.centerX.mas_equalTo(self.view);
-        }];
-        [self.closeGameButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.nextEndButton.mas_bottom).with.offset(INDENT);
-            make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
-            make.centerX.mas_equalTo(self.view);
-            make.size.mas_equalTo(self.nextEndButton);
-        }];
-    }
+    [self.teamNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view).with.offset(TABBARHEIGHT+INDENT);
+        make.left.mas_equalTo(self.view).with.offset(INDENT);
+    }];
+    [self.teamNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.teamNameFirst.mas_bottom).with.offset(INDENT);
+        make.left.mas_equalTo(self.teamNameFirst);
+        make.size.mas_equalTo(self.teamNameFirst);
+        make.bottom.mas_equalTo(self.secondTeamScore);
+    }];
+    [self.firstTeamScore mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_greaterThanOrEqualTo(self.teamNameFirst);
+        make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(INDENT);
+        make.right.mas_equalTo(self.view).with.offset(-INDENT*2);
+    }];
+    [self.secondTeamScore mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.firstTeamScore.mas_bottom).with.offset(INDENT);
+        make.left.mas_equalTo(self.firstTeamScore);
+        make.size.mas_equalTo(self.firstTeamScore);
+    }];
+    [self.nextEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.teamNameSecond.mas_bottom).with.offset(INDENT);
+        make.centerX.mas_equalTo(self.view);
+    }];
+    [self.closeGameButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.nextEndButton.mas_bottom).with.offset(INDENT);
+        make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
+        make.centerX.mas_equalTo(self.view);
+        make.size.mas_equalTo(self.nextEndButton);
+    }];
     
     [super updateViewConstraints];
 }
 
 - (void)nextEndButtonPressed
 {
+    [self.nextEndButton tapAnimation];
+    
     if(self.firstTeamScore.text.length > 0 && self.secondTeamScore.text.length > 0)
     {
         [self switchToNextEnd];
@@ -136,8 +137,6 @@
 
 - (void)switchToNextEnd
 {
-    [self.nextEndButton tapAnimation];
-    
     [self.gameManager.coreDataManager saveFirstScore:[self.firstTeamScore.text intValue] andSecondScore:[self.secondTeamScore.text intValue] forEnd:[self.gameManager getEndNumber] andHash:self.gameInfo.hashLink];
     
     if ([self.firstTeamScore.text intValue] != [self.secondTeamScore.text intValue])
@@ -158,6 +157,8 @@
 
 - (void)closeGameButtonPressed
 {
+    [self.closeGameButton tapAnimation];
+    
     if(self.firstTeamScore.text.length > 0 && self.secondTeamScore.text.length > 0)
     {
         [self closeGame];
@@ -173,8 +174,6 @@
 
 - (void)closeGame
 {
-    [self.closeGameButton tapAnimation];
-    
     [self.gameManager.coreDataManager saveFirstScore:[self.firstTeamScore.text intValue] andSecondScore:[self.secondTeamScore.text intValue] forEnd:[self.gameManager getEndNumber] andHash:self.gameInfo.hashLink];
     [self.gameManager finishGame];
     

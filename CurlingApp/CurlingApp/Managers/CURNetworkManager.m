@@ -159,9 +159,9 @@
     for (NSDictionary *dict in [readData objectForKey:@"EndScore"])
     {
         NSString * hashLink = [dict objectForKey:@"hashLink"];
-        NSInteger endNumber = [[dict objectForKey:@"endNumber"] intValue];
-        NSInteger firstTeamScore = [[dict objectForKey:@"firstTeamScore"] intValue];
-        NSInteger secondTeamScore = [[dict objectForKey:@"secondTeamScore"] intValue];
+        int endNumber = [[dict objectForKey:@"endNumber"] intValue];
+        int firstTeamScore = [[dict objectForKey:@"firstTeamScore"] intValue];
+        int secondTeamScore = [[dict objectForKey:@"secondTeamScore"] intValue];
         [self.coreDataManager saveFirstScore:firstTeamScore andSecondScore:secondTeamScore forEnd:endNumber andHash:hashLink];
     }
 }

@@ -54,17 +54,16 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerClass:[CURGameTableViewCell class] forCellReuseIdentifier:@"GameTableViewCell"];
     [self.view addSubview:self.tableView];
+    
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)updateViewConstraints
 {
-    if (self.navigationController)
-    {
-        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.navigationController.navigationBar.mas_bottom);
-            make.left.right.and.bottom.mas_equalTo(self.view);
-        }];
-    }
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view).with.offset(TABBARHEIGHT);
+        make.left.right.and.bottom.mas_equalTo(self.view);
+    }];
     
     [super updateViewConstraints];
 }
@@ -99,10 +98,6 @@
     [self.navigationController pushViewController:settingViewController animated:NO];
 }
 
-- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
-{
-    return UIModalPresentationNone;
-}
 
 #pragma mark - UITableViewDataSource
 

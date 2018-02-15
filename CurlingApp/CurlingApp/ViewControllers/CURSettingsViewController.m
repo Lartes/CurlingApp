@@ -56,38 +56,37 @@
     self.loadingAnimation = [CURLoadingAnimationView new];
     self.loadingAnimation.hidden = YES;
     [self.view addSubview:self.loadingAnimation];
+    
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)updateViewConstraints
 {
-    if(self.navigationController)
-    {
-        [self.dropboxImage mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_greaterThanOrEqualTo(self.navigationController.navigationBar.mas_bottom).with.offset(INDENT);
-            make.centerX.mas_equalTo(self.view);
-            make.width.mas_equalTo(self.dropboxImage.mas_height);
-            make.width.mas_equalTo(CGRectGetWidth(self.view.frame)/2.);
-        }];
-        [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.dropboxImage.mas_bottom).with.offset(INDENT);
-            make.center.mas_equalTo(self.view);
-        }];
-        [self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.loginButton.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.loginButton);
-            make.size.mas_equalTo(self.loginButton);
-        }];
-        [self.loadButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.saveButton.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.loginButton);
-            make.size.mas_equalTo(self.loginButton);
-            make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
-        }];
-        
-        [self.loadingAnimation mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(self.view);
-        }];
-    }
+    [self.dropboxImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_greaterThanOrEqualTo(self.view).with.offset(TABBARHEIGHT+INDENT);
+        make.centerX.mas_equalTo(self.view);
+        make.width.mas_equalTo(self.dropboxImage.mas_height);
+        make.width.mas_equalTo(CGRectGetWidth(self.view.frame)/2.);
+    }];
+    [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.dropboxImage.mas_bottom).with.offset(INDENT);
+        make.center.mas_equalTo(self.view);
+    }];
+    [self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.loginButton.mas_bottom).with.offset(INDENT);
+        make.left.mas_equalTo(self.loginButton);
+        make.size.mas_equalTo(self.loginButton);
+    }];
+    [self.loadButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.saveButton.mas_bottom).with.offset(INDENT);
+        make.left.mas_equalTo(self.loginButton);
+        make.size.mas_equalTo(self.loginButton);
+        make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
+    }];
+    
+    [self.loadingAnimation mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.view);
+    }];
     
     [super updateViewConstraints];
 }
@@ -106,6 +105,8 @@
 
 - (void)saveButtonPressed
 {
+    [self.saveButton tapAnimation];
+    
     self.loadingAnimation.hidden = NO;
     self.navigationController.navigationBar.hidden = YES;
     [self.loadingAnimation startAnimation];
@@ -118,6 +119,8 @@
 
 - (void)loadButtonPressed
 {
+    [self.loadButton tapAnimation];
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Загрузить данные?" message:@"Вся текущая информация будет удалена" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
@@ -137,10 +140,18 @@
 
 - (void)loginButtonPressed
 {
+    [self.loadButton tapAnimation];
+    
     NSString *state = [NSString stringWithFormat:@"%d", rand()];
     NSString *stringURL = [NSString stringWithFormat:@"https://www.dropbox.com/oauth2/authorize?response_type=token&client_id=9m3zfx24z7qwgvj&redirect_uri=iOSCurlingApp://dropbox_callback&state=%@", state];
     NSURL* url = [[NSURL alloc] initWithString: stringURL];
-    [[UIApplication sharedApplication] openURL: url];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+        [[UIApplication sharedApplication] openURL: url options:@{} completionHandler:nil];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] openURL: url];
+    }
 }
 
 - (NSString *)valueForKey:(NSString *)key

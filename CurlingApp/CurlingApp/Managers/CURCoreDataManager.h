@@ -28,9 +28,9 @@
 - (NSArray *)loadEndScoreByHash:(NSString *)hashLink;
 - (void)saveGameInfo:(CURGameInfo *)gameInfoToSave;
 - (void)saveStoneData:(CURStoneData *)stoneDataToSave;
-- (void)saveNumberOfEnds:(NSInteger)number forHash:(NSString *)hashLink;
-- (void)saveFirstScore:(NSInteger)firstScore andSecondScore:(NSInteger)secondScore forHash:(NSString *)hashLink;
-- (void)saveFirstScore:(NSInteger)firstScore andSecondScore:(NSInteger)secondScore forEnd:(NSInteger)endNumber andHash:(NSString *)hashLink;
+- (void)saveNumberOfEnds:(int)number forHash:(NSString *)hashLink;
+- (void)saveFirstScore:(int)firstScore andSecondScore:(int)secondScore forHash:(NSString *)hashLink;
+- (void)saveFirstScore:(int)firstScore andSecondScore:(int)secondScore forEnd:(int)endNumber andHash:(NSString *)hashLink;
 - (BOOL)saveAccessToken:(NSString *)accessToken;
 - (void)deleteGameByHash:(NSString *)hashLink;
 - (void)deleteEndByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber;

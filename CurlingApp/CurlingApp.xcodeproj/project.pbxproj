@@ -21,7 +21,6 @@
 		A209A06F202B78220060872E /* EndScore+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A209A06D202B78220060872E /* EndScore+CoreDataProperties.m */; };
 		A209A072202B7E4F0060872E /* CURScoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A209A071202B7E4F0060872E /* CURScoreTableViewCell.m */; };
 		A20A3B5720271CC500795C1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B5620271CC500795C1D /* AppDelegate.m */; };
-		A20A3B5A20271CC500795C1D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B5920271CC500795C1D /* ViewController.m */; };
 		A20A3B6020271CC500795C1D /* CurlingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B5E20271CC500795C1D /* CurlingApp.xcdatamodeld */; };
 		A20A3B6220271CC500795C1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20A3B6120271CC500795C1D /* Assets.xcassets */; };
 		A20A3B6820271CC500795C1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B6720271CC500795C1D /* main.m */; };
@@ -86,8 +85,6 @@
 		A20A3B5220271CC500795C1D /* CurlingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurlingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20A3B5520271CC500795C1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A20A3B5620271CC500795C1D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A20A3B5820271CC500795C1D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A20A3B5920271CC500795C1D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A20A3B5F20271CC500795C1D /* CurlingApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CurlingApp.xcdatamodel; sourceTree = "<group>"; };
 		A20A3B6120271CC500795C1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A20A3B6620271CC500795C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -195,14 +192,12 @@
 			isa = PBXGroup;
 			children = (
 				A28128C02029B32E009FBCEE /* CoreData */,
-				A20A3B9B20279D0D00795C1D /* Services */,
+				A20A3B9B20279D0D00795C1D /* Managers */,
 				A20A3B9A20279C1400795C1D /* Views */,
 				A20A3B9920279C0400795C1D /* Protocols */,
 				A20A3B7C20271DA200795C1D /* ViewControllers */,
 				A20A3B5520271CC500795C1D /* AppDelegate.h */,
 				A20A3B5620271CC500795C1D /* AppDelegate.m */,
-				A20A3B5820271CC500795C1D /* ViewController.h */,
-				A20A3B5920271CC500795C1D /* ViewController.m */,
 				A20A3B5E20271CC500795C1D /* CurlingApp.xcdatamodeld */,
 				A20A3B6120271CC500795C1D /* Assets.xcassets */,
 				A20A3B6620271CC500795C1D /* Info.plist */,
@@ -273,7 +268,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		A20A3B9B20279D0D00795C1D /* Services */ = {
+		A20A3B9B20279D0D00795C1D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				A20A3B9C20279D7C00795C1D /* CURGameManager.h */,
@@ -285,7 +280,7 @@
 				A262C7662033A9A800161741 /* CURNetworkManager.h */,
 				A262C7672033A9A800161741 /* CURNetworkManager.m */,
 			);
-			path = Services;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		A28128C02029B32E009FBCEE /* CoreData */ = {
@@ -486,7 +481,6 @@
 				A20156F42029CB72000000D8 /* GameInfo+CoreDataClass.m in Sources */,
 				A20A3BA12027A57100795C1D /* CURScoreView.m in Sources */,
 				A20822CD2029EE80009F0484 /* CURCoreDataManager.m in Sources */,
-				A20A3B5A20271CC500795C1D /* ViewController.m in Sources */,
 				A20822D4202A057C009F0484 /* CURStoneData.m in Sources */,
 				A20A3B7F20271E0F00795C1D /* CURGamesTableViewController.m in Sources */,
 				A20A3B9420274F5E00795C1D /* CURGameViewController.m in Sources */,

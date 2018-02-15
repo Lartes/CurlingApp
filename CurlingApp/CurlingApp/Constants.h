@@ -21,5 +21,8 @@ static const CGFloat STONESIZEFORLABEL = 30.;
 static const int MAXSCORE = 8;
 static const float FIELDHEIGHT = 40;
 static const float SETTINGSTRANSITIONDURATION = 0.5;
+static const float TABBARHEIGHT = 64.;
+
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 #endif

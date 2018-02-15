@@ -93,33 +93,32 @@
     {
         [self.trackScrollView addSubview:stone];
     }
+    
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)updateViewConstraints
 {
-    if (self.navigationController)
-    {
-        [self.trackScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.navigationController.navigationBar.mas_bottom);
-            make.left.right.and.bottom.mas_equalTo(self.view);
-        }];
-        [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
-            make.left.mas_equalTo(self.view.mas_centerX).with.offset(INDENT*2);
-        }];
-        [self.nextEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
-            make.right.mas_equalTo(self.view).with.offset(-INDENT);
-        }];
-        [self.previousButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
-            make.right.mas_equalTo(self.view.mas_centerX).with.offset(-INDENT*2);
-        }];
-        [self.previousEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
-            make.left.mas_equalTo(self.view).with.offset(INDENT);
-        }];
-    }
+    [self.trackScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view).with.offset(TABBARHEIGHT);
+        make.left.right.and.bottom.mas_equalTo(self.view);
+    }];
+    [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
+        make.left.mas_equalTo(self.view.mas_centerX).with.offset(INDENT*2);
+    }];
+    [self.nextEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
+        make.right.mas_equalTo(self.view).with.offset(-INDENT);
+    }];
+    [self.previousButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
+        make.right.mas_equalTo(self.view.mas_centerX).with.offset(-INDENT*2);
+    }];
+    [self.previousEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
+        make.left.mas_equalTo(self.view).with.offset(INDENT);
+    }];
     
     [super updateViewConstraints];
 }
@@ -183,6 +182,7 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 #pragma mark - CURTouchDetectProtocol
 

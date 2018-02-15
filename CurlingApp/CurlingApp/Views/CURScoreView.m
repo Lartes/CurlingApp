@@ -73,6 +73,7 @@
     self.yellowScore = MAXSCORE;
 }
 
+
 #pragma mark - CURChangeScoreProtocol
 
 - (BOOL)changeScoreForColor:(UIColor *)color byNumber:(NSInteger)number

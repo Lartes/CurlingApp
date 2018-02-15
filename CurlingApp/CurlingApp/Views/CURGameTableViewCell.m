@@ -110,9 +110,4 @@
     _colorBarScoreSecond.backgroundColor = [UIColor redColor];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-}
-
 @end

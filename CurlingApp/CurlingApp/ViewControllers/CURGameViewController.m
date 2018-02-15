@@ -66,21 +66,20 @@
     [self.nextButton setTitle:@"Далее" forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(nextStone) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.nextButton];
+    
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)updateViewConstraints
 {
-    if (self.navigationController)
-    {
-        [self.trackScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.navigationController.navigationBar.mas_bottom);
-            make.left.right.and.bottom.mas_equalTo(self.view);
-        }];
-        [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
-            make.right.mas_equalTo(self.view).with.offset(-INDENT);
-        }];
-    }
+    [self.trackScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view).with.offset(TABBARHEIGHT);
+        make.left.right.and.bottom.mas_equalTo(self.view);
+    }];
+    [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
+        make.right.mas_equalTo(self.view).with.offset(-INDENT);
+    }];
     
     [super updateViewConstraints];
 }
@@ -116,6 +115,7 @@
     [alert addAction:actionOk];
     [self presentViewController:alert animated:YES completion:nil];
 }
+
 
 #pragma mark - CURTouchDetectProtocol
 

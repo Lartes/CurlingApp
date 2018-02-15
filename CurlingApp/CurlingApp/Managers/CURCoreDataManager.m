@@ -162,7 +162,7 @@
     }
 }
 
-- (void)saveNumberOfEnds:(NSInteger)number forHash:(NSString *)hashLink
+- (void)saveNumberOfEnds:(int)number forHash:(NSString *)hashLink
 {
     GameInfo *gameInfo = [self loadGamesInfoByHash:hashLink];
     gameInfo.numberOfEnds = number;
@@ -175,7 +175,7 @@
     }
 }
 
-- (void)saveFirstScore:(NSInteger)firstScore andSecondScore:(NSInteger)secondScore forHash:(NSString *)hashLink
+- (void)saveFirstScore:(int)firstScore andSecondScore:(int)secondScore forHash:(NSString *)hashLink
 {
     GameInfo *gameInfo = [self loadGamesInfoByHash:hashLink];
     gameInfo.firstTeamScore = firstScore;
@@ -189,7 +189,7 @@
     }
 }
 
-- (void)saveFirstScore:(NSInteger)firstScore andSecondScore:(NSInteger)secondScore forEnd:(NSInteger)endNumber andHash:(NSString *)hashLink
+- (void)saveFirstScore:(int)firstScore andSecondScore:(int)secondScore forEnd:(int)endNumber andHash:(NSString *)hashLink
 {
     EndScore *endScore = [NSEntityDescription insertNewObjectForEntityForName:@"EndScore" inManagedObjectContext:self.coreDataContext];
     endScore.hashLink = hashLink;
