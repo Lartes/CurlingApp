@@ -10,7 +10,14 @@
 
 @interface CURLoadingAnimationView : UIView
 
+/**
+ Запускает анимацию ожидания.
+ */
 - (void)startAnimation;
+
+/**
+ Останавливает анимацию ожидания.
+ */
 - (void)stopAnimation;
 
 @end

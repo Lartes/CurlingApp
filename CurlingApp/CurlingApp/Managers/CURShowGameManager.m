@@ -10,28 +10,33 @@
 
 @interface CURShowGameManager ()
 
-@property (nonatomic, strong) NSArray<UIImageView *> *stonesArray;
+@property (nonatomic, copy) NSArray<UIImageView *> *stonesArray;
 @property (nonatomic, strong) UIColor *stoneColor;
 @property (nonatomic, assign) NSInteger endNumber;
 @property (nonatomic, assign) NSInteger numberOfEnds;
 @property (nonatomic, assign) NSInteger stepNumber;
 @property (nonatomic, copy) NSString *hashLink;
-@property (nonatomic, strong) NSArray<StoneData *> *stonesData;
+@property (nonatomic, copy) NSArray<StoneData *> *stonesData;
 @property (nonatomic, assign) NSInteger indexInStonesData;
 @property (nonatomic, strong) UIImage *redStone;
 @property (nonatomic, strong) UIImage *yellowStone;
+@property (nonatomic, assign) NSInteger stoneSize;
 
 @end
 
 @implementation CURShowGameManager
 
-- (instancetype)initWithGameInfo:(GameInfo *)gameInfo andEndNumber:(NSInteger)endNumber;
+
+#pragma mark - Lifecycle
+
+- (instancetype)initWithGameInfo:(GameInfo *)gameInfo endNumber:(NSInteger)endNumber stoneSize:(NSInteger)stoneSize;
 {
     self = [super init];
     if(self)
     {
         _stonesArray = [NSMutableArray new];
         _stonesData = nil;
+        _stoneSize = stoneSize;
         _endNumber = endNumber;
         _stepNumber = 0;
         _hashLink = gameInfo.hashLink;
@@ -44,19 +49,22 @@
     return self;
 }
 
+
+#pragma mark - Game Actions
+
 - (NSArray *)startShowGame
 {
     [self.output setEndNumber:self.endNumber];
-    self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink andEndNumber:self.endNumber];
+    self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink endNumber:self.endNumber];
     self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
     
     NSMutableArray *stones = [NSMutableArray new];
     UIImageView *stone = nil;
-    for (int i = 0; i<16; i++)
+    for (int i = 0; i<CURShowGameManagerNumberOfStonesPerEnd; i++)
     {
-        stone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
+        stone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.stoneSize, self.stoneSize)];
         stone.userInteractionEnabled = YES;
-        stone.layer.cornerRadius = 18;
+        stone.layer.cornerRadius = self.stoneSize/2.;
         stone.hidden = YES;
         [stones addObject:stone];
     }
@@ -66,13 +74,13 @@
     return self.stonesArray;
 }
 
-- (BOOL)changeEndOnNumber:(NSInteger)number;
+- (BOOL)changeEndByNumber:(NSInteger)number;
 {
     self.endNumber += number;
     [self.output setEndNumber:self.endNumber];
-    self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink andEndNumber:self.endNumber];
+    self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink endNumber:self.endNumber];
     self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
-    for (int i = 0; i<16; i++)
+    for (int i = 0; i<CURShowGameManagerNumberOfStonesPerEnd; i++)
     {
         self.stonesArray[i].hidden = YES;
     }
@@ -108,11 +116,7 @@
     [self.output changeScoreForColor:self.stoneColor byNumber:-1];
     [self changeColor];
     
-    if (self.stepNumber == 16)
-    {
-        return YES;
-    }
-    return NO;
+    return (self.stepNumber == CURShowGameManagerNumberOfStonesPerEnd);
 }
 
 - (BOOL)showPreviousStep
@@ -136,7 +140,7 @@
         self.indexInStonesData -= 1;
     }
     self.indexInStonesData += 1;
-    for (; indexInStonesArray<16; indexInStonesArray++)
+    for (; indexInStonesArray<CURShowGameManagerNumberOfStonesPerEnd; indexInStonesArray++)
     {
         self.stonesArray[indexInStonesArray].hidden = YES;
     }
@@ -144,11 +148,7 @@
     [self changeColor];
     [self.output changeScoreForColor:self.stoneColor byNumber:1];
     
-    if (self.stepNumber == 1)
-    {
-        return YES;
-    }
-    return NO;
+    return (self.stepNumber == 1);
 }
 
 - (BOOL)isFirstEnd
@@ -160,6 +160,9 @@
 {
     return self.endNumber == self.numberOfEnds;
 }
+
+
+#pragma mark - Private
 
 - (void)changeColor
 {

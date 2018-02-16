@@ -34,20 +34,12 @@
     self.basicAnimation.duration = 1.;
     self.basicAnimation.autoreverses = YES;
     self.basicAnimation.toValue = @1;
-    [self.layer addAnimation:self.basicAnimation forKey:@"basicanimkey"];
+    [self.layer addAnimation:self.basicAnimation forKey:@"basicanim"];
 }
 
 - (void)stopAnimation
 {
-    [self.layer removeAnimationForKey:@"basicanimkey"];
+    [self.layer removeAnimationForKey:@"basicanim"];
 }
 
-
-#pragma mark - CAAnimationDelegate
-/*
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
-{
-    [self startAnimation];
-}
-*/
 @end

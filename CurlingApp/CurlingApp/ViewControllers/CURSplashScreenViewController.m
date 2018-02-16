@@ -22,6 +22,9 @@
 
 @implementation CURSplashScreenViewController
 
+
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -39,33 +42,41 @@
     
     image = [UIImage imageNamed:@"blue_circle"];
     self.blueCircle = [[UIImageView alloc] initWithImage:image];
-    self.blueCircle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
+    self.blueCircle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame),
+                                       (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
     self.blueCircle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)/3.);
     
     image = [UIImage imageNamed:@"red_circle"];
     self.redCircle = [[UIImageView alloc] initWithImage:image];
-    self.redCircle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
+    self.redCircle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame),
+                                      (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
     self.redCircle.center = self.blueCircle.center;
     
     image = [UIImage imageNamed:@"curling"];
     self.curlingTitle = [[UIImageView alloc] initWithImage:image];
-    self.curlingTitle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
+    self.curlingTitle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame),
+                                         (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
     self.curlingTitle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)*2/3.);
     
     image = [UIImage imageNamed:@"manager"];
     self.managerTitle = [[UIImageView alloc] initWithImage:image];
-    self.managerTitle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
+    self.managerTitle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame),
+                                         (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
     self.managerTitle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)*5/6.);
     
     image = [UIImage imageNamed:@"stone_red"];
     self.firstRedStone = [[UIImageView alloc] initWithImage:image];
-    self.firstRedStone.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)/7., (image.size.height/image.size.width)*(CGRectGetWidth(self.view.frame)/7.));
-    self.firstRedStone.center = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)+CGRectGetHeight(self.firstRedStone.frame));
+    self.firstRedStone.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)/7.,
+                                          (image.size.height/image.size.width)*(CGRectGetWidth(self.view.frame)/7.));
+    self.firstRedStone.center = CGPointMake(CGRectGetWidth(self.view.frame)/2.,
+                                            CGRectGetHeight(self.view.frame)+CGRectGetHeight(self.firstRedStone.frame));
     
     image = [UIImage imageNamed:@"stone_yellow"];
     self.firstYellowStone = [[UIImageView alloc] initWithImage:image];
-    self.firstYellowStone.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)/7., (image.size.height/image.size.width)*(CGRectGetWidth(self.view.frame)/7.));
-    self.firstYellowStone.center = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)+CGRectGetHeight(self.firstYellowStone.frame));
+    self.firstYellowStone.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)/7.,
+                                             (image.size.height/image.size.width)*(CGRectGetWidth(self.view.frame)/7.));
+    self.firstYellowStone.center = CGPointMake(CGRectGetWidth(self.view.frame)/2.,
+                                               CGRectGetHeight(self.view.frame)+CGRectGetHeight(self.firstYellowStone.frame));
     
     self.blueCircle.layer.opacity = 0;
     self.redCircle.layer.opacity = 0;
@@ -84,6 +95,9 @@
     [self.view addSubview:self.firstRedStone];
     [self.view addSubview:self.firstYellowStone];
 }
+
+
+#pragma mark - Animation Actions
 
 - (void)startAnimation
 {
@@ -106,85 +120,93 @@
             self.managerTitle.transform = CGAffineTransformMakeScale(1., 1.);
         }];
     } completion:^(BOOL finished){
-        CGPoint Y1 = CGPointMake(CGRectGetWidth(self.view.frame)/5., CGRectGetHeight(self.view.frame)*2./5.);
-        CGPoint R1 = CGPointMake(Y1.x+CGRectGetWidth(self.firstRedStone.frame)*cos(0.1), Y1.y+CGRectGetWidth(self.firstRedStone.frame)*sin(0.1));
-        CGPoint Y2 = CGPointMake(-CGRectGetWidth(self.firstYellowStone.frame), CGRectGetHeight(self.view.frame)/3.);
-        CGPoint R2 = CGPointMake(self.blueCircle.center.x+10., self.blueCircle.center.y+10.);
-        
-        CGPoint Y1C = CGPointMake(CGRectGetWidth(self.view.frame)/10., CGRectGetHeight(self.view.frame)*3./5.);
-        CGPoint R1C = CGPointMake(CGRectGetWidth(self.view.frame)*3./8., CGRectGetHeight(self.view.frame)*3./5.);
-        CGPoint Y2C = CGPointMake(CGRectGetWidth(self.view.frame)/6., CGRectGetHeight(self.view.frame)/3.);
-        CGPoint R2C = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)*2./5.);
-        
-        UIBezierPath *pathR1 = [UIBezierPath bezierPath];
-        [pathR1 moveToPoint:self.firstRedStone.center];
-        [pathR1 addQuadCurveToPoint:R1 controlPoint:R1C];
-        UIBezierPath *pathR2 = [UIBezierPath bezierPath];
-        [pathR2 moveToPoint:R1];
-        [pathR2 addQuadCurveToPoint:R2 controlPoint:R2C];
-        
-        UIBezierPath *pathY1 = [UIBezierPath bezierPath];
-        [pathY1 moveToPoint:self.firstYellowStone.center];
-        [pathY1 addQuadCurveToPoint:Y1 controlPoint:Y1C];
-        UIBezierPath *pathY2 = [UIBezierPath bezierPath];
-        [pathY2 moveToPoint:Y1];
-        [pathY2 addQuadCurveToPoint:Y2 controlPoint:Y2C];
-        
-        CAKeyframeAnimation *animationY1 = [CAKeyframeAnimation animation];
-        animationY1.keyPath = @"position";
-        animationY1.path = pathY1.CGPath;
-        animationY1.duration = 3.;
-        animationY1.beginTime = 0.;
-        animationY1.fillMode = @"forwards";
-        animationY1.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-        animationY1.rotationMode = kCAAnimationRotateAuto;
-        
-        CAKeyframeAnimation *animationY2 = [CAKeyframeAnimation animation];
-        animationY2.keyPath = @"position";
-        animationY2.path = pathY2.CGPath;
-        animationY2.duration = 1.;
-        animationY2.beginTime = 4.;
-        animationY2.fillMode = @"forwards";
-        animationY2.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-        animationY2.rotationMode = kCAAnimationRotateAuto;
-        
-        CAAnimationGroup *groupY = [CAAnimationGroup animation];
-        groupY.animations = @[animationY1, animationY2];
-        groupY.duration = 5.5;
-        [self.firstYellowStone.layer addAnimation:groupY forKey:@"yellow"];
-        
-        CAKeyframeAnimation *animationR1 = [CAKeyframeAnimation animation];
-        animationR1.keyPath = @"position";
-        animationR1.path = pathR1.CGPath;
-        animationR1.duration = 2.;
-        animationR1.beginTime = 2.;
-        animationR1.fillMode = @"forwards";
-        animationR1.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-        animationR1.rotationMode = kCAAnimationRotateAuto;
-        
-        CAKeyframeAnimation *animationR2 = [CAKeyframeAnimation animation];
-        animationR2.keyPath = @"position";
-        animationR2.path = pathR2.CGPath;
-        animationR2.duration = 1.5;
-        animationR2.beginTime = 4.;
-        animationR2.fillMode = @"forwards";
-        animationR2.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-        animationR2.rotationMode = kCAAnimationRotateAuto;
-        
-        CAAnimationGroup *groupR = [CAAnimationGroup animation];
-        groupR.animations = @[animationR1, animationR2];
-        groupR.duration = 5.5;
-        groupR.delegate = self;
-        [self.firstRedStone.layer addAnimation:groupR forKey:@"red"];
+        [self continueAnimation];
     }];
 }
+
+- (void)continueAnimation
+{
+    CGPoint pointY1 = CGPointMake(CGRectGetWidth(self.view.frame)/5., CGRectGetHeight(self.view.frame)*2./5.);
+    CGPoint pointR1 = CGPointMake(pointY1.x+CGRectGetWidth(self.firstRedStone.frame)*cos(0.1),
+                                  pointY1.y+CGRectGetWidth(self.firstRedStone.frame)*sin(0.1));
+    CGPoint pointY2 = CGPointMake(-CGRectGetWidth(self.firstYellowStone.frame), CGRectGetHeight(self.view.frame)/3.);
+    CGPoint pointR2 = CGPointMake(self.blueCircle.center.x+10., self.blueCircle.center.y+10.);
+    
+    CGPoint controlPointForY1 = CGPointMake(CGRectGetWidth(self.view.frame)/10., CGRectGetHeight(self.view.frame)*3./5.);
+    CGPoint controlPointForR1 = CGPointMake(CGRectGetWidth(self.view.frame)*3./8., CGRectGetHeight(self.view.frame)*3./5.);
+    CGPoint controlPointForY2 = CGPointMake(CGRectGetWidth(self.view.frame)/6., CGRectGetHeight(self.view.frame)/3.);
+    CGPoint controlPointForR2 = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)*2./5.);
+    
+    UIBezierPath *pathToR1 = [UIBezierPath bezierPath];
+    [pathToR1 moveToPoint:self.firstRedStone.center];
+    [pathToR1 addQuadCurveToPoint:pointR1 controlPoint:controlPointForR1];
+    UIBezierPath *pathToR2 = [UIBezierPath bezierPath];
+    [pathToR2 moveToPoint:pointR1];
+    [pathToR2 addQuadCurveToPoint:pointR2 controlPoint:controlPointForR2];
+    
+    UIBezierPath *pathToY1 = [UIBezierPath bezierPath];
+    [pathToY1 moveToPoint:self.firstYellowStone.center];
+    [pathToY1 addQuadCurveToPoint:pointY1 controlPoint:controlPointForY1];
+    UIBezierPath *pathToY2 = [UIBezierPath bezierPath];
+    [pathToY2 moveToPoint:pointY1];
+    [pathToY2 addQuadCurveToPoint:pointY2 controlPoint:controlPointForY2];
+    
+    CAKeyframeAnimation *animatedPathToY1 = [CAKeyframeAnimation animation];
+    animatedPathToY1.keyPath = @"position";
+    animatedPathToY1.path = pathToY1.CGPath;
+    animatedPathToY1.duration = 3.;
+    animatedPathToY1.beginTime = 0.;
+    animatedPathToY1.fillMode = @"forwards";
+    animatedPathToY1.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    animatedPathToY1.rotationMode = kCAAnimationRotateAuto;
+    
+    CAKeyframeAnimation *animatedPathToY2 = [CAKeyframeAnimation animation];
+    animatedPathToY2.keyPath = @"position";
+    animatedPathToY2.path = pathToY2.CGPath;
+    animatedPathToY2.duration = 1.;
+    animatedPathToY2.beginTime = 4.;
+    animatedPathToY2.fillMode = @"forwards";
+    animatedPathToY2.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    animatedPathToY2.rotationMode = kCAAnimationRotateAuto;
+    
+    CAAnimationGroup *yellowStonePath = [CAAnimationGroup animation];
+    yellowStonePath.animations = @[animatedPathToY1, animatedPathToY2];
+    yellowStonePath.duration = 5.5;
+    [self.firstYellowStone.layer addAnimation:yellowStonePath forKey:@"yellow"];
+    
+    CAKeyframeAnimation *animatedPathToR1 = [CAKeyframeAnimation animation];
+    animatedPathToR1.keyPath = @"position";
+    animatedPathToR1.path = pathToR1.CGPath;
+    animatedPathToR1.duration = 2.;
+    animatedPathToR1.beginTime = 2.;
+    animatedPathToR1.fillMode = @"forwards";
+    animatedPathToR1.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    animatedPathToR1.rotationMode = kCAAnimationRotateAuto;
+    
+    CAKeyframeAnimation *animatedPathToR2 = [CAKeyframeAnimation animation];
+    animatedPathToR2.keyPath = @"position";
+    animatedPathToR2.path = pathToR2.CGPath;
+    animatedPathToR2.duration = 1.5;
+    animatedPathToR2.beginTime = 4.;
+    animatedPathToR2.fillMode = @"forwards";
+    animatedPathToR2.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    animatedPathToR2.rotationMode = kCAAnimationRotateAuto;
+    
+    CAAnimationGroup *redStonePath = [CAAnimationGroup animation];
+    redStonePath.animations = @[animatedPathToR1, animatedPathToR2];
+    redStonePath.duration = 5.5;
+    redStonePath.delegate = self;
+    [self.firstRedStone.layer addAnimation:redStonePath forKey:@"red"];
+}
+
 
 #pragma mark - CAAnimationDelegate
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     CURGamesTableViewController *gamesTableViewController = [CURGamesTableViewController new];
-    UINavigationController *gameNavigationController = [[UINavigationController alloc] initWithRootViewController:gamesTableViewController];
+    UINavigationController *gameNavigationController = [[UINavigationController alloc]
+        initWithRootViewController:gamesTableViewController];
     gameNavigationController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:gameNavigationController animated:YES completion:nil];
 }

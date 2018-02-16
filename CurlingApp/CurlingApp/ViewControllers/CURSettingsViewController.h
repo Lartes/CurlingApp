@@ -13,11 +13,10 @@
 #import "CURButton.h"
 #import "CURLoadingAnimationView.h"
 #import "Masonry.h"
+#import "Constants.h"
 
 @interface CURSettingsViewController : UIViewController <CURNetworkManagerProtocol>
 
 @property (nonatomic, strong) CURCoreDataManager *coreDataManager;
-
-- (void)setReceivedURL:(NSURL *)url;
 
 @end

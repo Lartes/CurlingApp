@@ -20,8 +20,8 @@
     NSMutableArray *gamesInfoToSave = [NSMutableArray new];
     NSMutableDictionary *dict = nil;
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    dateFormatter.timeStyle = NSDateFormatterShortStyle;
     for (GameInfo *gameInfo in gamesInfo)
     {
         dict = [NSMutableDictionary new];
@@ -74,19 +74,20 @@
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:nil delegateQueue:nil];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:@"https://content.dropboxapi.com/2/files/upload"]];
-    [request setHTTPMethod:@"POST"];
+    request.URL = [NSURL URLWithString:@"https://content.dropboxapi.com/2/files/upload"];
+    request.HTTPMethod = @"POST";
     [request setValue:@"application/octet-stream" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"{\"path\":\"/data.txt\",\"mode\":{\".tag\":\"overwrite\"},\"mute\":true}" forHTTPHeaderField:@"Dropbox-API-Arg"];
     AppData *appData = [self.coreDataManager loadAppData];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", appData.accessToken] forHTTPHeaderField:@"Authorization"];
     
-    NSURLSessionUploadTask *task = [urlSession uploadTaskWithRequest:request fromData:dataJSON completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == 200];
-            [urlSession finishTasksAndInvalidate];
-        });
-    }];
+    NSURLSessionUploadTask *task = [urlSession uploadTaskWithRequest:request fromData:dataJSON
+        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == CURNetworkManagerDropboxSuccessStatusCode];
+                [urlSession finishTasksAndInvalidate];
+            });
+        }];
     [task resume];
 }
 
@@ -96,22 +97,23 @@
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:nil delegateQueue:nil];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:@"https://content.dropboxapi.com/2/files/download"]];
-    [request setHTTPMethod:@"POST"];
+    request.URL = [NSURL URLWithString:@"https://content.dropboxapi.com/2/files/download"];
+    request.HTTPMethod = @"POST";
     [request setValue:@"{\"path\":\"/data.txt\"}" forHTTPHeaderField:@"Dropbox-API-Arg"];
     AppData *appData = [self.coreDataManager loadAppData];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", appData.accessToken] forHTTPHeaderField:@"Authorization"];
     
-    NSURLSessionDownloadTask *task = [urlSession downloadTaskWithRequest:request completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error){
-        if([(NSHTTPURLResponse *)response statusCode] == 200)
-        {
+    NSURLSessionDownloadTask *task = [urlSession downloadTaskWithRequest:request
+        completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error){
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self saveDownloadDataToCoreData:location];
-                [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == 200];
+                if([(NSHTTPURLResponse *)response statusCode] == CURNetworkManagerDropboxSuccessStatusCode)
+                {
+                    [self saveDownloadDataToCoreData:location];
+                }
+                [self.output taskDidFinishedWithStatus:[(NSHTTPURLResponse *)response statusCode] == CURNetworkManagerDropboxSuccessStatusCode];
                 [urlSession finishTasksAndInvalidate];
             });
-        }
-    }];
+        }];
     [task resume];
 }
 
@@ -124,8 +126,8 @@
     NSDictionary* readData = [NSJSONSerialization JSONObjectWithData:dataJSON options:NSJSONReadingAllowFragments error:nil];
     
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    dateFormatter.timeStyle = NSDateFormatterShortStyle;
     CURGameInfo *gameInfo = nil;
     for (NSDictionary *dict in [readData objectForKey:@"GameInfo"])
     {
@@ -159,10 +161,10 @@
     for (NSDictionary *dict in [readData objectForKey:@"EndScore"])
     {
         NSString * hashLink = [dict objectForKey:@"hashLink"];
-        NSInteger endNumber = [[dict objectForKey:@"endNumber"] intValue];
-        NSInteger firstTeamScore = [[dict objectForKey:@"firstTeamScore"] intValue];
-        NSInteger secondTeamScore = [[dict objectForKey:@"secondTeamScore"] intValue];
-        [self.coreDataManager saveFirstScore:firstTeamScore andSecondScore:secondTeamScore forEnd:endNumber andHash:hashLink];
+        int endNumber = [[dict objectForKey:@"endNumber"] intValue];
+        int firstTeamScore = [[dict objectForKey:@"firstTeamScore"] intValue];
+        int secondTeamScore = [[dict objectForKey:@"secondTeamScore"] intValue];
+        [self.coreDataManager saveFirstScore:firstTeamScore secondScore:secondTeamScore forEnd:endNumber hash:hashLink];
     }
 }
 

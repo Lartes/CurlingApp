@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Masonry.h"
+#import "Constants.h"
 
 @interface CURGameTableViewCell : UITableViewCell
 
@@ -19,6 +20,9 @@
 @property (nonatomic, strong) UIView *colorBarScoreFirst;
 @property (nonatomic, strong) UIView *colorBarScoreSecond;
 
+/**
+ Изменяет цвет первой команды на желтый.
+ */
 - (void)makeFirstTeamColorYellow;
 
 @end

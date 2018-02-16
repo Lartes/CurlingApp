@@ -13,6 +13,7 @@
 #import "CURShowGameViewController.h"
 #import "CURScoreTableViewCell.h"
 #import "Masonry.h"
+#import "Constants.h"
 
 @interface CURViewGameViewController : UIViewController
 

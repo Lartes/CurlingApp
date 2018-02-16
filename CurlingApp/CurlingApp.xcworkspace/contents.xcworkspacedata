@@ -2,18 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/CoreData/AppData+CoreDataClass.h">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/CoreData/AppData+CoreDataClass.m">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/CoreData/AppData+CoreDataProperties.h">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/CoreData/AppData+CoreDataProperties.m">
-   </FileRef>
-   <FileRef
       location = "group:CurlingApp.xcodeproj">
    </FileRef>
    <FileRef

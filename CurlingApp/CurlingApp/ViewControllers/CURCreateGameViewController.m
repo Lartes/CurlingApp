@@ -8,9 +8,6 @@
 
 #import "CURCreateGameViewController.h"
 
-static const float INDENT = 10;
-static const float FIELDHEIGHT = 40;
-
 @interface CURCreateGameViewController ()
 
 @property (nonatomic, strong) UITextField *teamNameFirst;
@@ -22,6 +19,9 @@ static const float FIELDHEIGHT = 40;
 @end
 
 @implementation CURCreateGameViewController
+
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,54 +64,56 @@ static const float FIELDHEIGHT = 40;
     self.teamNameFirst.borderStyle = UITextBorderStyleRoundedRect;
     self.teamNameSecond.borderStyle = UITextBorderStyleRoundedRect;
     
-    self.teamNameFirst.font = [UIFont systemFontOfSize:20];
-    self.teamNameSecond.font = [UIFont systemFontOfSize:20];
+    self.teamNameFirst.font = [UIFont systemFontOfSize:CURSmallFontSize];
+    self.teamNameSecond.font = [UIFont systemFontOfSize:CURSmallFontSize];
     
     self.createButton = [CURButton new];
-    self.createButton.titleLabel.font = [UIFont systemFontOfSize:20];
+    self.createButton.titleLabel.font = [UIFont systemFontOfSize:CURSmallFontSize];
     [self.createButton setTitle:@"Создать игру" forState:UIControlStateNormal];
     [self.createButton addTarget:self action:@selector(createButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.createButton];
+    
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)updateViewConstraints
 {
-    if (self.navigationController)
-    {
-        [self.teamNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.navigationController.navigationBar.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.view).with.offset(INDENT);
-            make.height.mas_equalTo(FIELDHEIGHT);
-        }];
-        [self.teamNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.teamNameFirst.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.teamNameFirst);
-            make.size.mas_equalTo(self.teamNameFirst);
-        }];
-        [self.teamColorFirst mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.teamNameFirst);
-            make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(INDENT);
-            make.right.mas_equalTo(self.view).with.offset(-INDENT);
-            make.width.mas_equalTo(self.teamColorFirst.mas_height);
-        }];
-        [self.teamColorSecond mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.teamColorFirst.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.teamColorFirst);
-            make.size.mas_equalTo(self.teamColorFirst);
-            make.bottom.mas_equalTo(self.teamNameSecond);
-        }];
-        [self.createButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.teamNameSecond.mas_bottom).with.offset(INDENT);
-            make.left.mas_greaterThanOrEqualTo(self.view).with.offset(INDENT);
-            make.right.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
-            make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(INDENT);
-            make.centerX.mas_equalTo(self.view);
-            make.height.mas_equalTo(FIELDHEIGHT);
-        }];
-    }
+    [self.teamNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view).with.offset(CURTabBarHeight+CURUIIndent);
+        make.left.mas_equalTo(self.view).with.offset(CURUIIndent);
+        make.height.mas_equalTo(CURCreateGameViewControllerFieldHeight);
+    }];
+    [self.teamNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.teamNameFirst.mas_bottom).with.offset(CURUIIndent);
+        make.left.mas_equalTo(self.teamNameFirst);
+        make.size.mas_equalTo(self.teamNameFirst);
+    }];
+    [self.teamColorFirst mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.teamNameFirst);
+        make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(CURUIIndent);
+        make.right.mas_equalTo(self.view).with.offset(-CURUIIndent);
+        make.width.mas_equalTo(self.teamColorFirst.mas_height);
+    }];
+    [self.teamColorSecond mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.teamColorFirst.mas_bottom).with.offset(CURUIIndent);
+        make.left.mas_equalTo(self.teamColorFirst);
+        make.size.mas_equalTo(self.teamColorFirst);
+        make.bottom.mas_equalTo(self.teamNameSecond);
+    }];
+    [self.createButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.teamNameSecond.mas_bottom).with.offset(CURUIIndent);
+        make.left.mas_greaterThanOrEqualTo(self.view).with.offset(CURUIIndent);
+        make.right.mas_lessThanOrEqualTo(self.view).with.offset(-CURUIIndent);
+        make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(CURUIIndent);
+        make.centerX.mas_equalTo(self.view);
+        make.height.mas_equalTo(CURCreateGameViewControllerFieldHeight);
+    }];
     
     [super updateViewConstraints];
 }
+
+
+#pragma mark - Button Actions
 
 - (void)createButtonPressed
 {
@@ -121,8 +123,12 @@ static const float FIELDHEIGHT = 40;
     }
     else
     {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Введите названия команд" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Введите названия команд"
+                                                                       message:nil
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
         [alert addAction:actionCancel];
         [self presentViewController:alert animated:YES completion:nil];
     }
@@ -140,13 +146,18 @@ static const float FIELDHEIGHT = 40;
     gameInfo.isFirstTeamColorRed = self.teamColorFirst.backgroundColor == [UIColor redColor];
     [self.coreDataManager saveGameInfo:gameInfo];
     
-    CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:self.teamColorFirst.backgroundColor andHash:gameInfo.hashLink];
+    CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:self.teamColorFirst.backgroundColor
+                                                                   hash:gameInfo.hashLink
+                                                              stoneSize:CGRectGetWidth(self.view.frame)/CURStoneSizeDivider];
     gameManager.coreDataManager = self.coreDataManager;
     
     CURGameViewController *gameViewController = [[CURGameViewController alloc] initWithManager:gameManager];
     [self.navigationController pushViewController:gameViewController animated:YES];
      
 }
+
+
+#pragma mark - Helpers
 
 - (void)changeColor
 {

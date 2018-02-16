@@ -8,11 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "CURChangeScoreProtocol.h"
+#import "Constants.h"
 
 @interface CURScoreView : UIView <CURChangeScoreProtocol>
 
-- (instancetype)initWithFrame:(CGRect)frame andCenterX:(CGFloat)centerX;
+/**
+ Инициализирует объект по фрейму и центру на родительском view.
+ @param frame Фрейм.
+ @param centerX Центр на родительском view.
+ */
+- (instancetype)initWithFrame:(CGRect)frame centerX:(CGFloat)centerX;
 
+/**
+ Сбрасывает счет команд.
+ */
 - (void)resetScore;
 
 @end

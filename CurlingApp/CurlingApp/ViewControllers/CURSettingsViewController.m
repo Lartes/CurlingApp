@@ -8,8 +8,6 @@
 
 #import "CURSettingsViewController.h"
 
-static const float INDENT = 10.;
-
 @interface CURSettingsViewController ()
 
 @property (nonatomic, strong) CURButton *loginButton;
@@ -22,6 +20,9 @@ static const float INDENT = 10.;
 
 @implementation CURSettingsViewController
 
+
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -30,7 +31,10 @@ static const float INDENT = 10.;
 
 - (void)prepareUI
 {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Игры" style:UIBarButtonItemStylePlain target:self action:@selector(toMainView)];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Игры"
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(toMainView)];
     self.navigationItem.rightBarButtonItem = backButton;
     self.navigationItem.hidesBackButton = YES;
     
@@ -58,46 +62,48 @@ static const float INDENT = 10.;
     self.loadingAnimation = [CURLoadingAnimationView new];
     self.loadingAnimation.hidden = YES;
     [self.view addSubview:self.loadingAnimation];
+    
+    [self.view setNeedsUpdateConstraints];
 }
 
 - (void)updateViewConstraints
 {
-    if(self.navigationController)
-    {
-        [self.dropboxImage mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_greaterThanOrEqualTo(self.navigationController.navigationBar.mas_bottom).with.offset(INDENT);
-            make.centerX.mas_equalTo(self.view);
-            make.width.mas_equalTo(self.dropboxImage.mas_height);
-            make.width.mas_equalTo(CGRectGetWidth(self.view.frame)/2.);
-        }];
-        [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.dropboxImage.mas_bottom).with.offset(INDENT);
-            make.center.mas_equalTo(self.view);
-        }];
-        [self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.loginButton.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.loginButton);
-            make.size.mas_equalTo(self.loginButton);
-        }];
-        [self.loadButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.saveButton.mas_bottom).with.offset(INDENT);
-            make.left.mas_equalTo(self.loginButton);
-            make.size.mas_equalTo(self.loginButton);
-            make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
-        }];
-        
-        [self.loadingAnimation mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(self.view);
-        }];
-    }
+    [self.dropboxImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_greaterThanOrEqualTo(self.view).with.offset(CURTabBarHeight+CURUIIndent);
+        make.centerX.mas_equalTo(self.view);
+        make.width.mas_equalTo(self.dropboxImage.mas_height);
+        make.width.mas_equalTo(CGRectGetWidth(self.view.frame)/2.);
+    }];
+    [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.dropboxImage.mas_bottom).with.offset(CURUIIndent);
+        make.center.mas_equalTo(self.view);
+    }];
+    [self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.loginButton.mas_bottom).with.offset(CURUIIndent);
+        make.left.mas_equalTo(self.loginButton);
+        make.size.mas_equalTo(self.loginButton);
+    }];
+    [self.loadButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.saveButton.mas_bottom).with.offset(CURUIIndent);
+        make.left.mas_equalTo(self.loginButton);
+        make.size.mas_equalTo(self.loginButton);
+        make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(-CURUIIndent);
+    }];
+    
+    [self.loadingAnimation mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.view);
+    }];
     
     [super updateViewConstraints];
 }
 
+
+#pragma mark - Button Actions
+
 - (void)toMainView
 {
     CATransition *transition = [CATransition animation];
-    transition.duration = 0.5;
+    transition.duration = CURSettingsTransitionDuration;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionMoveIn;
     transition.subtype = kCATransitionFromRight;
@@ -108,6 +114,8 @@ static const float INDENT = 10.;
 
 - (void)saveButtonPressed
 {
+    [self.saveButton tapAnimation];
+    
     self.loadingAnimation.hidden = NO;
     self.navigationController.navigationBar.hidden = YES;
     [self.loadingAnimation startAnimation];
@@ -120,7 +128,11 @@ static const float INDENT = 10.;
 
 - (void)loadButtonPressed
 {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Загрузить данные?" message:@"Вся текущая информация будет удалена" preferredStyle:UIAlertControllerStyleAlert];
+    [self.loadButton tapAnimation];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Загрузить данные?"
+                                                                   message:@"Вся текущая информация будет удалена"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
         self.loadingAnimation.hidden = NO;
@@ -139,10 +151,18 @@ static const float INDENT = 10.;
 
 - (void)loginButtonPressed
 {
+    [self.loadButton tapAnimation];
+    
     NSString *state = [NSString stringWithFormat:@"%d", rand()];
     NSString *stringURL = [NSString stringWithFormat:@"https://www.dropbox.com/oauth2/authorize?response_type=token&client_id=9m3zfx24z7qwgvj&redirect_uri=iOSCurlingApp://dropbox_callback&state=%@", state];
     NSURL* url = [[NSURL alloc] initWithString: stringURL];
-    [[UIApplication sharedApplication] openURL: url];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+        [[UIApplication sharedApplication] openURL: url options:@{} completionHandler:nil];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] openURL: url];
+    }
 }
 
 - (NSString *)valueForKey:(NSString *)key
@@ -155,7 +175,10 @@ static const float INDENT = 10.;
     return queryItem.value;
 }
 
-- (void)setReceivedURL:(NSURL *)url
+
+#pragma mark - CURNetworkManagerProtocol
+
+- (void)saveReceivedURL:(NSURL *)url
 {
     NSURLComponents *urlComponents = [NSURLComponents new];
     urlComponents.query = [url fragment];
@@ -164,22 +187,27 @@ static const float INDENT = 10.;
     {
         self.loginButton.enabled = NO;
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ получен" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ получен"
+                                                                       message:nil
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
         [alert addAction:actionCancel];
         [self presentViewController:alert animated:YES completion:nil];
     }
     else
     {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ не получен" message:@"Повторите попытку" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ не получен"
+                                                                       message:@"Повторите попытку"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
         [alert addAction:actionCancel];
         [self presentViewController:alert animated:YES completion:nil];
     };
 }
-
-
-#pragma mark - CURNetworkManagerProtocol
 
 - (void)taskDidFinishedWithStatus:(BOOL)status
 {
@@ -189,8 +217,12 @@ static const float INDENT = 10.;
     
     if(status)
     {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Загрузка завершена" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Загрузка завершена"
+                                                                       message:nil
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
         [alert addAction:actionCancel];
         [self presentViewController:alert animated:YES completion:nil];
     }
@@ -198,8 +230,12 @@ static const float INDENT = 10.;
     {
         self.loginButton.enabled = YES;
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ошибка загрузки" message:@"Необходимо пройти авторизацию" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ошибка загрузки"
+                                                                       message:@"Необходимо пройти авторизацию"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
         [alert addAction:actionCancel];
         [self presentViewController:alert animated:YES completion:nil];
     };

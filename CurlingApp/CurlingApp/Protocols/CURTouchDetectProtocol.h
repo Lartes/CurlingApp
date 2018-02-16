@@ -11,6 +11,11 @@
 @protocol CURTouchDetectProtocol <NSObject>
 @optional
 
+/**
+ Вызывается при нажатии на экран.
+ @param coord Координаты нажатия в системе координат view.
+ @param view View по которому было нажатие.
+ */
 - (void)touchHappendAtCoord:(CGPoint)coord onView:(UIView *)view;
 
 @end
