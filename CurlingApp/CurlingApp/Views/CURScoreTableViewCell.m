@@ -24,7 +24,7 @@
         _score.textColor = [UIColor blackColor];
         _endNumber.textColor = [UIColor blackColor];
         
-        _score.font = [UIFont systemFontOfSize:MEDIUMFONT];
+        _score.font = [UIFont systemFontOfSize:CURMediumFontSize];
         
         [self.contentView addSubview:_score];
         [self.contentView addSubview:_endNumber];
@@ -40,9 +40,9 @@
         make.centerX.mas_equalTo(self.contentView);
     }];
     [self.endNumber mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.contentView).with.offset(INDENT/2.);
-        make.bottom.mas_equalTo(self.contentView).with.offset(-INDENT/2.);
-        make.left.mas_equalTo(self.contentView).with.offset(INDENT);
+        make.top.mas_equalTo(self.contentView).with.offset(CURUIIndent/2.);
+        make.bottom.mas_equalTo(self.contentView).with.offset(-CURUIIndent/2.);
+        make.left.mas_equalTo(self.contentView).with.offset(CURUIIndent);
     }];
     
     [super updateConstraints];

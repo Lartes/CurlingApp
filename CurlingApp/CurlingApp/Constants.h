@@ -9,20 +9,21 @@
 #ifndef Constants_h
 #define Constants_h
 
-static const float STONESIZEDIVIDER = 8.;
-static const int NUMBEROFSTONESPEREND = 16;
-static const int DROPBOXSUCCESSSTATUSCODE = 200;
-static const CGFloat INDENT = 10.;
-static const int BIGFONT = 30;
-static const int MEDIUMFONT = 23;
-static const int SMALLFONT = 20;
-static const CGFloat LABELSIZE = 60.;
-static const CGFloat STONESIZEFORLABEL = 30.;
-static const int MAXSCORE = 8;
-static const float FIELDHEIGHT = 40;
-static const float SETTINGSTRANSITIONDURATION = 0.5;
-static const float TABBARHEIGHT = 64.;
+static float const CURStoneSizeDivider = 8.;
+static int const CURShowGameManagerNumberOfStonesPerEnd = 16;
+static int const CURNetworkManagerDropboxSuccessStatusCode = 200;
+static CGFloat const CURUIIndent = 10.;
+static int const CURBigFontSize = 30;
+static int const CURMediumFontSize = 23;
+static int const CURSmallFontSize = 20;
+static CGFloat const CURScoreViewLabelSize = 60.;
+static CGFloat const CURScoreViewStoneImageSize = 30.;
+static int const CURScoreViewMaximumScore = 8;
+static float const CURCreateGameViewControllerFieldHeight = 40;
+static float const CURSettingsTransitionDuration = 0.5;
+static float const CURTabBarHeight = 64.;
 
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) \
+    ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 #endif

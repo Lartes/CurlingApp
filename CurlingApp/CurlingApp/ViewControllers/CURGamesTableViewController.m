@@ -9,16 +9,18 @@
 
 #import "CURGamesTableViewController.h"
 
-@interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate, UIPopoverPresentationControllerDelegate>
+@interface CURGamesTableViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *gamesArray;
+@property (nonatomic, copy) NSArray *gamesArray;
 @property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
 @end
 
-
 @implementation CURGamesTableViewController
+
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,10 +43,14 @@
     
     self.navigationItem.title = @"Игры";
     
-    UIBarButtonItem *newButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewGame)];
+    UIBarButtonItem *newButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                               target:self
+                                                                               action:@selector(addNewGame)];
     self.navigationItem.rightBarButtonItem = newButton;
 
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(openSettings)];
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize
+                                                                                    target:self
+                                                                                    action:@selector(openSettings)];
     self.navigationItem.leftBarButtonItem = settingsButton;
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -61,7 +67,7 @@
 - (void)updateViewConstraints
 {
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.view).with.offset(TABBARHEIGHT);
+        make.top.mas_equalTo(self.view).with.offset(CURTabBarHeight);
         make.left.right.and.bottom.mas_equalTo(self.view);
     }];
     
@@ -76,6 +82,9 @@
     }
 }
 
+
+#pragma mark - Button Actions
+
 - (void)addNewGame
 {
     CURCreateGameViewController *createGameViewController = [CURCreateGameViewController new];
@@ -89,7 +98,7 @@
     settingViewController.coreDataManager = self.coreDataManager;
     
     CATransition *transition = [CATransition animation];
-    transition.duration = SETTINGSTRANSITIONDURATION;
+    transition.duration = CURSettingsTransitionDuration;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionReveal;
     transition.subtype = kCATransitionFromLeft;

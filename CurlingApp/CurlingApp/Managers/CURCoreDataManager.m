@@ -16,6 +16,9 @@
 
 @implementation CURCoreDataManager
 
+
+#pragma mark - Lifecycle
+
 - (instancetype)init
 {
     self = [super init];
@@ -29,25 +32,8 @@
     return self;
 }
 
-- (void)clearCoreData
-{
-    NSArray *data = [self.coreDataContext executeFetchRequest:[GameInfo fetchRequest] error:nil];
-    for (GameInfo *item in data)
-    {
-        [self.coreDataContext deleteObject:item];
-    }
-    data = [self.coreDataContext executeFetchRequest:[StoneData fetchRequest] error:nil];
-    for (StoneData *item in data)
-    {
-        [self.coreDataContext deleteObject:item];
-    }
-    data = [self.coreDataContext executeFetchRequest:[EndScore fetchRequest] error:nil];
-    for (EndScore *item in data)
-    {
-        [self.coreDataContext deleteObject:item];
-    }
-    [self.coreDataContext save:nil];
-}
+
+#pragma mark - Load Actions
 
 - (NSArray *)loadAllGamesInfo
 {
@@ -102,7 +88,7 @@
     return fetchedObjects;
 }
 
-- (NSArray *)loadStonesDataByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber
+- (NSArray *)loadStonesDataByHash:(NSString *)hashLink endNumber:(NSInteger)endNumber
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"StoneData"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@ AND endNumber == %@", hashLink, @(endNumber)];
@@ -124,9 +110,13 @@
     return fetchedObjects;
 }
 
+
+#pragma mark - Save Actions
+
 - (void)saveGameInfo:(CURGameInfo *)gameInfoToSave
 {
-    GameInfo *gameInfo = [NSEntityDescription insertNewObjectForEntityForName:@"GameInfo" inManagedObjectContext:self.coreDataContext];
+    GameInfo *gameInfo = [NSEntityDescription insertNewObjectForEntityForName:@"GameInfo"
+                                                       inManagedObjectContext:self.coreDataContext];
     gameInfo.teamNameFirst = gameInfoToSave.teamNameFirst;
     gameInfo.teamNameSecond = gameInfoToSave.teamNameSecond;
     gameInfo.hashLink = gameInfoToSave.hashLink;
@@ -136,17 +126,13 @@
     gameInfo.firstTeamScore = gameInfoToSave.firstTeamScore;
     gameInfo.secondTeamScore = gameInfoToSave.secondTeamScore;
     
-    NSError *error = nil;
-    if (![gameInfo.managedObjectContext save:&error])
-    {
-        NSLog(@"Object wasn't saved");
-        NSLog(@"%@, %@", error, error.localizedDescription);
-    }
+    [gameInfo.managedObjectContext save:nil];
 }
 
 - (void)saveStoneData:(CURStoneData *)stoneDataToSave
 {
-    StoneData *stoneData = [NSEntityDescription insertNewObjectForEntityForName:@"StoneData" inManagedObjectContext:self.coreDataContext];
+    StoneData *stoneData = [NSEntityDescription insertNewObjectForEntityForName:@"StoneData"
+                                                         inManagedObjectContext:self.coreDataContext];
     stoneData.endNumber = stoneDataToSave.endNumber;
     stoneData.stepNumber = stoneDataToSave.stepNumber;
     stoneData.isStoneColorRed = stoneDataToSave.isStoneColorRed;
@@ -154,12 +140,7 @@
     stoneData.stonePositionY = stoneDataToSave.stonePositionY;
     stoneData.hashLink = stoneDataToSave.hashLink;
     
-    NSError *error = nil;
-    if (![stoneData.managedObjectContext save:&error])
-    {
-        NSLog(@"Object wasn't saved");
-        NSLog(@"%@, %@", error, error.localizedDescription);
-    }
+    [stoneData.managedObjectContext save:nil];
 }
 
 - (void)saveNumberOfEnds:(int)number forHash:(NSString *)hashLink
@@ -167,43 +148,50 @@
     GameInfo *gameInfo = [self loadGamesInfoByHash:hashLink];
     gameInfo.numberOfEnds = number;
     
-    NSError *error = nil;
-    if (![gameInfo.managedObjectContext save:&error])
-    {
-        NSLog(@"Object wasn't saved");
-        NSLog(@"%@, %@", error, error.localizedDescription);
-    }
+    [gameInfo.managedObjectContext save:nil];
 }
 
-- (void)saveFirstScore:(int)firstScore andSecondScore:(int)secondScore forHash:(NSString *)hashLink
+- (void)saveFirstScore:(int)firstScore secondScore:(int)secondScore forHash:(NSString *)hashLink
 {
     GameInfo *gameInfo = [self loadGamesInfoByHash:hashLink];
     gameInfo.firstTeamScore = firstScore;
     gameInfo.secondTeamScore = secondScore;
     
-    NSError *error = nil;
-    if (![gameInfo.managedObjectContext save:&error])
-    {
-        NSLog(@"Object wasn't saved");
-        NSLog(@"%@, %@", error, error.localizedDescription);
-    }
+    [gameInfo.managedObjectContext save:nil];
 }
 
-- (void)saveFirstScore:(int)firstScore andSecondScore:(int)secondScore forEnd:(int)endNumber andHash:(NSString *)hashLink
+- (void)saveFirstScore:(int)firstScore secondScore:(int)secondScore forEnd:(int)endNumber hash:(NSString *)hashLink
 {
-    EndScore *endScore = [NSEntityDescription insertNewObjectForEntityForName:@"EndScore" inManagedObjectContext:self.coreDataContext];
+    EndScore *endScore = [NSEntityDescription insertNewObjectForEntityForName:@"EndScore"
+                                                       inManagedObjectContext:self.coreDataContext];
     endScore.hashLink = hashLink;
     endScore.firstTeamScore = firstScore;
     endScore.secondTeamScore = secondScore;
     endScore.endNumber = endNumber;
     
-    NSError *error = nil;
-    if (![endScore.managedObjectContext save:&error])
-    {
-        NSLog(@"Object wasn't saved");
-        NSLog(@"%@, %@", error, error.localizedDescription);
-    }
+    [endScore.managedObjectContext save:nil];
 }
+
+- (BOOL)saveAccessToken:(NSString *)accessToken
+{
+    if(accessToken.length<=0)
+    {
+        return NO;
+    }
+    
+    AppData *appData = [self loadAppData];
+    if(!appData)
+    {
+        appData = [NSEntityDescription insertNewObjectForEntityForName:@"AppData"
+                                                inManagedObjectContext:self.coreDataContext];
+    }
+    appData.accessToken = accessToken;
+    
+    return [appData.managedObjectContext save:nil];
+}
+
+
+#pragma mark - Delete Actions
 
 - (void)deleteGameByHash:(NSString *)hashLink
 {
@@ -225,7 +213,7 @@
     [self.coreDataContext save:nil];
 }
 
-- (void)deleteEndByHash:(NSString *)hashLink andEndNumber:(NSInteger)endNumber
+- (void)deleteEndByHash:(NSString *)hashLink endNumber:(NSInteger)endNumber
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"StoneData"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@ AND endNumber == %@", hashLink, @(endNumber)];
@@ -241,28 +229,24 @@
     [self.coreDataContext save:nil];
 }
 
-- (BOOL)saveAccessToken:(NSString *)accessToken
+- (void)clearCoreData
 {
-    if(accessToken.length>0)
+    NSArray *data = [self.coreDataContext executeFetchRequest:[GameInfo fetchRequest] error:nil];
+    for (GameInfo *item in data)
     {
-        AppData *appData = [self loadAppData];
-        if(!appData)
-        {
-            appData = [NSEntityDescription insertNewObjectForEntityForName:@"AppData" inManagedObjectContext:self.coreDataContext];
-        }
-        appData.accessToken = accessToken;
-        
-        NSError *error = nil;
-        if (![appData.managedObjectContext save:&error])
-        {
-            NSLog(@"Object wasn't saved");
-            NSLog(@"%@, %@", error, error.localizedDescription);
-            return NO;
-        }
-        
-        return YES;
+        [self.coreDataContext deleteObject:item];
     }
-    return NO;
+    data = [self.coreDataContext executeFetchRequest:[StoneData fetchRequest] error:nil];
+    for (StoneData *item in data)
+    {
+        [self.coreDataContext deleteObject:item];
+    }
+    data = [self.coreDataContext executeFetchRequest:[EndScore fetchRequest] error:nil];
+    for (EndScore *item in data)
+    {
+        [self.coreDataContext deleteObject:item];
+    }
+    [self.coreDataContext save:nil];
 }
 
 @end

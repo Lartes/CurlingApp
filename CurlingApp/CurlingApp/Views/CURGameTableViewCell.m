@@ -36,9 +36,9 @@
         _teamsScore.textColor = [UIColor blackColor];
 
         _teamsScore.textAlignment = NSTextAlignmentCenter;
-        _teamsScore.font = [UIFont systemFontOfSize:BIGFONT];
-        _teamNameFirst.font = [UIFont systemFontOfSize:SMALLFONT];
-        _teamNameSecond.font = [UIFont systemFontOfSize:SMALLFONT];
+        _teamsScore.font = [UIFont systemFontOfSize:CURBigFontSize];
+        _teamNameFirst.font = [UIFont systemFontOfSize:CURSmallFontSize];
+        _teamNameSecond.font = [UIFont systemFontOfSize:CURSmallFontSize];
         
         _colorBarFirst.backgroundColor = [UIColor redColor];
         _colorBarScoreFirst.backgroundColor = [UIColor redColor];
@@ -59,42 +59,42 @@
 - (void)updateConstraints
 {
     [self.teamNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.colorBarFirst.mas_right).with.offset(INDENT);
-        make.top.mas_equalTo(self.contentView).with.offset(INDENT);
+        make.left.mas_equalTo(self.colorBarFirst.mas_right).with.offset(CURUIIndent);
+        make.top.mas_equalTo(self.contentView).with.offset(CURUIIndent);
     }];
     [self.teamNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(self.teamNameFirst);
         make.left.mas_equalTo(self.teamNameFirst);
         make.top.mas_equalTo(self.teamNameFirst.mas_bottom);
-        make.bottom.mas_equalTo(self.contentView).with.offset(-INDENT);
+        make.bottom.mas_equalTo(self.contentView).with.offset(-CURUIIndent);
     }];
     [self.colorBarFirst mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.contentView).with.offset(INDENT);
-        make.top.mas_equalTo(self.contentView).with.offset(INDENT);
-        make.width.mas_equalTo(INDENT);
+        make.left.mas_equalTo(self.contentView).with.offset(CURUIIndent);
+        make.top.mas_equalTo(self.contentView).with.offset(CURUIIndent);
+        make.width.mas_equalTo(CURUIIndent);
     }];
     [self.colorBarSecond mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(self.colorBarFirst);
         make.left.mas_equalTo(self.colorBarFirst);
         make.top.mas_equalTo(self.colorBarFirst.mas_bottom);
-        make.bottom.mas_equalTo(self.contentView).with.offset(-INDENT);
+        make.bottom.mas_equalTo(self.contentView).with.offset(-CURUIIndent);
     }];
     
     [self.colorBarScoreFirst mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_greaterThanOrEqualTo(self.teamNameFirst.mas_right);
         make.top.mas_equalTo(self.teamsScore);
         make.bottom.mas_equalTo(self.teamsScore);
-        make.width.mas_equalTo(INDENT);
+        make.width.mas_equalTo(CURUIIndent);
     }];
     [self.teamsScore mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.colorBarScoreFirst.mas_right).with.offset(INDENT);
-        make.top.mas_equalTo(self.contentView).with.offset(INDENT);
-        make.bottom.mas_equalTo(self.contentView).with.offset(-INDENT);
+        make.left.mas_equalTo(self.colorBarScoreFirst.mas_right).with.offset(CURUIIndent);
+        make.top.mas_equalTo(self.contentView).with.offset(CURUIIndent);
+        make.bottom.mas_equalTo(self.contentView).with.offset(-CURUIIndent);
     }];
     [self.colorBarScoreSecond mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(self.colorBarScoreFirst);
-        make.left.mas_equalTo(self.teamsScore.mas_right).with.offset(INDENT);
-        make.right.mas_equalTo(self.contentView).with.offset(-INDENT);
+        make.left.mas_equalTo(self.teamsScore.mas_right).with.offset(CURUIIndent);
+        make.right.mas_equalTo(self.contentView).with.offset(-CURUIIndent);
         make.top.mas_equalTo(self.teamsScore);
         make.bottom.mas_equalTo(self.teamsScore);
     }];

@@ -20,6 +20,9 @@
 
 @implementation CURSettingsViewController
 
+
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -28,7 +31,10 @@
 
 - (void)prepareUI
 {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Игры" style:UIBarButtonItemStylePlain target:self action:@selector(toMainView)];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Игры"
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(toMainView)];
     self.navigationItem.rightBarButtonItem = backButton;
     self.navigationItem.hidesBackButton = YES;
     
@@ -63,25 +69,25 @@
 - (void)updateViewConstraints
 {
     [self.dropboxImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_greaterThanOrEqualTo(self.view).with.offset(TABBARHEIGHT+INDENT);
+        make.top.mas_greaterThanOrEqualTo(self.view).with.offset(CURTabBarHeight+CURUIIndent);
         make.centerX.mas_equalTo(self.view);
         make.width.mas_equalTo(self.dropboxImage.mas_height);
         make.width.mas_equalTo(CGRectGetWidth(self.view.frame)/2.);
     }];
     [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.dropboxImage.mas_bottom).with.offset(INDENT);
+        make.top.mas_equalTo(self.dropboxImage.mas_bottom).with.offset(CURUIIndent);
         make.center.mas_equalTo(self.view);
     }];
     [self.saveButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.loginButton.mas_bottom).with.offset(INDENT);
+        make.top.mas_equalTo(self.loginButton.mas_bottom).with.offset(CURUIIndent);
         make.left.mas_equalTo(self.loginButton);
         make.size.mas_equalTo(self.loginButton);
     }];
     [self.loadButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.saveButton.mas_bottom).with.offset(INDENT);
+        make.top.mas_equalTo(self.saveButton.mas_bottom).with.offset(CURUIIndent);
         make.left.mas_equalTo(self.loginButton);
         make.size.mas_equalTo(self.loginButton);
-        make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
+        make.bottom.mas_lessThanOrEqualTo(self.view).with.offset(-CURUIIndent);
     }];
     
     [self.loadingAnimation mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -91,10 +97,13 @@
     [super updateViewConstraints];
 }
 
+
+#pragma mark - Button Actions
+
 - (void)toMainView
 {
     CATransition *transition = [CATransition animation];
-    transition.duration = SETTINGSTRANSITIONDURATION;
+    transition.duration = CURSettingsTransitionDuration;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionMoveIn;
     transition.subtype = kCATransitionFromRight;
@@ -121,7 +130,9 @@
 {
     [self.loadButton tapAnimation];
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Загрузить данные?" message:@"Вся текущая информация будет удалена" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Загрузить данные?"
+                                                                   message:@"Вся текущая информация будет удалена"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
         self.loadingAnimation.hidden = NO;
@@ -164,7 +175,10 @@
     return queryItem.value;
 }
 
-- (void)setReceivedURL:(NSURL *)url
+
+#pragma mark - CURNetworkManagerProtocol
+
+- (void)saveReceivedURL:(NSURL *)url
 {
     NSURLComponents *urlComponents = [NSURLComponents new];
     urlComponents.query = [url fragment];
@@ -173,22 +187,27 @@
     {
         self.loginButton.enabled = NO;
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ получен" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ получен"
+                                                                       message:nil
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
         [alert addAction:actionCancel];
         [self presentViewController:alert animated:YES completion:nil];
     }
     else
     {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ не получен" message:@"Повторите попытку" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Доступ не получен"
+                                                                       message:@"Повторите попытку"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
         [alert addAction:actionCancel];
         [self presentViewController:alert animated:YES completion:nil];
     };
 }
-
-
-#pragma mark - CURNetworkManagerProtocol
 
 - (void)taskDidFinishedWithStatus:(BOOL)status
 {
@@ -198,8 +217,12 @@
     
     if(status)
     {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Загрузка завершена" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Загрузка завершена"
+                                                                       message:nil
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
         [alert addAction:actionCancel];
         [self presentViewController:alert animated:YES completion:nil];
     }
@@ -207,8 +230,12 @@
     {
         self.loginButton.enabled = YES;
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ошибка загрузки" message:@"Необходимо пройти авторизацию" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ошибка загрузки"
+                                                                       message:@"Необходимо пройти авторизацию"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Хорошо"
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
         [alert addAction:actionCancel];
         [self presentViewController:alert animated:YES completion:nil];
     };

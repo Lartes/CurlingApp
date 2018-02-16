@@ -8,10 +8,9 @@
 
 #import "AppDelegate.h"
 #import "CURSplashScreenViewController.h"
+#import "CURNetworkManagerProtocol.h"
 
-@interface UIViewController ()
-
-- (void)setReceivedURL:(NSURL *)url;
+@interface UIViewController () <CURNetworkManagerProtocol>
 
 @end
 
@@ -20,7 +19,6 @@
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -36,7 +34,7 @@
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     UINavigationController *navigationViewController = (UINavigationController *)self.window.rootViewController.presentedViewController;
-    [navigationViewController.topViewController setReceivedURL:url];
+    [navigationViewController.topViewController saveReceivedURL:url];
     
     return YES;
 }
@@ -56,7 +54,6 @@
             _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"CurlingApp"];
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
                 if (error != nil) {
-                    NSLog(@"Unresolved error %@, %@", error, error.userInfo);
                     abort();
                 }
             }];
@@ -73,7 +70,6 @@
     NSManagedObjectContext *context = self.persistentContainer.viewContext;
     NSError *error = nil;
     if ([context hasChanges] && ![context save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, error.userInfo);
         abort();
     }
 }

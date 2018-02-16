@@ -22,6 +22,9 @@
 
 @implementation CURShowGameViewController
 
+
+#pragma mark - Lifecycle
+
 - (instancetype)initWithManager:(CURShowGameManager *)showGameManager
 {
     self = [super init];
@@ -43,10 +46,12 @@
     self.navigationItem.hidesBackButton = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(closeGame)];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop
+                                                                                 target:self
+                                                                                 action:@selector(closeGame)];
     self.navigationItem.rightBarButtonItem = closeButton;
     
-    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.navigationController.navigationBar.frame)) andCenterX:self.view.center.x - 8.];
+    self.scoreView = [[CURScoreView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.navigationController.navigationBar.frame)) centerX:self.view.center.x - 8.];
     self.navigationItem.titleView = self.scoreView;
     
     self.showGameManager.output = self.scoreView;
@@ -56,7 +61,8 @@
     self.trackScrollView.output = self;
     
     UIImage *image = [UIImage imageNamed:@"track"];
-    self.trackScrollView.contentSize = CGSizeMake(self.view.frame.size.width, (image.size.height/image.size.width)*self.view.frame.size.width);
+    self.trackScrollView.contentSize = CGSizeMake(self.view.frame.size.width,
+                                                  (image.size.height/image.size.width)*self.view.frame.size.width);
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.frame = CGRectMake(0, 0, self.trackScrollView.contentSize.width, self.trackScrollView.contentSize.height);
     [self.trackScrollView addSubview:imageView];
@@ -100,28 +106,31 @@
 - (void)updateViewConstraints
 {
     [self.trackScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.view).with.offset(TABBARHEIGHT);
+        make.top.mas_equalTo(self.view).with.offset(CURTabBarHeight);
         make.left.right.and.bottom.mas_equalTo(self.view);
     }];
     [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
-        make.left.mas_equalTo(self.view.mas_centerX).with.offset(INDENT*2);
+        make.bottom.mas_equalTo(self.view).with.offset(-CURUIIndent);
+        make.left.mas_equalTo(self.view.mas_centerX).with.offset(CURUIIndent*2);
     }];
     [self.nextEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
-        make.right.mas_equalTo(self.view).with.offset(-INDENT);
+        make.bottom.mas_equalTo(self.view).with.offset(-CURUIIndent);
+        make.right.mas_equalTo(self.view).with.offset(-CURUIIndent);
     }];
     [self.previousButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
-        make.right.mas_equalTo(self.view.mas_centerX).with.offset(-INDENT*2);
+        make.bottom.mas_equalTo(self.view).with.offset(-CURUIIndent);
+        make.right.mas_equalTo(self.view.mas_centerX).with.offset(-CURUIIndent*2);
     }];
     [self.previousEndButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(self.view).with.offset(-INDENT);
-        make.left.mas_equalTo(self.view).with.offset(INDENT);
+        make.bottom.mas_equalTo(self.view).with.offset(-CURUIIndent);
+        make.left.mas_equalTo(self.view).with.offset(CURUIIndent);
     }];
     
     [super updateViewConstraints];
 }
+
+
+#pragma mark - Button Actions
 
 - (void)nextStone
 {
@@ -154,7 +163,7 @@
     [self.nextEndButton tapAnimation];
     
     [self.scoreView resetScore];
-    [self.showGameManager changeEndOnNumber:1];
+    [self.showGameManager changeEndByNumber:1];
     
     self.nextEndButton.hidden = YES;
     self.previousEndButton.hidden = NO;
@@ -167,7 +176,7 @@
     [self.previousEndButton tapAnimation];
     
     [self.scoreView resetScore];
-    [self.showGameManager changeEndOnNumber:-1];
+    [self.showGameManager changeEndByNumber:-1];
     
     if ([self.showGameManager isFirstEnd])
     {

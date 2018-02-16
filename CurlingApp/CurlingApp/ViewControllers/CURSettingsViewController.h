@@ -19,6 +19,4 @@
 
 @property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
-- (void)setReceivedURL:(NSURL *)url;
-
 @end

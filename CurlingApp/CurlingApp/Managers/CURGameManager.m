@@ -25,7 +25,10 @@
 
 @implementation CURGameManager
 
-- (instancetype)initWithColor:(UIColor *)firstStoneColor andHash:(NSString *)hashLink andStoneSize:(NSInteger)stoneSize
+
+#pragma mark - Lifecycle
+
+- (instancetype)initWithColor:(UIColor *)firstStoneColor hash:(NSString *)hashLink stoneSize:(NSInteger)stoneSize
 {
     self = [super init];
     if(self)
@@ -43,6 +46,9 @@
     }
     return self;
 }
+
+
+#pragma mark - Game Actions
 
 - (UIView *)addStone
 {
@@ -86,7 +92,7 @@
         firstTeamScore += endScore.firstTeamScore;
         secondTeamScore += endScore.secondTeamScore;
     }
-    [self.coreDataManager saveFirstScore:firstTeamScore andSecondScore:secondTeamScore forHash:self.hashLink];
+    [self.coreDataManager saveFirstScore:firstTeamScore secondScore:secondTeamScore forHash:self.hashLink];
     
     [self.coreDataManager saveNumberOfEnds:self.endNumber forHash:self.hashLink];
 }
@@ -96,17 +102,8 @@
     return self.isEndFinishedBool;
 }
 
-- (void)changeColor
-{
-    if (self.stoneColor==[UIColor redColor])
-    {
-        self.stoneColor = [UIColor yellowColor];
-    }
-    else
-    {
-        self.stoneColor = [UIColor redColor];
-    }
-}
+
+#pragma mark - Custom Accessors
 
 - (NSString *)getHashLink
 {
@@ -128,7 +125,20 @@
     self.stoneColor = color;
 }
 
-#pragma mark - CoreData
+
+#pragma mark - Private
+
+- (void)changeColor
+{
+    if (self.stoneColor==[UIColor redColor])
+    {
+        self.stoneColor = [UIColor yellowColor];
+    }
+    else
+    {
+        self.stoneColor = [UIColor redColor];
+    }
+}
 
 - (void)saveToCoreData
 {
@@ -138,9 +148,9 @@
         stoneData = [CURStoneData new];
         stoneData.endNumber = self.endNumber;
         stoneData.stepNumber = self.stepNumber;
-        stoneData.isStoneColorRed = [stone image] == self.redStone;
-        stoneData.stonePositionX = [stone center].x;
-        stoneData.stonePositionY = [stone center].y;
+        stoneData.isStoneColorRed = stone.image == self.redStone;
+        stoneData.stonePositionX = stone.center.x;
+        stoneData.stonePositionY = stone.center.y;
         stoneData.hashLink = self.hashLink;
         
         [self.coreDataManager saveStoneData:stoneData];

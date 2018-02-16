@@ -22,6 +22,9 @@
 
 @implementation CURSplashScreenViewController
 
+
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -39,33 +42,41 @@
     
     image = [UIImage imageNamed:@"blue_circle"];
     self.blueCircle = [[UIImageView alloc] initWithImage:image];
-    self.blueCircle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
+    self.blueCircle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame),
+                                       (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
     self.blueCircle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)/3.);
     
     image = [UIImage imageNamed:@"red_circle"];
     self.redCircle = [[UIImageView alloc] initWithImage:image];
-    self.redCircle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
+    self.redCircle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame),
+                                      (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
     self.redCircle.center = self.blueCircle.center;
     
     image = [UIImage imageNamed:@"curling"];
     self.curlingTitle = [[UIImageView alloc] initWithImage:image];
-    self.curlingTitle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
+    self.curlingTitle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame),
+                                         (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
     self.curlingTitle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)*2/3.);
     
     image = [UIImage imageNamed:@"manager"];
     self.managerTitle = [[UIImageView alloc] initWithImage:image];
-    self.managerTitle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
+    self.managerTitle.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame),
+                                         (image.size.height/image.size.width)*CGRectGetWidth(self.view.frame));
     self.managerTitle.center = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)*5/6.);
     
     image = [UIImage imageNamed:@"stone_red"];
     self.firstRedStone = [[UIImageView alloc] initWithImage:image];
-    self.firstRedStone.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)/7., (image.size.height/image.size.width)*(CGRectGetWidth(self.view.frame)/7.));
-    self.firstRedStone.center = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)+CGRectGetHeight(self.firstRedStone.frame));
+    self.firstRedStone.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)/7.,
+                                          (image.size.height/image.size.width)*(CGRectGetWidth(self.view.frame)/7.));
+    self.firstRedStone.center = CGPointMake(CGRectGetWidth(self.view.frame)/2.,
+                                            CGRectGetHeight(self.view.frame)+CGRectGetHeight(self.firstRedStone.frame));
     
     image = [UIImage imageNamed:@"stone_yellow"];
     self.firstYellowStone = [[UIImageView alloc] initWithImage:image];
-    self.firstYellowStone.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)/7., (image.size.height/image.size.width)*(CGRectGetWidth(self.view.frame)/7.));
-    self.firstYellowStone.center = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)+CGRectGetHeight(self.firstYellowStone.frame));
+    self.firstYellowStone.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame)/7.,
+                                             (image.size.height/image.size.width)*(CGRectGetWidth(self.view.frame)/7.));
+    self.firstYellowStone.center = CGPointMake(CGRectGetWidth(self.view.frame)/2.,
+                                               CGRectGetHeight(self.view.frame)+CGRectGetHeight(self.firstYellowStone.frame));
     
     self.blueCircle.layer.opacity = 0;
     self.redCircle.layer.opacity = 0;
@@ -84,6 +95,9 @@
     [self.view addSubview:self.firstRedStone];
     [self.view addSubview:self.firstYellowStone];
 }
+
+
+#pragma mark - Animation Actions
 
 - (void)startAnimation
 {
@@ -113,7 +127,8 @@
 - (void)continueAnimation
 {
     CGPoint pointY1 = CGPointMake(CGRectGetWidth(self.view.frame)/5., CGRectGetHeight(self.view.frame)*2./5.);
-    CGPoint pointR1 = CGPointMake(pointY1.x+CGRectGetWidth(self.firstRedStone.frame)*cos(0.1), pointY1.y+CGRectGetWidth(self.firstRedStone.frame)*sin(0.1));
+    CGPoint pointR1 = CGPointMake(pointY1.x+CGRectGetWidth(self.firstRedStone.frame)*cos(0.1),
+                                  pointY1.y+CGRectGetWidth(self.firstRedStone.frame)*sin(0.1));
     CGPoint pointY2 = CGPointMake(-CGRectGetWidth(self.firstYellowStone.frame), CGRectGetHeight(self.view.frame)/3.);
     CGPoint pointR2 = CGPointMake(self.blueCircle.center.x+10., self.blueCircle.center.y+10.);
     
@@ -184,12 +199,14 @@
     [self.firstRedStone.layer addAnimation:redStonePath forKey:@"red"];
 }
 
+
 #pragma mark - CAAnimationDelegate
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     CURGamesTableViewController *gamesTableViewController = [CURGamesTableViewController new];
-    UINavigationController *gameNavigationController = [[UINavigationController alloc] initWithRootViewController:gamesTableViewController];
+    UINavigationController *gameNavigationController = [[UINavigationController alloc]
+        initWithRootViewController:gamesTableViewController];
     gameNavigationController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:gameNavigationController animated:YES completion:nil];
 }

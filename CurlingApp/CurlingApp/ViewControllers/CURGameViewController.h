@@ -18,6 +18,10 @@
 
 @interface CURGameViewController : UIViewController <CURTouchDetectProtocol>
 
+/**
+ Инициализирует объект с менеджером игры.
+ @param gameManager Менеджер игры.
+ */
 - (instancetype)initWithManager:(CURGameManager *)gameManager;
 
 @end

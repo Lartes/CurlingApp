@@ -10,13 +10,13 @@
 
 @interface CURShowGameManager ()
 
-@property (nonatomic, strong) NSArray<UIImageView *> *stonesArray;
+@property (nonatomic, copy) NSArray<UIImageView *> *stonesArray;
 @property (nonatomic, strong) UIColor *stoneColor;
 @property (nonatomic, assign) NSInteger endNumber;
 @property (nonatomic, assign) NSInteger numberOfEnds;
 @property (nonatomic, assign) NSInteger stepNumber;
 @property (nonatomic, copy) NSString *hashLink;
-@property (nonatomic, strong) NSArray<StoneData *> *stonesData;
+@property (nonatomic, copy) NSArray<StoneData *> *stonesData;
 @property (nonatomic, assign) NSInteger indexInStonesData;
 @property (nonatomic, strong) UIImage *redStone;
 @property (nonatomic, strong) UIImage *yellowStone;
@@ -26,7 +26,10 @@
 
 @implementation CURShowGameManager
 
-- (instancetype)initWithGameInfo:(GameInfo *)gameInfo andEndNumber:(NSInteger)endNumber andStoneSize:(NSInteger)stoneSize;
+
+#pragma mark - Lifecycle
+
+- (instancetype)initWithGameInfo:(GameInfo *)gameInfo endNumber:(NSInteger)endNumber stoneSize:(NSInteger)stoneSize;
 {
     self = [super init];
     if(self)
@@ -46,15 +49,18 @@
     return self;
 }
 
+
+#pragma mark - Game Actions
+
 - (NSArray *)startShowGame
 {
     [self.output setEndNumber:self.endNumber];
-    self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink andEndNumber:self.endNumber];
+    self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink endNumber:self.endNumber];
     self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
     
     NSMutableArray *stones = [NSMutableArray new];
     UIImageView *stone = nil;
-    for (int i = 0; i<NUMBEROFSTONESPEREND; i++)
+    for (int i = 0; i<CURShowGameManagerNumberOfStonesPerEnd; i++)
     {
         stone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.stoneSize, self.stoneSize)];
         stone.userInteractionEnabled = YES;
@@ -68,13 +74,13 @@
     return self.stonesArray;
 }
 
-- (BOOL)changeEndOnNumber:(NSInteger)number;
+- (BOOL)changeEndByNumber:(NSInteger)number;
 {
     self.endNumber += number;
     [self.output setEndNumber:self.endNumber];
-    self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink andEndNumber:self.endNumber];
+    self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink endNumber:self.endNumber];
     self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
-    for (int i = 0; i<NUMBEROFSTONESPEREND; i++)
+    for (int i = 0; i<CURShowGameManagerNumberOfStonesPerEnd; i++)
     {
         self.stonesArray[i].hidden = YES;
     }
@@ -110,11 +116,7 @@
     [self.output changeScoreForColor:self.stoneColor byNumber:-1];
     [self changeColor];
     
-    if (self.stepNumber == NUMBEROFSTONESPEREND)
-    {
-        return YES;
-    }
-    return NO;
+    return (self.stepNumber == CURShowGameManagerNumberOfStonesPerEnd);
 }
 
 - (BOOL)showPreviousStep
@@ -138,7 +140,7 @@
         self.indexInStonesData -= 1;
     }
     self.indexInStonesData += 1;
-    for (; indexInStonesArray<NUMBEROFSTONESPEREND; indexInStonesArray++)
+    for (; indexInStonesArray<CURShowGameManagerNumberOfStonesPerEnd; indexInStonesArray++)
     {
         self.stonesArray[indexInStonesArray].hidden = YES;
     }
@@ -146,11 +148,7 @@
     [self changeColor];
     [self.output changeScoreForColor:self.stoneColor byNumber:1];
     
-    if (self.stepNumber == 1)
-    {
-        return YES;
-    }
-    return NO;
+    return (self.stepNumber == 1);
 }
 
 - (BOOL)isFirstEnd
@@ -162,6 +160,9 @@
 {
     return self.endNumber == self.numberOfEnds;
 }
+
+
+#pragma mark - Private
 
 - (void)changeColor
 {

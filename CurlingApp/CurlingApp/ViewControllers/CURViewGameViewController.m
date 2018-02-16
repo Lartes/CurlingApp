@@ -20,11 +20,14 @@
 @property (nonatomic, strong) UIView *colorBarLeftScore;
 @property (nonatomic, strong) UIView *colorBarRightScore;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray<EndScore *> *scoresArray;
+@property (nonatomic, copy) NSArray<EndScore *> *scoresArray;
 
 @end
 
 @implementation CURViewGameViewController
+
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,10 +41,15 @@
 {
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Игры" style:UIBarButtonItemStylePlain target:self action:@selector(toMainView)];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Игры"
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(toMainView)];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteGame)];
+    UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
+                                                                                  target:self
+                                                                                  action:@selector(deleteGame)];
     self.navigationItem.rightBarButtonItem = deleteButton;
     
     self.teamNameFirst = [UILabel new];
@@ -102,9 +110,9 @@
     [self.tableView registerClass:[CURScoreTableViewCell class] forCellReuseIdentifier:@"ScoreTableViewCell"];
     [self.view addSubview:self.tableView];
     
-    self.teamsScore.font = [UIFont systemFontOfSize:BIGFONT];
-    self.teamNameFirst.font = [UIFont systemFontOfSize:MEDIUMFONT];
-    self.teamNameSecond.font = [UIFont systemFontOfSize:MEDIUMFONT];
+    self.teamsScore.font = [UIFont systemFontOfSize:CURBigFontSize];
+    self.teamNameFirst.font = [UIFont systemFontOfSize:CURMediumFontSize];
+    self.teamNameSecond.font = [UIFont systemFontOfSize:CURMediumFontSize];
     
     [self.view setNeedsUpdateConstraints];
 }
@@ -112,9 +120,9 @@
 - (void)updateViewConstraints
 {
     [self.colorBarTopNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).with.offset(INDENT);
-        make.top.mas_equalTo(self.view).with.offset(TABBARHEIGHT+INDENT);
-        make.height.mas_equalTo(INDENT);
+        make.left.mas_equalTo(self.view).with.offset(CURUIIndent);
+        make.top.mas_equalTo(self.view).with.offset(CURTabBarHeight+CURUIIndent);
+        make.height.mas_equalTo(CURUIIndent);
     }];
     [self.teamNameFirst mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.colorBarTopNameFirst);
@@ -128,13 +136,13 @@
     
     [self.colorBarTopNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.colorBarTopNameFirst.mas_right);
-        make.right.mas_equalTo(self.view).with.offset(-INDENT);
+        make.right.mas_equalTo(self.view).with.offset(-CURUIIndent);
         make.top.mas_equalTo(self.colorBarTopNameFirst);
         make.size.mas_equalTo(self.colorBarTopNameFirst);
     }];
     [self.teamNameSecond mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(INDENT);
-        make.right.mas_equalTo(self.view).with.offset(-INDENT);
+        make.left.mas_equalTo(self.teamNameFirst.mas_right).with.offset(CURUIIndent);
+        make.right.mas_equalTo(self.view).with.offset(-CURUIIndent);
         make.top.mas_equalTo(self.colorBarTopNameSecond.mas_bottom);
         make.size.mas_equalTo(self.teamNameFirst);
     }];
@@ -145,27 +153,27 @@
     }];
     
     [self.colorBarLeftScore mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_greaterThanOrEqualTo(self.view).with.offset(INDENT);
+        make.left.mas_greaterThanOrEqualTo(self.view).with.offset(CURUIIndent);
         make.top.mas_equalTo(self.teamsScore);
         make.bottom.mas_equalTo(self.teamsScore);
-        make.width.mas_equalTo(INDENT);
+        make.width.mas_equalTo(CURUIIndent);
     }];
     [self.teamsScore mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.colorBarLeftScore.mas_right).with.offset(INDENT);
-        make.top.mas_equalTo(self.colorBarBottomNameFirst.mas_bottom).with.offset(INDENT);
+        make.left.mas_equalTo(self.colorBarLeftScore.mas_right).with.offset(CURUIIndent);
+        make.top.mas_equalTo(self.colorBarBottomNameFirst.mas_bottom).with.offset(CURUIIndent);
         make.centerX.mas_equalTo(self.view);
     }];
     [self.colorBarRightScore mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.teamsScore.mas_right).with.offset(INDENT);
-        make.right.mas_lessThanOrEqualTo(self.view).with.offset(-INDENT);
+        make.left.mas_equalTo(self.teamsScore.mas_right).with.offset(CURUIIndent);
+        make.right.mas_lessThanOrEqualTo(self.view).with.offset(-CURUIIndent);
         make.top.mas_equalTo(self.teamsScore);
         make.size.mas_equalTo(self.colorBarLeftScore);
     }];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).with.offset(INDENT);
-        make.right.mas_equalTo(self.view).with.offset(-INDENT);
-        make.top.mas_equalTo(self.teamsScore.mas_bottom).with.offset(INDENT);
+        make.left.mas_equalTo(self.view).with.offset(CURUIIndent);
+        make.right.mas_equalTo(self.view).with.offset(-CURUIIndent);
+        make.top.mas_equalTo(self.teamsScore.mas_bottom).with.offset(CURUIIndent);
         make.bottom.mas_equalTo(self.view);
     }];
     
@@ -180,9 +188,14 @@
     }
 }
 
+
+#pragma mark - Button Actions
+
 - (void)deleteGame
 {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Удалить игру?" message:@"Это действие необратимо." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Удалить игру?"
+                                                                   message:@"Это действие необратимо."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Отмена" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
         [self.coreDataManager deleteGameByHash:self.gameInfo.hashLink];
@@ -208,7 +221,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CURScoreTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ScoreTableViewCell" forIndexPath:indexPath];
+    CURScoreTableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:@"ScoreTableViewCell"
+                                                                       forIndexPath:indexPath];
     
     EndScore *endScore = self.scoresArray[indexPath.row];
     NSString *score = [NSString stringWithFormat:@"%d:%d", endScore.firstTeamScore, endScore.secondTeamScore];
@@ -225,7 +239,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CURShowGameManager *gameManager = [[CURShowGameManager alloc] initWithGameInfo:self.gameInfo andEndNumber:self.scoresArray[indexPath.row].endNumber andStoneSize:CGRectGetWidth(self.view.frame)/STONESIZEDIVIDER];
+    CURShowGameManager *gameManager = [[CURShowGameManager alloc] initWithGameInfo:self.gameInfo
+                                                                         endNumber:self.scoresArray[indexPath.row].endNumber
+                                                                         stoneSize:CGRectGetWidth(self.view.frame)/CURStoneSizeDivider];
     gameManager.coreDataManager = self.coreDataManager;
 
     CURShowGameViewController *gameViewController = [[CURShowGameViewController alloc] initWithManager:gameManager];

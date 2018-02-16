@@ -18,17 +18,63 @@
 @property (nonatomic, weak) id<CURChangeScoreProtocol> output;
 @property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
-- (instancetype)initWithColor:(UIColor *)firstStoneColor andHash:(NSString *)hashLink andStoneSize:(NSInteger)stoneSize;
+/**
+ Инициализирует менеджер игры.
+ @param firstStoneColor Цвет первого камня в игре.
+ @param hashLink Хеш-связь игры.
+ @param stoneSize Размер камня, которому должно соответствовать его представление.
+ */
+- (instancetype)initWithColor:(UIColor *)firstStoneColor hash:(NSString *)hashLink stoneSize:(NSInteger)stoneSize;
 
+/**
+ Запускает игровую логику энда. Обязателен к вызову в начале энда.
+ */
 - (void)startEnd;
+
+/**
+ Создает новый игровой камень.
+ @returns Объект типа UIView, являющийся сущностью игрового камня.
+ */
 - (UIView *)addStone;
+
+/**
+ Проверяет, закончился ли энд.
+ @returns Логическое значение соответствующее игровому состоянию энда.
+ */
 - (BOOL)isEndFinished;
+
+/**
+ Завершает логику игрового энда и сохраняет его результаты. Обязателен к вызову в конце энда.
+ */
 - (void)finishEnd;
+
+/**
+ Завершает логику игры. Обязателен к вызову в конце игры.
+ */
 - (void)finishGame;
+
+/**
+ Устанавливает цвет первого камня в энде.
+ @param color Цвет первого камня в энде
+ */
 - (void)setFirstStoneColor:(UIColor *)color;
 
+/**
+ Предоставляет хеш-связь текущей игры.
+ @returns Хеш-связь текущей игры.
+ */
 - (NSString *)getHashLink;
+
+/**
+ Предоставляет номер текущего энда.
+ @returns Номер текущего энда.
+ */
 - (int)getEndNumber;
+
+/**
+ Предоставляет цвет команды, начинающей игру.
+ @returns Цвет команды, начинающей игру.
+ */
 - (UIColor *)getFirstTeamColor;
 
 @end
