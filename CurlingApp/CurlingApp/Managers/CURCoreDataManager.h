@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "AppDelegate.h"
 #import "GameInfo+CoreDataClass.h"
 #import "StoneData+CoreDataClass.h"
 #import "EndScore+CoreDataClass.h"
@@ -72,6 +71,11 @@
 - (NSArray<EndScore *> *)loadEndScoreByHash:(NSString *)hashLink;
 
 /**
+ Сохраняет контекст Core Data.
+ */
+- (void)saveContext;
+
+/**
  Сохраняет данные по игре.
  @param gameInfoToSave Данные по игре.
  */
@@ -88,7 +92,7 @@
  @param number Количество эндов.
  @param hashLink Хеш-связь игры.
  */
-- (void)saveNumberOfEnds:(int)number forHash:(NSString *)hashLink;
+- (void)saveNumberOfEnds:(NSInteger)number forHash:(NSString *)hashLink;
 
 /**
  Сохраняет счет игры в информацию об игре по хеш-связи.
@@ -96,7 +100,7 @@
  @param secondScore Счет второй команды.
  @param hashLink Хеш-связь игры.
  */
-- (void)saveFirstScore:(int)firstScore secondScore:(int)secondScore forHash:(NSString *)hashLink;
+- (void)saveFirstScore:(NSInteger)firstScore secondScore:(NSInteger)secondScore forHash:(NSString *)hashLink;
 
 /**
  Сохраняет счет энда по хеш-связи.
@@ -105,7 +109,7 @@
  @param endNumber Номер энда.
  @param hashLink Хеш-связь игры.
  */
-- (void)saveFirstScore:(int)firstScore secondScore:(int)secondScore forEnd:(int)endNumber hash:(NSString *)hashLink;
+- (void)saveFirstScore:(NSInteger)firstScore secondScore:(NSInteger)secondScore forEnd:(NSInteger)endNumber hash:(NSString *)hashLink;
 
 /**
  Сохраняет токен авторизации.

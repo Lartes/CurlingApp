@@ -10,9 +10,9 @@
 
 @interface CURStoneData : NSObject
 
-@property (nonatomic) int32_t endNumber;
+@property (nonatomic) NSInteger endNumber;
 @property (nonatomic) BOOL isStoneColorRed;
-@property (nonatomic) int32_t stepNumber;
+@property (nonatomic) NSInteger stepNumber;
 @property (nonatomic) float stonePositionX;
 @property (nonatomic) float stonePositionY;
 @property (nullable, nonatomic, copy) NSString *hashLink;

@@ -11,12 +11,12 @@
 @interface CURGameManager ()
 
 @property (nonatomic, strong) NSMutableArray<UIImageView *> *stonesArray;
-@property (nonatomic, strong) UIColor *stoneColor;
-@property (nonatomic, assign) int endNumber;
+@property (nonatomic, assign) CURColors stoneColor;
+@property (nonatomic, assign) NSInteger endNumber;
 @property (nonatomic, assign) BOOL isEndFinishedBool;
-@property (nonatomic, assign) int stepNumber;
+@property (nonatomic, assign) NSInteger stepNumber;
 @property (nonatomic, copy) NSString *hashLink;
-@property (nonatomic, strong) UIColor *firstTeamColor;
+@property (nonatomic, assign) CURColors firstTeamColor;
 @property (nonatomic, strong) UIImage *redStone;
 @property (nonatomic, strong) UIImage *yellowStone;
 @property (nonatomic, assign) NSInteger stoneSize;
@@ -28,7 +28,7 @@
 
 #pragma mark - Lifecycle
 
-- (instancetype)initWithColor:(UIColor *)firstStoneColor hash:(NSString *)hashLink stoneSize:(NSInteger)stoneSize
+- (instancetype)initWithColor:(CURColors)firstStoneColor hash:(NSString *)hashLink stoneSize:(NSInteger)stoneSize
 {
     self = [super init];
     if(self)
@@ -61,9 +61,9 @@
     UIImageView *stone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.stoneSize, self.stoneSize)];
     stone.userInteractionEnabled = YES;
     stone.layer.cornerRadius = self.stoneSize/2.;
-    stone.image = self.stoneColor == [UIColor redColor] ? self.redStone : self.yellowStone;
+    stone.image = self.stoneColor == CURRedColor ? self.redStone : self.yellowStone;
     self.isEndFinishedBool = [self.output changeScoreForColor:self.stoneColor byNumber:-1];
-    [self changeColor];
+    self.stoneColor = self.stoneColor == CURRedColor ? CURYellowColor : CURRedColor;
     [self.stonesArray addObject:stone];
     return stone;
 }
@@ -110,35 +110,23 @@
     return self.hashLink;
 }
 
-- (int)getEndNumber
+- (NSInteger)getEndNumber
 {
     return self.endNumber;
 }
 
-- (UIColor *)getFirstTeamColor
+- (CURColors)getFirstTeamColor
 {
     return self.firstTeamColor;
 }
 
-- (void)setFirstStoneColor:(UIColor *)color
+- (void)setFirstStoneColor:(CURColors)color
 {
     self.stoneColor = color;
 }
 
 
 #pragma mark - Private
-
-- (void)changeColor
-{
-    if (self.stoneColor==[UIColor redColor])
-    {
-        self.stoneColor = [UIColor yellowColor];
-    }
-    else
-    {
-        self.stoneColor = [UIColor redColor];
-    }
-}
 
 - (void)saveToCoreData
 {

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 
 @protocol CURChangeScoreProtocol <NSObject>
 @optional
@@ -18,7 +19,7 @@
  @param number Дельта, на которую нужно изменить счет.
  @returns YES, если энд закончился.
  */
-- (BOOL)changeScoreForColor:(UIColor *)color byNumber:(NSInteger)number;
+- (BOOL)changeScoreForColor:(CURColors)color byNumber:(NSInteger)number;
 
 /**
  Вызывается для установки номер энда.

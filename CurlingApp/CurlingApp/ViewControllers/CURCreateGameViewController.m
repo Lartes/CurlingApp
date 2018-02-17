@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UIView *teamColorFirst;
 @property (nonatomic, strong) UIView *teamColorSecond;
 @property (nonatomic, strong) CURButton *createButton;
+@property (nonatomic, strong) UIColor *redColor;
+@property (nonatomic, strong) UIColor *yellowColor;
 
 @end
 
@@ -22,6 +24,17 @@
 
 
 #pragma mark - Lifecycle
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        _redColor = [UIColor redColor];
+        _yellowColor = [UIColor yellowColor];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -146,7 +159,7 @@
     gameInfo.isFirstTeamColorRed = self.teamColorFirst.backgroundColor == [UIColor redColor];
     [self.coreDataManager saveGameInfo:gameInfo];
     
-    CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:self.teamColorFirst.backgroundColor
+    CURGameManager *gameManager = [[CURGameManager alloc] initWithColor:self.teamColorFirst.backgroundColor == [UIColor redColor] ? CURRedColor : CURYellowColor
                                                                    hash:gameInfo.hashLink
                                                               stoneSize:CGRectGetWidth(self.view.frame)/CURStoneSizeDivider];
     gameManager.coreDataManager = self.coreDataManager;
@@ -161,15 +174,15 @@
 
 - (void)changeColor
 {
-    if (self.teamColorFirst.backgroundColor ==[UIColor redColor])
+    if (self.teamColorFirst.backgroundColor == self.redColor)
     {
-        self.teamColorFirst.backgroundColor = [UIColor yellowColor];
-        self.teamColorSecond.backgroundColor = [UIColor redColor];
+        self.teamColorFirst.backgroundColor = self.yellowColor;
+        self.teamColorSecond.backgroundColor = self.redColor;
     }
     else
     {
-        self.teamColorFirst.backgroundColor = [UIColor redColor];
-        self.teamColorSecond.backgroundColor = [UIColor yellowColor];
+        self.teamColorFirst.backgroundColor = self.redColor;
+        self.teamColorSecond.backgroundColor = self.yellowColor;
     }
 }
 

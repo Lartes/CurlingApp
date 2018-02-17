@@ -158,7 +158,7 @@
         }
         else
         {
-            UIColor *color = [self.gameManager getFirstTeamColor] == [UIColor redColor] ? [UIColor yellowColor] : [UIColor redColor];
+            CURColors color = [self.gameManager getFirstTeamColor] == CURRedColor ? CURYellowColor : CURRedColor;
             [self.gameManager setFirstStoneColor:color];
         }
     }

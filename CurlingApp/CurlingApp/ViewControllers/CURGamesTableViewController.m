@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, copy) NSArray *gamesArray;
-@property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
 @end
 
@@ -26,7 +25,6 @@
     [super viewDidLoad];
     
     [self prepareUI];
-    self.coreDataManager = [CURCoreDataManager new];
     [self loadData];
 }
 

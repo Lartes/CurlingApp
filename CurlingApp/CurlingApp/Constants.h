@@ -23,7 +23,10 @@ static float const CURCreateGameViewControllerFieldHeight = 40;
 static float const CURSettingsTransitionDuration = 0.5;
 static float const CURTabBarHeight = 64.;
 
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) \
-    ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+typedef NS_ENUM(NSInteger, CURColors)
+{
+    CURRedColor = 1,
+    CURYellowColor = 2,
+};
 
 #endif

@@ -24,7 +24,7 @@
  @param hashLink Хеш-связь игры.
  @param stoneSize Размер камня, которому должно соответствовать его представление.
  */
-- (instancetype)initWithColor:(UIColor *)firstStoneColor hash:(NSString *)hashLink stoneSize:(NSInteger)stoneSize;
+- (instancetype)initWithColor:(CURColors)firstStoneColor hash:(NSString *)hashLink stoneSize:(NSInteger)stoneSize;
 
 /**
  Запускает игровую логику энда. Обязателен к вызову в начале энда.
@@ -57,7 +57,7 @@
  Устанавливает цвет первого камня в энде.
  @param color Цвет первого камня в энде
  */
-- (void)setFirstStoneColor:(UIColor *)color;
+- (void)setFirstStoneColor:(CURColors)color;
 
 /**
  Предоставляет хеш-связь текущей игры.
@@ -69,12 +69,12 @@
  Предоставляет номер текущего энда.
  @returns Номер текущего энда.
  */
-- (int)getEndNumber;
+- (NSInteger)getEndNumber;
 
 /**
  Предоставляет цвет команды, начинающей игру.
  @returns Цвет команды, начинающей игру.
  */
-- (UIColor *)getFirstTeamColor;
+- (CURColors)getFirstTeamColor;
 
 @end

@@ -25,14 +25,14 @@
     for (GameInfo *gameInfo in gamesInfo)
     {
         dict = [NSMutableDictionary new];
-        [dict setObject:gameInfo.teamNameFirst forKey:@"teamNameFirst"];
-        [dict setObject:gameInfo.teamNameSecond forKey:@"teamNameSecond"];
-        [dict setObject:gameInfo.hashLink forKey:@"hashLink"];
-        [dict setObject:[NSString stringWithFormat:@"%d", gameInfo.numberOfEnds] forKey:@"numberOfEnds"];
-        [dict setObject:[NSString stringWithFormat:@"%d", gameInfo.firstTeamScore] forKey:@"firstTeamScore"];
-        [dict setObject:[NSString stringWithFormat:@"%d", gameInfo.secondTeamScore] forKey:@"secondTeamScore"];
-        [dict setObject:[NSString stringWithFormat:@"%d", gameInfo.isFirstTeamColorRed] forKey:@"isFirstTeamColorRed"];
-        [dict setObject:[dateFormatter stringFromDate:gameInfo.date] forKey:@"date"];
+        dict[@"teamNameFirst"] = gameInfo.teamNameFirst;
+        dict[@"teamNameSecond"] = gameInfo.teamNameSecond;
+        dict[@"hashLink"] = gameInfo.hashLink;
+        dict[@"numberOfEnds"] = @(gameInfo.numberOfEnds);
+        dict[@"firstTeamScore"] = @(gameInfo.firstTeamScore);
+        dict[@"secondTeamScore"] = @(gameInfo.secondTeamScore);
+        dict[@"isFirstTeamColorRed"] = @(gameInfo.isFirstTeamColorRed);
+        dict[@"date"] = [dateFormatter stringFromDate:gameInfo.date];
         [gamesInfoToSave addObject:[dict copy]];
     }
     
@@ -41,12 +41,12 @@
     for (StoneData *stoneData in stonesData)
     {
         dict = [NSMutableDictionary new];
-        [dict setObject:stoneData.hashLink forKey:@"hashLink"];
-        [dict setObject:[NSString stringWithFormat:@"%f", stoneData.stonePositionX] forKey:@"stonePositionX"];
-        [dict setObject:[NSString stringWithFormat:@"%f", stoneData.stonePositionY] forKey:@"stonePositionY"];
-        [dict setObject:[NSString stringWithFormat:@"%d", stoneData.stepNumber] forKey:@"stepNumber"];
-        [dict setObject:[NSString stringWithFormat:@"%d", stoneData.isStoneColorRed] forKey:@"isStoneColorRed"];
-        [dict setObject:[NSString stringWithFormat:@"%d", stoneData.endNumber] forKey:@"endNumber"];
+        dict[@"hashLink"] = stoneData.hashLink;
+        dict[@"stonePositionX"] = @(stoneData.stonePositionX);
+        dict[@"stonePositionY"] = @(stoneData.stonePositionY);
+        dict[@"stepNumber"] = @(stoneData.stepNumber);
+        dict[@"isStoneColorRed"] = @(stoneData.isStoneColorRed);
+        dict[@"endNumber"] = @(stoneData.endNumber);
         [stonesDataToSave addObject:[dict copy]];
     }
     
@@ -55,10 +55,10 @@
     for (EndScore *endScore in endScores)
     {
         dict = [NSMutableDictionary new];
-        [dict setObject:endScore.hashLink forKey:@"hashLink"];
-        [dict setObject:[NSString stringWithFormat:@"%d", endScore.endNumber] forKey:@"endNumber"];
-        [dict setObject:[NSString stringWithFormat:@"%d", endScore.firstTeamScore] forKey:@"firstTeamScore"];
-        [dict setObject:[NSString stringWithFormat:@"%d", endScore.secondTeamScore] forKey:@"secondTeamScore"];
+        dict[@"hashLink"] = endScore.hashLink;
+        dict[@"endNumber"] = @(endScore.endNumber);
+        dict[@"firstTeamScore"] = @(endScore.firstTeamScore);
+        dict[@"secondTeamScore"] = @(endScore.secondTeamScore);
         [endScoresToSave addObject:[dict copy]];
     }
     
@@ -70,6 +70,11 @@
     
     NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:dataToSave options:NSJSONWritingSortedKeys error:nil];
     
+    [self sendUploadRequestWithData:dataJSON];
+}
+
+- (void)sendUploadRequestWithData:(NSData *)dataJSON
+{
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:nil delegateQueue:nil];
     
@@ -129,41 +134,41 @@
     dateFormatter.dateStyle = NSDateFormatterShortStyle;
     dateFormatter.timeStyle = NSDateFormatterShortStyle;
     CURGameInfo *gameInfo = nil;
-    for (NSDictionary *dict in [readData objectForKey:@"GameInfo"])
+    for (NSDictionary *dict in readData[@"GameInfo"])
     {
         gameInfo = [CURGameInfo new];
-        gameInfo.teamNameFirst = [dict objectForKey:@"teamNameFirst"];
-        gameInfo.teamNameSecond = [dict objectForKey:@"teamNameSecond"];
-        gameInfo.hashLink = [dict objectForKey:@"hashLink"];
-        gameInfo.numberOfEnds = [[dict objectForKey:@"numberOfEnds"] intValue];
-        gameInfo.firstTeamScore = [[dict objectForKey:@"firstTeamScore"] intValue];
-        gameInfo.secondTeamScore = [[dict objectForKey:@"secondTeamScore"] intValue];
-        gameInfo.isFirstTeamColorRed = [[dict objectForKey:@"isFirstTeamColorRed"] boolValue];
-        gameInfo.date = [dateFormatter dateFromString:[dict objectForKey:@"date"]];
+        gameInfo.teamNameFirst = dict[@"teamNameFirst"];
+        gameInfo.teamNameSecond = dict[@"teamNameSecond"];
+        gameInfo.hashLink = dict[@"hashLink"];
+        gameInfo.numberOfEnds = [dict[@"numberOfEnds"] intValue];
+        gameInfo.firstTeamScore = [dict[@"firstTeamScore"] intValue];
+        gameInfo.secondTeamScore = [dict[@"secondTeamScore"] intValue];
+        gameInfo.isFirstTeamColorRed = [dict[@"isFirstTeamColorRed"] boolValue];
+        gameInfo.date = [dateFormatter dateFromString:dict[@"date"]];
         
         [self.coreDataManager saveGameInfo:gameInfo];
     }
     
     CURStoneData *stoneData = nil;
-    for (NSDictionary *dict in [readData objectForKey:@"StoneData"])
+    for (NSDictionary *dict in readData[@"StoneData"])
     {
         stoneData = [CURStoneData new];
-        stoneData.endNumber = [[dict objectForKey:@"endNumber"] intValue];
-        stoneData.stepNumber = [[dict objectForKey:@"stepNumber"] intValue];
-        stoneData.isStoneColorRed = [[dict objectForKey:@"isStoneColorRed"] boolValue];
-        stoneData.stonePositionX = [[dict objectForKey:@"stonePositionX"] floatValue];
-        stoneData.stonePositionY = [[dict objectForKey:@"stonePositionY"] floatValue];
-        stoneData.hashLink = [dict objectForKey:@"hashLink"];
+        stoneData.endNumber = [dict[@"endNumber"] intValue];
+        stoneData.stepNumber = [dict[@"stepNumber"] intValue];
+        stoneData.isStoneColorRed = [dict[@"isStoneColorRed"] boolValue];
+        stoneData.stonePositionX = [dict[@"stonePositionX"] floatValue];
+        stoneData.stonePositionY = [dict[@"stonePositionY"] floatValue];
+        stoneData.hashLink = dict[@"hashLink"];
         
         [self.coreDataManager saveStoneData:stoneData];
     }
     
-    for (NSDictionary *dict in [readData objectForKey:@"EndScore"])
+    for (NSDictionary *dict in readData[@"EndScore"])
     {
-        NSString * hashLink = [dict objectForKey:@"hashLink"];
-        int endNumber = [[dict objectForKey:@"endNumber"] intValue];
-        int firstTeamScore = [[dict objectForKey:@"firstTeamScore"] intValue];
-        int secondTeamScore = [[dict objectForKey:@"secondTeamScore"] intValue];
+        NSString * hashLink = dict[@"hashLink"];
+        int endNumber = [dict[@"endNumber"] intValue];
+        int firstTeamScore = [dict[@"firstTeamScore"] intValue];
+        int secondTeamScore = [dict[@"secondTeamScore"] intValue];
         [self.coreDataManager saveFirstScore:firstTeamScore secondScore:secondTeamScore forEnd:endNumber hash:hashLink];
     }
 }

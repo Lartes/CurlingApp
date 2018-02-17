@@ -9,12 +9,15 @@
 #import "AppDelegate.h"
 #import "CURSplashScreenViewController.h"
 #import "CURNetworkManagerProtocol.h"
+#import "CURCoreDataManager.h"
 
 @interface UIViewController () <CURNetworkManagerProtocol>
 
 @end
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
 @end
 
@@ -25,6 +28,10 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     CURSplashScreenViewController *firstViewController = [CURSplashScreenViewController new];
     self.window.rootViewController = firstViewController;
+    
+    self.coreDataManager = [CURCoreDataManager new];
+    firstViewController.coreDataManager = self.coreDataManager;
+    
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -40,38 +47,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    [self saveContext];
-}
-
-
-#pragma mark - Core Data stack
-
-@synthesize persistentContainer = _persistentContainer;
-
-- (NSPersistentContainer *)persistentContainer {
-    @synchronized (self) {
-        if (_persistentContainer == nil) {
-            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"CurlingApp"];
-            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
-                if (error != nil) {
-                    abort();
-                }
-            }];
-        }
-    }
-    
-    return _persistentContainer;
-}
-
-
-#pragma mark - Core Data Saving support
-
-- (void)saveContext {
-    NSManagedObjectContext *context = self.persistentContainer.viewContext;
-    NSError *error = nil;
-    if ([context hasChanges] && ![context save:&error]) {
-        abort();
-    }
+    [self.coreDataManager saveContext];
 }
 
 @end

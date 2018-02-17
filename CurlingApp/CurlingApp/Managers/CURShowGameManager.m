@@ -11,7 +11,7 @@
 @interface CURShowGameManager ()
 
 @property (nonatomic, copy) NSArray<UIImageView *> *stonesArray;
-@property (nonatomic, strong) UIColor *stoneColor;
+@property (nonatomic, assign) CURColors stoneColor;
 @property (nonatomic, assign) NSInteger endNumber;
 @property (nonatomic, assign) NSInteger numberOfEnds;
 @property (nonatomic, assign) NSInteger stepNumber;
@@ -56,7 +56,7 @@
 {
     [self.output setEndNumber:self.endNumber];
     self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink endNumber:self.endNumber];
-    self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
+    self.stoneColor = self.stonesData[0].isStoneColorRed ? CURRedColor : CURYellowColor;
     
     NSMutableArray *stones = [NSMutableArray new];
     UIImageView *stone = nil;
@@ -79,7 +79,7 @@
     self.endNumber += number;
     [self.output setEndNumber:self.endNumber];
     self.stonesData = [self.coreDataManager loadStonesDataByHash:self.hashLink endNumber:self.endNumber];
-    self.stoneColor = self.stonesData[0].isStoneColorRed ? [UIColor redColor] : [UIColor yellowColor];
+    self.stoneColor = self.stonesData[0].isStoneColorRed ? CURRedColor : CURYellowColor;
     for (int i = 0; i<CURShowGameManagerNumberOfStonesPerEnd; i++)
     {
         self.stonesArray[i].hidden = YES;
@@ -114,7 +114,7 @@
     self.indexInStonesData -= 1;
     
     [self.output changeScoreForColor:self.stoneColor byNumber:-1];
-    [self changeColor];
+    self.stoneColor = self.stoneColor == CURRedColor ? CURYellowColor : CURRedColor;
     
     return (self.stepNumber == CURShowGameManagerNumberOfStonesPerEnd);
 }
@@ -145,7 +145,7 @@
         self.stonesArray[indexInStonesArray].hidden = YES;
     }
     
-    [self changeColor];
+    self.stoneColor = self.stoneColor == CURRedColor ? CURYellowColor : CURRedColor;
     [self.output changeScoreForColor:self.stoneColor byNumber:1];
     
     return (self.stepNumber == 1);
@@ -159,21 +159,6 @@
 - (BOOL)isLastEnd
 {
     return self.endNumber == self.numberOfEnds;
-}
-
-
-#pragma mark - Private
-
-- (void)changeColor
-{
-    if (self.stoneColor==[UIColor redColor])
-    {
-        self.stoneColor = [UIColor yellowColor];
-    }
-    else
-    {
-        self.stoneColor = [UIColor redColor];
-    }
 }
 
 @end

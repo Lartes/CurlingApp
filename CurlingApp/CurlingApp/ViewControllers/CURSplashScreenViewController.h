@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "CURGamesTableViewController.h"
+#import "CURStoneAnimationController.h"
+#import "CURStoneAnimationProtocol.h"
+#import "CURCoreDataManager.h"
 
-@interface CURSplashScreenViewController : UIViewController
+@interface CURSplashScreenViewController : UIViewController <CURStoneAnimationProtocol>
+
+@property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
 @end

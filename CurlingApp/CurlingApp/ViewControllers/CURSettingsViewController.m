@@ -156,13 +156,7 @@
     NSString *state = [NSString stringWithFormat:@"%d", rand()];
     NSString *stringURL = [NSString stringWithFormat:@"https://www.dropbox.com/oauth2/authorize?response_type=token&client_id=9m3zfx24z7qwgvj&redirect_uri=iOSCurlingApp://dropbox_callback&state=%@", state];
     NSURL* url = [[NSURL alloc] initWithString: stringURL];
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
-        [[UIApplication sharedApplication] openURL: url options:@{} completionHandler:nil];
-    }
-    else
-    {
-        [[UIApplication sharedApplication] openURL: url];
-    }
+    [[UIApplication sharedApplication] openURL: url options:@{} completionHandler:nil];
 }
 
 - (NSString *)valueForKey:(NSString *)key

@@ -8,7 +8,7 @@
 
 #import "CURSplashScreenViewController.h"
 
-@interface CURSplashScreenViewController () <CAAnimationDelegate>
+@interface CURSplashScreenViewController ()
 
 @property (nonatomic, strong) UIImageView *background;
 @property (nonatomic, strong) UIImageView *blueCircle;
@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIImageView *managerTitle;
 @property (nonatomic, strong) UIImageView *firstRedStone;
 @property (nonatomic, strong) UIImageView *firstYellowStone;
+@property (nonatomic, strong) CURStoneAnimationController *stoneAnumation;
 
 @end
 
@@ -94,6 +95,11 @@
     [self.view addSubview:self.managerTitle];
     [self.view addSubview:self.firstRedStone];
     [self.view addSubview:self.firstYellowStone];
+    
+    self.stoneAnumation = [[CURStoneAnimationController alloc] initWithView:self.view
+                                                                 firstStone:self.firstYellowStone
+                                                                secondStone:self.firstRedStone];
+    self.stoneAnumation.output = self;
 }
 
 
@@ -120,96 +126,21 @@
             self.managerTitle.transform = CGAffineTransformMakeScale(1., 1.);
         }];
     } completion:^(BOOL finished){
-        [self continueAnimation];
+        [self.stoneAnumation runStoneAnimationToPoint:CGPointMake(self.blueCircle.center.x+10., self.blueCircle.center.y+10.)];
     }];
 }
 
-- (void)continueAnimation
-{
-    CGPoint pointY1 = CGPointMake(CGRectGetWidth(self.view.frame)/5., CGRectGetHeight(self.view.frame)*2./5.);
-    CGPoint pointR1 = CGPointMake(pointY1.x+CGRectGetWidth(self.firstRedStone.frame)*cos(0.1),
-                                  pointY1.y+CGRectGetWidth(self.firstRedStone.frame)*sin(0.1));
-    CGPoint pointY2 = CGPointMake(-CGRectGetWidth(self.firstYellowStone.frame), CGRectGetHeight(self.view.frame)/3.);
-    CGPoint pointR2 = CGPointMake(self.blueCircle.center.x+10., self.blueCircle.center.y+10.);
-    
-    CGPoint controlPointForY1 = CGPointMake(CGRectGetWidth(self.view.frame)/10., CGRectGetHeight(self.view.frame)*3./5.);
-    CGPoint controlPointForR1 = CGPointMake(CGRectGetWidth(self.view.frame)*3./8., CGRectGetHeight(self.view.frame)*3./5.);
-    CGPoint controlPointForY2 = CGPointMake(CGRectGetWidth(self.view.frame)/6., CGRectGetHeight(self.view.frame)/3.);
-    CGPoint controlPointForR2 = CGPointMake(CGRectGetWidth(self.view.frame)/2., CGRectGetHeight(self.view.frame)*2./5.);
-    
-    UIBezierPath *pathToR1 = [UIBezierPath bezierPath];
-    [pathToR1 moveToPoint:self.firstRedStone.center];
-    [pathToR1 addQuadCurveToPoint:pointR1 controlPoint:controlPointForR1];
-    UIBezierPath *pathToR2 = [UIBezierPath bezierPath];
-    [pathToR2 moveToPoint:pointR1];
-    [pathToR2 addQuadCurveToPoint:pointR2 controlPoint:controlPointForR2];
-    
-    UIBezierPath *pathToY1 = [UIBezierPath bezierPath];
-    [pathToY1 moveToPoint:self.firstYellowStone.center];
-    [pathToY1 addQuadCurveToPoint:pointY1 controlPoint:controlPointForY1];
-    UIBezierPath *pathToY2 = [UIBezierPath bezierPath];
-    [pathToY2 moveToPoint:pointY1];
-    [pathToY2 addQuadCurveToPoint:pointY2 controlPoint:controlPointForY2];
-    
-    CAKeyframeAnimation *animatedPathToY1 = [CAKeyframeAnimation animation];
-    animatedPathToY1.keyPath = @"position";
-    animatedPathToY1.path = pathToY1.CGPath;
-    animatedPathToY1.duration = 3.;
-    animatedPathToY1.beginTime = 0.;
-    animatedPathToY1.fillMode = @"forwards";
-    animatedPathToY1.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-    animatedPathToY1.rotationMode = kCAAnimationRotateAuto;
-    
-    CAKeyframeAnimation *animatedPathToY2 = [CAKeyframeAnimation animation];
-    animatedPathToY2.keyPath = @"position";
-    animatedPathToY2.path = pathToY2.CGPath;
-    animatedPathToY2.duration = 1.;
-    animatedPathToY2.beginTime = 4.;
-    animatedPathToY2.fillMode = @"forwards";
-    animatedPathToY2.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-    animatedPathToY2.rotationMode = kCAAnimationRotateAuto;
-    
-    CAAnimationGroup *yellowStonePath = [CAAnimationGroup animation];
-    yellowStonePath.animations = @[animatedPathToY1, animatedPathToY2];
-    yellowStonePath.duration = 5.5;
-    [self.firstYellowStone.layer addAnimation:yellowStonePath forKey:@"yellow"];
-    
-    CAKeyframeAnimation *animatedPathToR1 = [CAKeyframeAnimation animation];
-    animatedPathToR1.keyPath = @"position";
-    animatedPathToR1.path = pathToR1.CGPath;
-    animatedPathToR1.duration = 2.;
-    animatedPathToR1.beginTime = 2.;
-    animatedPathToR1.fillMode = @"forwards";
-    animatedPathToR1.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-    animatedPathToR1.rotationMode = kCAAnimationRotateAuto;
-    
-    CAKeyframeAnimation *animatedPathToR2 = [CAKeyframeAnimation animation];
-    animatedPathToR2.keyPath = @"position";
-    animatedPathToR2.path = pathToR2.CGPath;
-    animatedPathToR2.duration = 1.5;
-    animatedPathToR2.beginTime = 4.;
-    animatedPathToR2.fillMode = @"forwards";
-    animatedPathToR2.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-    animatedPathToR2.rotationMode = kCAAnimationRotateAuto;
-    
-    CAAnimationGroup *redStonePath = [CAAnimationGroup animation];
-    redStonePath.animations = @[animatedPathToR1, animatedPathToR2];
-    redStonePath.duration = 5.5;
-    redStonePath.delegate = self;
-    [self.firstRedStone.layer addAnimation:redStonePath forKey:@"red"];
-}
 
+#pragma mark - CURStoneAnimationProtocol
 
-#pragma mark - CAAnimationDelegate
-
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+- (void)animationEnded
 {
     CURGamesTableViewController *gamesTableViewController = [CURGamesTableViewController new];
+    gamesTableViewController.coreDataManager = self.coreDataManager;
     UINavigationController *gameNavigationController = [[UINavigationController alloc]
-        initWithRootViewController:gamesTableViewController];
+                                                        initWithRootViewController:gamesTableViewController];
     gameNavigationController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:gameNavigationController animated:YES completion:nil];
 }
-
 
 @end

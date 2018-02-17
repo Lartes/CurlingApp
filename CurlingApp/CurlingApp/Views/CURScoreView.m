@@ -73,9 +73,9 @@
 
 #pragma mark - CURChangeScoreProtocol
 
-- (BOOL)changeScoreForColor:(UIColor *)color byNumber:(NSInteger)number
+- (BOOL)changeScoreForColor:(CURColors)color byNumber:(NSInteger)number
 {
-    if (color==[UIColor redColor])
+    if (color==CURRedColor)
     {
         self.redScore += number;
         self.score.text = [NSString stringWithFormat:@"%ld:%ld", self.redScore, self.yellowScore];

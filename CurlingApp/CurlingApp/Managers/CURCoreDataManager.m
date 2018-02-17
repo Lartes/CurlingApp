@@ -10,6 +10,7 @@
 
 @interface CURCoreDataManager ()
 
+@property (nonatomic, strong, readonly) NSPersistentContainer *persistentContainer;
 @property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
 
 @end
@@ -19,17 +20,40 @@
 
 #pragma mark - Lifecycle
 
+@synthesize persistentContainer = _persistentContainer;
+
+- (NSPersistentContainer *)persistentContainer {
+    @synchronized (self) {
+        if (_persistentContainer == nil) {
+            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"CurlingApp"];
+            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
+                if (error != nil) {
+                    abort();
+                }
+            }];
+        }
+    }
+    return _persistentContainer;
+}
+
 - (instancetype)init
 {
     self = [super init];
-    if(self)
+    if (self)
     {
-        UIApplication *application = [UIApplication sharedApplication];
-        NSPersistentContainer *container = ((AppDelegate *) (application.delegate)).persistentContainer;
-        NSManagedObjectContext *context = container.viewContext;
-        _coreDataContext = context;
+        self.coreDataContext = self.persistentContainer.viewContext;
     }
     return self;
+}
+
+
+#pragma mark - Core Data Saving support
+
+- (void)saveContext {
+    NSError *error = nil;
+    if ([self.coreDataContext hasChanges] && ![self.coreDataContext save:&error]) {
+        abort();
+    }
 }
 
 
@@ -59,11 +83,7 @@
 - (AppData *)loadAppData
 {
     NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:[AppData fetchRequest] error:nil];
-    if (fetchedObjects.count > 0)
-    {
-        return fetchedObjects[0];
-    }
-    return nil;
+    return fetchedObjects.firstObject;
 }
 
 - (GameInfo *)loadGamesInfoByHash:(NSString *)hashLink
@@ -72,11 +92,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@", hashLink];
     fetchRequest.predicate = predicate;
     NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
-    if (fetchedObjects.count > 0)
-    {
-        return fetchedObjects[0];
-    }
-    return nil;
+    return fetchedObjects.firstObject;
 }
 
 - (NSArray *)loadStonesDataByHash:(NSString *)hashLink
@@ -122,59 +138,69 @@
     gameInfo.hashLink = gameInfoToSave.hashLink;
     gameInfo.date = gameInfoToSave.date;
     gameInfo.isFirstTeamColorRed = gameInfoToSave.isFirstTeamColorRed;
-    gameInfo.numberOfEnds = gameInfoToSave.numberOfEnds;
-    gameInfo.firstTeamScore = gameInfoToSave.firstTeamScore;
-    gameInfo.secondTeamScore = gameInfoToSave.secondTeamScore;
+    gameInfo.numberOfEnds = (int)gameInfoToSave.numberOfEnds;
+    gameInfo.firstTeamScore = (int)gameInfoToSave.firstTeamScore;
+    gameInfo.secondTeamScore = (int)gameInfoToSave.secondTeamScore;
     
-    [gameInfo.managedObjectContext save:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [gameInfo.managedObjectContext save:nil];
+    });
 }
 
 - (void)saveStoneData:(CURStoneData *)stoneDataToSave
 {
     StoneData *stoneData = [NSEntityDescription insertNewObjectForEntityForName:@"StoneData"
                                                          inManagedObjectContext:self.coreDataContext];
-    stoneData.endNumber = stoneDataToSave.endNumber;
-    stoneData.stepNumber = stoneDataToSave.stepNumber;
+    stoneData.endNumber = (int)stoneDataToSave.endNumber;
+    stoneData.stepNumber = (int)stoneDataToSave.stepNumber;
     stoneData.isStoneColorRed = stoneDataToSave.isStoneColorRed;
     stoneData.stonePositionX = stoneDataToSave.stonePositionX;
     stoneData.stonePositionY = stoneDataToSave.stonePositionY;
     stoneData.hashLink = stoneDataToSave.hashLink;
     
-    [stoneData.managedObjectContext save:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [stoneData.managedObjectContext save:nil];
+    });
 }
 
-- (void)saveNumberOfEnds:(int)number forHash:(NSString *)hashLink
+- (void)saveNumberOfEnds:(NSInteger)number forHash:(NSString *)hashLink
 {
     GameInfo *gameInfo = [self loadGamesInfoByHash:hashLink];
-    gameInfo.numberOfEnds = number;
+    gameInfo.numberOfEnds = (int)number;
     
-    [gameInfo.managedObjectContext save:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [gameInfo.managedObjectContext save:nil];
+    });
 }
 
-- (void)saveFirstScore:(int)firstScore secondScore:(int)secondScore forHash:(NSString *)hashLink
+- (void)saveFirstScore:(NSInteger)firstScore secondScore:(NSInteger)secondScore forHash:(NSString *)hashLink
 {
     GameInfo *gameInfo = [self loadGamesInfoByHash:hashLink];
-    gameInfo.firstTeamScore = firstScore;
-    gameInfo.secondTeamScore = secondScore;
+    gameInfo.firstTeamScore = (int)firstScore;
+    gameInfo.secondTeamScore = (int)secondScore;
     
-    [gameInfo.managedObjectContext save:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [gameInfo.managedObjectContext save:nil];
+    });
 }
 
-- (void)saveFirstScore:(int)firstScore secondScore:(int)secondScore forEnd:(int)endNumber hash:(NSString *)hashLink
+- (void)saveFirstScore:(NSInteger)firstScore secondScore:(NSInteger)secondScore forEnd:(NSInteger)endNumber hash:(NSString *)hashLink
 {
     EndScore *endScore = [NSEntityDescription insertNewObjectForEntityForName:@"EndScore"
                                                        inManagedObjectContext:self.coreDataContext];
     endScore.hashLink = hashLink;
-    endScore.firstTeamScore = firstScore;
-    endScore.secondTeamScore = secondScore;
-    endScore.endNumber = endNumber;
+    endScore.firstTeamScore = (int)firstScore;
+    endScore.secondTeamScore = (int)secondScore;
+    endScore.endNumber = (int)endNumber;
     
-    [endScore.managedObjectContext save:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [endScore.managedObjectContext save:nil];
+    });
 }
 
 - (BOOL)saveAccessToken:(NSString *)accessToken
 {
-    if(accessToken.length<=0)
+    if(accessToken.length == 0)
     {
         return NO;
     }
@@ -187,7 +213,11 @@
     }
     appData.accessToken = accessToken;
     
-    return [appData.managedObjectContext save:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [appData.managedObjectContext save:nil];
+    });
+    
+    return YES;
 }
 
 
@@ -210,7 +240,10 @@
     }
     
     [self.coreDataContext deleteObject:gameInfo];
-    [self.coreDataContext save:nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.coreDataContext save:nil];
+    });
 }
 
 - (void)deleteEndByHash:(NSString *)hashLink endNumber:(NSInteger)endNumber
@@ -226,7 +259,10 @@
     {
         [self.coreDataContext deleteObject:stoneData];
     }
-    [self.coreDataContext save:nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.coreDataContext save:nil];
+    });
 }
 
 - (void)clearCoreData
@@ -246,7 +282,10 @@
     {
         [self.coreDataContext deleteObject:item];
     }
-    [self.coreDataContext save:nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.coreDataContext save:nil];
+    });
 }
 
 @end

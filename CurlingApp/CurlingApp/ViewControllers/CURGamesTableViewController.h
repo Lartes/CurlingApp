@@ -17,4 +17,6 @@
 
 @interface CURGamesTableViewController : UIViewController
 
+@property (nonatomic, strong) CURCoreDataManager *coreDataManager;
+
 @end
