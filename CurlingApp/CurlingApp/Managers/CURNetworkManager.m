@@ -14,6 +14,14 @@
 
 @implementation CURNetworkManager
 
+- (void)loginToDropbox
+{
+    NSString *state = [NSString stringWithFormat:@"%d", rand()];
+    NSString *stringURL = [NSString stringWithFormat:@"https://www.dropbox.com/oauth2/authorize?response_type=token&client_id=9m3zfx24z7qwgvj&redirect_uri=iOSCurlingApp://dropbox_callback&state=%@", state];
+    NSURL* url = [[NSURL alloc] initWithString: stringURL];
+    [[UIApplication sharedApplication] openURL: url options:@{} completionHandler:nil];
+}
+
 - (void)saveToDropbox
 {
     NSArray *gamesInfo = [self.coreDataManager loadAllGamesInfo];

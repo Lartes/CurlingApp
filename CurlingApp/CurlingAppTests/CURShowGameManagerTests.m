@@ -11,36 +11,7 @@
 #import <Expecta/Expecta.h>
 #import "CURShowGameManager.h"
 #import "CURScoreView.h"
-
-@interface StoneDataTest : NSObject
-
-@property (nonatomic) int32_t endNumber;
-@property (nonatomic) BOOL isStoneColorRed;
-@property (nonatomic) int32_t stepNumber;
-@property (nonatomic) float stonePositionX;
-@property (nonatomic) float stonePositionY;
-@property (nullable, nonatomic, copy) NSString *hashLink;
-
-- (instancetype)initWithStepNumber:(int32_t)stepNumber position:(CGPoint)position isRedColor:(BOOL)isStoneColorRed;
-
-@end
-
-@implementation StoneDataTest
-
-- (instancetype)initWithStepNumber:(int32_t)stepNumber position:(CGPoint)position isRedColor:(BOOL)isStoneColorRed
-{
-    self = [super init];
-    if(self)
-    {
-        _stepNumber = stepNumber;
-        _stonePositionX = position.x;
-        _stonePositionY = position.y;
-        _isStoneColorRed = isStoneColorRed;
-    }
-    return self;
-}
-
-@end
+#import "CURCoreDataTypesForTests.h"
 
 @interface CURShowGameManager (CURTests)
 

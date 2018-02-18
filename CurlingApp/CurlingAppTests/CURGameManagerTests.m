@@ -11,34 +11,7 @@
 #import <Expecta/Expecta.h>
 #import "CURGameManager.h"
 #import "CURScoreView.h"
-
-@interface CURStoneDataTest : NSObject
-
-@property (nonatomic) NSInteger endNumber;
-@property (nonatomic) BOOL isStoneColorRed;
-@property (nonatomic) NSInteger stepNumber;
-@property (nonatomic) float stonePositionX;
-@property (nonatomic) float stonePositionY;
-@property (nullable, nonatomic, copy) NSString *hashLink;
-
-@end
-
-@implementation CURStoneDataTest
-
-@end
-
-@interface EndScoreTest : NSObject
-
-@property (nonatomic) int32_t endNumber;
-@property (nullable, nonatomic, copy) NSString *hashLink;
-@property (nonatomic) int32_t firstTeamScore;
-@property (nonatomic) int32_t secondTeamScore;
-
-@end
-
-@implementation EndScoreTest
-
-@end
+#import "CURCoreDataTypesForTests.h"
 
 @interface CURGameManager (CURTests)
 
@@ -275,13 +248,13 @@
     OCMStub([coreDataManager saveStoneData:[OCMArg any]]);
     
     id stoneData = OCMClassMock([CURStoneData class]);
-    CURStoneDataTest *testData = [CURStoneDataTest new];
+    StoneDataTest *testData = [StoneDataTest new];
     OCMStub([stoneData new]).andReturn(testData);
     
     [self.gameManager saveToCoreData];
     
     OCMVerify([coreDataManager saveStoneData:[OCMArg checkWithBlock:^BOOL(id obj){
-        CURStoneDataTest *data = obj;
+        StoneDataTest *data = obj;
         if (data.stonePositionX != 11)
         {
             return NO;
