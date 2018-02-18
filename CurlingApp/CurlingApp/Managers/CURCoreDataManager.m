@@ -59,7 +59,7 @@
 
 #pragma mark - Load Actions
 
-- (NSArray *)loadAllGamesInfo
+- (NSArray<GameInfo *> *)loadAllGamesInfo
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"GameInfo"];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
@@ -68,13 +68,13 @@
     return data;
 }
 
-- (NSArray *)loadAllStoneData
+- (NSArray<StoneData *> *)loadAllStoneData
 {
     NSArray *data = [self.coreDataContext executeFetchRequest:[StoneData fetchRequest] error:nil];
     return data;
 }
 
-- (NSArray *)loadAllEndScore
+- (NSArray<EndScore *> *)loadAllEndScore
 {
     NSArray *data = [self.coreDataContext executeFetchRequest:[EndScore fetchRequest] error:nil];
     return data;
@@ -95,7 +95,7 @@
     return fetchedObjects.firstObject;
 }
 
-- (NSArray *)loadStonesDataByHash:(NSString *)hashLink
+- (NSArray<StoneData *> *)loadStonesDataByHash:(NSString *)hashLink
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"StoneData"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@", hashLink];
@@ -104,7 +104,7 @@
     return fetchedObjects;
 }
 
-- (NSArray *)loadStonesDataByHash:(NSString *)hashLink endNumber:(NSInteger)endNumber
+- (NSArray<StoneData *> *)loadStonesDataByHash:(NSString *)hashLink endNumber:(NSInteger)endNumber
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"StoneData"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@ AND endNumber == %@", hashLink, @(endNumber)];
@@ -115,7 +115,7 @@
     return fetchedObjects;
 }
 
-- (NSArray *)loadEndScoreByHash:(NSString *)hashLink
+- (NSArray<EndScore *> *)loadEndScoreByHash:(NSString *)hashLink
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"EndScore"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@", hashLink];
