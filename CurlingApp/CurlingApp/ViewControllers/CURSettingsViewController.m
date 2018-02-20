@@ -15,6 +15,7 @@
 @property (nonatomic, strong) CURButton *loadButton;
 @property (nonatomic, strong) CURLoadingAnimationView *loadingAnimation;
 @property (nonatomic, strong) UIImageView *dropboxImage;
+@property (nonatomic, strong) CURNetworkManager *networkManager;
 
 @end
 
@@ -26,6 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.networkManager = [CURNetworkManager new];
+    self.networkManager.coreDataManager = self.coreDataManager;
+    self.networkManager.output = self;
     [self prepareUI];
 }
 
@@ -120,10 +124,7 @@
     self.navigationController.navigationBar.hidden = YES;
     [self.loadingAnimation startAnimation];
     
-    CURNetworkManager *networkManager = [CURNetworkManager new];
-    networkManager.coreDataManager = self.coreDataManager;
-    networkManager.output = self;
-    [networkManager saveToDropbox];
+    [self.networkManager saveToDropbox];
 }
 
 - (void)loadButtonPressed
@@ -139,10 +140,7 @@
         self.navigationController.navigationBar.hidden = YES;
         [self.loadingAnimation startAnimation];
         
-        CURNetworkManager *networkManager = [CURNetworkManager new];
-        networkManager.coreDataManager = self.coreDataManager;
-        networkManager.output = self;
-        [networkManager loadFromDropbox];
+        [self.networkManager loadFromDropbox];
     }];
     [alert addAction:actionCancel];
     [alert addAction:actionOk];
@@ -153,11 +151,11 @@
 {
     [self.loadButton tapAnimation];
     
-    NSString *state = [NSString stringWithFormat:@"%d", rand()];
-    NSString *stringURL = [NSString stringWithFormat:@"https://www.dropbox.com/oauth2/authorize?response_type=token&client_id=9m3zfx24z7qwgvj&redirect_uri=iOSCurlingApp://dropbox_callback&state=%@", state];
-    NSURL* url = [[NSURL alloc] initWithString: stringURL];
-    [[UIApplication sharedApplication] openURL: url options:@{} completionHandler:nil];
+    [self.networkManager loginToDropbox];
 }
+
+
+#pragma mark - Private
 
 - (NSString *)valueForKey:(NSString *)key
            fromQueryItems:(NSArray *)queryItems

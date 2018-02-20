@@ -17,6 +17,11 @@
 @property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
 /**
+ Осуществляет авторизацию пользователя в Dropbox.
+ */
+- (void)loginToDropbox;
+
+/**
  Сохраняет всю информацию из базы данных в Dropbox.
  */
 - (void)saveToDropbox;

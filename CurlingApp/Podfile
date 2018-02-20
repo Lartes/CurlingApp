@@ -1,3 +1,7 @@
 target ‘CurlingApp’ do
   pod 'Masonry'
 end
+
+target ‘CurlingAppTests’ do
+  pod 'OHHTTPStubs'
+end

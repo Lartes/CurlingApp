@@ -50,7 +50,7 @@
 
 #pragma mark - Game Actions
 
-- (UIView *)addStone
+- (UIImageView *)addStone
 {
     if (self.stonesArray.count > 0)
     {

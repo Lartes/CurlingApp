@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30E948B804B09C4D7992900B /* libPods-CurlingAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A4911D3807DE931FF5DC82 /* libPods-CurlingAppTests.a */; };
 		84ED828F202EFBA400D6FD38 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84ED828E202EFBA400D6FD38 /* Default-568h@2x.png */; };
 		A20156F22029CB72000000D8 /* StoneData+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A20156EB2029CB72000000D8 /* StoneData+CoreDataClass.m */; };
 		A20156F32029CB72000000D8 /* StoneData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A20156ED2029CB72000000D8 /* StoneData+CoreDataProperties.m */; };
@@ -24,7 +25,6 @@
 		A20A3B6020271CC500795C1D /* CurlingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B5E20271CC500795C1D /* CurlingApp.xcdatamodeld */; };
 		A20A3B6220271CC500795C1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20A3B6120271CC500795C1D /* Assets.xcassets */; };
 		A20A3B6820271CC500795C1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B6720271CC500795C1D /* main.m */; };
-		A20A3B7220271CC500795C1D /* CurlingAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B7120271CC500795C1D /* CurlingAppTests.m */; };
 		A20A3B7F20271E0F00795C1D /* CURGamesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B7E20271E0F00795C1D /* CURGamesTableViewController.m */; };
 		A20A3B852027232E00795C1D /* CURGameTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B842027232E00795C1D /* CURGameTableViewCell.m */; };
 		A20A3B8B2027340900795C1D /* CURCreateGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B8A2027340900795C1D /* CURCreateGameViewController.m */; };
@@ -33,12 +33,17 @@
 		A20A3B972027938D00795C1D /* CURScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B962027938D00795C1D /* CURScrollView.m */; };
 		A20A3B9E20279D7C00795C1D /* CURGameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3B9D20279D7C00795C1D /* CURGameManager.m */; };
 		A20A3BA12027A57100795C1D /* CURScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = A20A3BA02027A57100795C1D /* CURScoreView.m */; };
+		A232176B2039E75000DB682E /* CURNetworkManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A232176A2039E74F00DB682E /* CURNetworkManagerTests.m */; };
+		A2321772203A23A900DB682E /* CURCoreDataTypesForTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2321771203A23A900DB682E /* CURCoreDataTypesForTests.m */; };
 		A262C76420332B5900161741 /* AppData+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A262C76020332B5700161741 /* AppData+CoreDataClass.m */; };
 		A262C76520332B5900161741 /* AppData+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A262C76320332B5800161741 /* AppData+CoreDataProperties.m */; };
 		A262C7682033A9A800161741 /* CURNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A262C7672033A9A800161741 /* CURNetworkManager.m */; };
 		A262C76C2033E6AF00161741 /* CURLoadingAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A262C76B2033E6AF00161741 /* CURLoadingAnimationView.m */; };
+		A2630A342038948500457969 /* CURGameManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2630A332038948500457969 /* CURGameManagerTests.m */; };
 		A269C9A72038058500AF96B0 /* CURStoneAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A269C9A62038058500AF96B0 /* CURStoneAnimationController.m */; };
 		A2869A852028704D003C89D5 /* CURCloseGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2869A842028704D003C89D5 /* CURCloseGameViewController.m */; };
+		A2B293BF2039946600D622CC /* CURShowGameManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B293BE2039946600D622CC /* CURShowGameManagerTests.m */; };
+		A2B293C12039E07900D622CC /* CURCoreDataManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B293C02039E07900D622CC /* CURCoreDataManagerTests.m */; };
 		A2DEF744202E0E4A0000A9D6 /* CURButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DEF743202E0E4A0000A9D6 /* CURButton.m */; };
 		A2DEF74A203047940000A9D6 /* CURSplashScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DEF749203047940000A9D6 /* CURSplashScreenViewController.m */; };
 		A2DEF74D2031F24B0000A9D6 /* CURSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DEF74C2031F24B0000A9D6 /* CURSettingsViewController.m */; };
@@ -57,6 +62,7 @@
 
 /* Begin PBXFileReference section */
 		09FF8732802E3169612CF4EA /* Pods-CurlingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurlingApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CurlingApp/Pods-CurlingApp.release.xcconfig"; sourceTree = "<group>"; };
+		11A4911D3807DE931FF5DC82 /* libPods-CurlingAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CurlingAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84ED828E202EFBA400D6FD38 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		87D79E029AEB4EB03A70DE15 /* Pods-CurlingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurlingApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurlingApp/Pods-CurlingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A20156EA2029CB72000000D8 /* StoneData+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StoneData+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -91,7 +97,6 @@
 		A20A3B6620271CC500795C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20A3B6720271CC500795C1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A20A3B6D20271CC500795C1D /* CurlingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CurlingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A20A3B7120271CC500795C1D /* CurlingAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurlingAppTests.m; sourceTree = "<group>"; };
 		A20A3B7320271CC500795C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A20A3B7D20271E0F00795C1D /* CURGamesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURGamesTableViewController.h; sourceTree = "<group>"; };
 		A20A3B7E20271E0F00795C1D /* CURGamesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURGamesTableViewController.m; sourceTree = "<group>"; };
@@ -111,6 +116,9 @@
 		A20A3B9F2027A57100795C1D /* CURScoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURScoreView.h; sourceTree = "<group>"; };
 		A20A3BA02027A57100795C1D /* CURScoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURScoreView.m; sourceTree = "<group>"; };
 		A20A3BA22027B0D300795C1D /* CURChangeScoreProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURChangeScoreProtocol.h; sourceTree = "<group>"; };
+		A232176A2039E74F00DB682E /* CURNetworkManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURNetworkManagerTests.m; sourceTree = "<group>"; };
+		A2321770203A23A900DB682E /* CURCoreDataTypesForTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURCoreDataTypesForTests.h; sourceTree = "<group>"; };
+		A2321771203A23A900DB682E /* CURCoreDataTypesForTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURCoreDataTypesForTests.m; sourceTree = "<group>"; };
 		A262C76020332B5700161741 /* AppData+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppData+CoreDataClass.m"; path = "/Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/CoreData/AppData+CoreDataClass.m"; sourceTree = "<absolute>"; };
 		A262C76120332B5800161741 /* AppData+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppData+CoreDataProperties.h"; path = "/Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/CoreData/AppData+CoreDataProperties.h"; sourceTree = "<absolute>"; };
 		A262C76220332B5800161741 /* AppData+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppData+CoreDataClass.h"; path = "/Users/lartes/Desktop/CurlingApp/CurlingApp/CurlingApp/CoreData/AppData+CoreDataClass.h"; sourceTree = "<absolute>"; };
@@ -121,17 +129,22 @@
 		A262C76A2033E6AF00161741 /* CURLoadingAnimationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURLoadingAnimationView.h; sourceTree = "<group>"; };
 		A262C76B2033E6AF00161741 /* CURLoadingAnimationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURLoadingAnimationView.m; sourceTree = "<group>"; };
 		A262C76F2034276400161741 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		A2630A332038948500457969 /* CURGameManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURGameManagerTests.m; sourceTree = "<group>"; };
 		A269C9A52038058500AF96B0 /* CURStoneAnimationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURStoneAnimationController.h; sourceTree = "<group>"; };
 		A269C9A62038058500AF96B0 /* CURStoneAnimationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURStoneAnimationController.m; sourceTree = "<group>"; };
 		A269C9A820380A6B00AF96B0 /* CURStoneAnimationProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURStoneAnimationProtocol.h; sourceTree = "<group>"; };
 		A2869A832028704D003C89D5 /* CURCloseGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURCloseGameViewController.h; sourceTree = "<group>"; };
 		A2869A842028704D003C89D5 /* CURCloseGameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURCloseGameViewController.m; sourceTree = "<group>"; };
+		A2B293BE2039946600D622CC /* CURShowGameManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURShowGameManagerTests.m; sourceTree = "<group>"; };
+		A2B293C02039E07900D622CC /* CURCoreDataManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURCoreDataManagerTests.m; sourceTree = "<group>"; };
 		A2DEF742202E0E4A0000A9D6 /* CURButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURButton.h; sourceTree = "<group>"; };
 		A2DEF743202E0E4A0000A9D6 /* CURButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURButton.m; sourceTree = "<group>"; };
 		A2DEF748203047940000A9D6 /* CURSplashScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURSplashScreenViewController.h; sourceTree = "<group>"; };
 		A2DEF749203047940000A9D6 /* CURSplashScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURSplashScreenViewController.m; sourceTree = "<group>"; };
 		A2DEF74B2031F24B0000A9D6 /* CURSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CURSettingsViewController.h; sourceTree = "<group>"; };
 		A2DEF74C2031F24B0000A9D6 /* CURSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CURSettingsViewController.m; sourceTree = "<group>"; };
+		A76B70A91D54567F8D4FA688 /* Pods-CurlingAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurlingAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CurlingAppTests/Pods-CurlingAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		B4C8502FB00F6FCF471B858D /* Pods-CurlingAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurlingAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurlingAppTests/Pods-CurlingAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F6E669D126A5834AF9A8F98D /* libPods-CurlingApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CurlingApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -148,6 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30E948B804B09C4D7992900B /* libPods-CurlingAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				F6E669D126A5834AF9A8F98D /* libPods-CurlingApp.a */,
+				11A4911D3807DE931FF5DC82 /* libPods-CurlingAppTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -167,6 +182,8 @@
 			children = (
 				87D79E029AEB4EB03A70DE15 /* Pods-CurlingApp.debug.xcconfig */,
 				09FF8732802E3169612CF4EA /* Pods-CurlingApp.release.xcconfig */,
+				B4C8502FB00F6FCF471B858D /* Pods-CurlingAppTests.debug.xcconfig */,
+				A76B70A91D54567F8D4FA688 /* Pods-CurlingAppTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -214,8 +231,13 @@
 		A20A3B7020271CC500795C1D /* CurlingAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				A20A3B7120271CC500795C1D /* CurlingAppTests.m */,
 				A20A3B7320271CC500795C1D /* Info.plist */,
+				A2630A332038948500457969 /* CURGameManagerTests.m */,
+				A2B293BE2039946600D622CC /* CURShowGameManagerTests.m */,
+				A232176A2039E74F00DB682E /* CURNetworkManagerTests.m */,
+				A2B293C02039E07900D622CC /* CURCoreDataManagerTests.m */,
+				A2321770203A23A900DB682E /* CURCoreDataTypesForTests.h */,
+				A2321771203A23A900DB682E /* CURCoreDataTypesForTests.m */,
 			);
 			path = CurlingAppTests;
 			sourceTree = "<group>";
@@ -344,9 +366,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A20A3B7920271CC500795C1D /* Build configuration list for PBXNativeTarget "CurlingAppTests" */;
 			buildPhases = (
+				BFD0311AE6F1BB572C00E6AC /* [CP] Check Pods Manifest.lock */,
 				A20A3B6920271CC500795C1D /* Sources */,
 				A20A3B6A20271CC500795C1D /* Frameworks */,
 				A20A3B6B20271CC500795C1D /* Resources */,
+				8791FB701F3AC938A7AC8BFA /* [CP] Embed Pods Frameworks */,
+				47A0D3A2B75588634F109B1C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -417,6 +442,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		47A0D3A2B75588634F109B1C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CurlingAppTests/Pods-CurlingAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5891662D29B112E2619275F0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -444,6 +484,39 @@
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-CurlingApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8791FB701F3AC938A7AC8BFA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CurlingAppTests/Pods-CurlingAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BFD0311AE6F1BB572C00E6AC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CurlingAppTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -511,7 +584,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A20A3B7220271CC500795C1D /* CurlingAppTests.m in Sources */,
+				A2321772203A23A900DB682E /* CURCoreDataTypesForTests.m in Sources */,
+				A2B293C12039E07900D622CC /* CURCoreDataManagerTests.m in Sources */,
+				A232176B2039E75000DB682E /* CURNetworkManagerTests.m in Sources */,
+				A2630A342038948500457969 /* CURGameManagerTests.m in Sources */,
+				A2B293BF2039946600D622CC /* CURShowGameManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,11 +739,16 @@
 		};
 		A20A3B7A20271CC500795C1D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4C8502FB00F6FCF471B858D /* Pods-CurlingAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CurlingAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)";
 				PRODUCT_BUNDLE_IDENTIFIER = SBT.CurlingAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -676,11 +758,16 @@
 		};
 		A20A3B7B20271CC500795C1D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A76B70A91D54567F8D4FA688 /* Pods-CurlingAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CurlingAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)";
 				PRODUCT_BUNDLE_IDENTIFIER = SBT.CurlingAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
