@@ -10,6 +10,9 @@
 
 @interface CURButton : UIButton
 
+/**
+ Проигрывает анимацию нажатия на кнопку.
+ */
 - (void)tapAnimation;
 
 @end

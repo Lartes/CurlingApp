@@ -12,8 +12,11 @@
 #import "CURViewGameViewController.h"
 #import "CURCoreDataManager.h"
 #import "GameInfo+CoreDataClass.h"
+#import "CURSettingsViewController.h"
 #import "Masonry.h"
 
 @interface CURGamesTableViewController : UIViewController
+
+@property (nonatomic, strong) CURCoreDataManager *coreDataManager;
 
 @end
