@@ -70,19 +70,19 @@
 
 - (NSArray<StoneData *> *)loadAllStoneData
 {
-    NSArray *data = [self.coreDataContext executeFetchRequest:[StoneData fetchRequest] error:nil];
+    NSArray *data = [self.coreDataContext executeFetchRequest:[[NSFetchRequest alloc] initWithEntityName:@"StoneData"] error:nil];
     return data;
 }
 
 - (NSArray<EndScore *> *)loadAllEndScore
 {
-    NSArray *data = [self.coreDataContext executeFetchRequest:[EndScore fetchRequest] error:nil];
+    NSArray *data = [self.coreDataContext executeFetchRequest:[[NSFetchRequest alloc] initWithEntityName:@"EndScore"] error:nil];
     return data;
 }
 
 - (AppData *)loadAppData
 {
-    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:[AppData fetchRequest] error:nil];
+    NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:[[NSFetchRequest alloc] initWithEntityName:@"AppData"] error:nil];
     return fetchedObjects.firstObject;
 }
 
@@ -251,8 +251,6 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"StoneData"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"hashLink CONTAINS %@ AND endNumber == %@", hashLink, @(endNumber)];
     fetchRequest.predicate = predicate;
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"stepNumber" ascending:YES];
-    fetchRequest.sortDescriptors = @[sortDescriptor];
     NSArray *fetchedObjects = [self.coreDataContext executeFetchRequest:fetchRequest error:nil];
     
     for (StoneData *stoneData in fetchedObjects)
@@ -267,17 +265,17 @@
 
 - (void)clearCoreData
 {
-    NSArray *data = [self.coreDataContext executeFetchRequest:[GameInfo fetchRequest] error:nil];
+    NSArray *data = [self.coreDataContext executeFetchRequest:[[NSFetchRequest alloc] initWithEntityName:@"GameInfo"] error:nil];
     for (GameInfo *item in data)
     {
         [self.coreDataContext deleteObject:item];
     }
-    data = [self.coreDataContext executeFetchRequest:[StoneData fetchRequest] error:nil];
+    data = [self.coreDataContext executeFetchRequest:[[NSFetchRequest alloc] initWithEntityName:@"StoneData"] error:nil];
     for (StoneData *item in data)
     {
         [self.coreDataContext deleteObject:item];
     }
-    data = [self.coreDataContext executeFetchRequest:[EndScore fetchRequest] error:nil];
+    data = [self.coreDataContext executeFetchRequest:[[NSFetchRequest alloc] initWithEntityName:@"EndScore"] error:nil];
     for (EndScore *item in data)
     {
         [self.coreDataContext deleteObject:item];
