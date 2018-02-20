@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <stdlib.h>
 #import "CURCoreDataManager.h"
 #import "CURGameViewController.h"
 #import "CURGameInfo.h"

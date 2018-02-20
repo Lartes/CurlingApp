@@ -154,7 +154,7 @@
     CURGameInfo *gameInfo = [CURGameInfo new];
     gameInfo.teamNameFirst = self.teamNameFirst.text;
     gameInfo.teamNameSecond = self.teamNameSecond.text;
-    gameInfo.hashLink = [NSString stringWithFormat:@"%@%@%d", gameInfo.teamNameFirst, gameInfo.teamNameSecond, rand()];
+    gameInfo.hashLink = [NSString stringWithFormat:@"%@%@%d", gameInfo.teamNameFirst, gameInfo.teamNameSecond, arc4random_uniform(RAND_MAX)];
     gameInfo.date = [NSDate date];
     gameInfo.isFirstTeamColorRed = self.teamColorFirst.backgroundColor == [UIColor redColor];
     [self.coreDataManager saveGameInfo:gameInfo];

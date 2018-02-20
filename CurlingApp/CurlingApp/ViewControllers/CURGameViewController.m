@@ -121,6 +121,7 @@
     UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
         [self.gameManager.coreDataManager deleteEndByHash:[self.gameManager getHashLink]
                                                 endNumber:[self.gameManager getEndNumber]];
+        [self.gameManager finishGame];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];
     [alert addAction:actionCancel];
